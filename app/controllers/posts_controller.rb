@@ -9,8 +9,14 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(content: params[:content])
-    @post.save
+   if @post.save
+    flash[:notice] = 'メッセージが送信されました'
     redirect_to("/posts/index")
+   else 
+    flash.now[:alert] = '投稿に失敗しました。'
+    render :index
+   end
+    
   end
   
   def show
