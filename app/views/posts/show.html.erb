@@ -1,6 +1,32 @@
-<div class="posts-show-item">
-  <p><%= @post.content %></p>
-  <div class="post-time">
-    <%= @post.created_at %>
-  </div>
-</div>
+<h3>投稿詳細</h3>
+    <ul>
+      <% if @post.user.icon_image.blank?%>
+        <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
+      <% else %>
+        <%= image_tag @post.user.icon_image.url, size: "60x60", class: "user-icon" %>
+      <% end %>
+      <%= @post.user.username %>
+    </ul>
+    <ul>  
+      <li><%= @post.title %></li>
+    </ul>
+    <ul>
+      <%= @post.child_sex %>
+      <%= @post.child_age_year %><span>歳</span><%= @post.child_age_month %><span>ヶ月</span>
+    </ul>
+    <ul>
+      <li><%= @post.content %></li>
+      <li><%= image_tag @post.content_image.url, size: "60x60" if @post.content_image? %></li>
+    </ul>
+    <ul>
+      <i class="fa-regular fa-heart fa-2x", style="color:red;"></i>
+      <i class="fa-regular fa-comment fa-2x", style="color:blue;"></i><br>
+    </ul>
+
+  <% if @post.user == current_user %>
+      <td><%= link_to "編集", edit_post_path(@post) %></td>
+      <td><%= link_to "削除", post_path(@post), method: :delete %></td>
+  <% else %>
+  <% end %>
+
+  <%= link_to "戻る", posts_path %>
