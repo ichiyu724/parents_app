@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  title: MyString
+  child_sex: 1
+  child_age_year: 1
+  child_age_month: 1
+  content: MyText
+  content_image: MyString
+
+two:
+  user_id: 1
+  title: MyString
+  child_sex: 1
+  child_age_year: 1
+  child_age_month: 1
+  content: MyText
+  content_image: MyString

@@ -1,4 +1,4 @@
-<h3>相談を投稿する</h3>
+<h3>相談を編集する</h3>
 
 <%= form_with model: @post do |f| %>
 <table>
@@ -30,5 +30,5 @@
 <%= f.hidden_field :id, value: @post.id %>
 
 
-<%= f.submit "投稿する" %>
+<%= f.submit "更新する" %>
 <% end %>

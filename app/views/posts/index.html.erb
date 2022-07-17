@@ -1,5 +1,20 @@
+<% if flash[:notice] %>
+ <p class="notice"><%= flash[:notice] %></p>
+<% end %>
+
 <h3>投稿一覧</h3>
-<% @posts.each do |post| %>
-    <div class="posts-index-item">
-      <%= link_to(post.content, "/posts/#{post.id}") %>
-    </div>
+<% @posts.each do |post|%>
+<table>
+  <tr>
+    <td>
+      <% if post.user.icon_image.blank?%>
+        <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
+      <% else %>
+        <%= image_tag post.user.icon_image.url, size: "60x60", class: "user-icon" %>
+      <% end %>
+    </td>
+    <td><%= post.user.username %></td>
+    <td><%= link_to post.title, post_path(post)%></td>
+  </tr>
+</table>
+<% end %>

@@ -19,6 +19,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @posts = User.find(params[:user_id]).posts
+  end
+  
+
   private
 
   def user_params
