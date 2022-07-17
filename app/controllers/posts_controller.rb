@@ -11,7 +11,6 @@ class PostsController < ApplicationController
   end
 
   def create
-    @user_id = current_user.id
     @post = Post.new(post_params)
     if @post.save
       flash[:notice] = 'メッセージが送信されました'
