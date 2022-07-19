@@ -1,0 +1,21 @@
+<h3>お気に入りした投稿</h3>
+
+<% if @favorite_list.present? %>
+    <ul class="relative-post-lists">
+    <% @favorite_list.each do |post| %>
+      <li class='post-list'>
+        <%= link_to post_path(post) do %>          
+          <div class='user-img-content'>
+            <% if post.user.icon_image.url.blank?%>
+              <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
+            <% else %>
+              <%= image_tag post.user.icon_image.url, size: "60x60", class: "user-icon" %>
+            <% end %>
+            <%= post.user.username %>
+            <%= post.title%>
+          </div>
+        <% end %>
+      </li>
+    <% end %>
+    </ul>
+  <% end %>
