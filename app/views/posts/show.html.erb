@@ -19,7 +19,9 @@
       <li><%= image_tag @post.content_image.url, size: "60x60" if @post.content_image? %></li>
     </ul>
     <ul>
-      <i class="fa-regular fa-heart fa-2x", style="color:red;"></i>
+      <div class='heart-btn' id="favorite_<%= @post.id %>">
+        <%= render "shared/favorite", post: @post %>
+      </div>
       <i class="fa-regular fa-comment fa-2x", style="color:blue;"></i><br>
     </ul>
 
@@ -29,4 +31,7 @@
   <% else %>
   <% end %>
 
-  <%= link_to "戻る", posts_path %>
+  <%= link_to "戻る", :back %>
+
+<%= hidden_field_tag :user_id, value: current_user.id %>
+<%= hidden_field_tag :post_id, value: @post.id %>

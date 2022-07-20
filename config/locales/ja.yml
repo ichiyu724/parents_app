@@ -1,5 +1,13 @@
 ja:
   activerecord:
+    errors:
+      models:
+        post:
+          attributes:
+            title:
+              blank: "は必須です"
+            content:
+              blank: "は必須です"
     attributes:
       user:
         confirmation_sent_at: パスワード確認送信時刻
@@ -27,6 +35,11 @@ ja:
         updated_at: 更新日
     models:
       user: ユーザー
+      post: 投稿
+    attributes:
+      post:
+        title: タイトル
+        content: 本文
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。

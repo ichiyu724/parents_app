@@ -3,6 +3,9 @@ class UsersController < ApplicationController
   
   def account
     @user = current_user
+    @post = Post.find_by(id: params[:post_id])
+    favorites = Favorite.limit(2).order(created_at: :desc).where(user_id: current_user.id).pluck(:post_id)
+    @favorite_list = Post.find(favorites)
   end
 
   def edit
@@ -19,8 +22,11 @@ class UsersController < ApplicationController
     end
   end
 
-  def show
-    @posts = User.find(params[:user_id]).posts
+  def favorites
+    @user = User.find(params[:id])
+    @post = Post.find_by(id: params[:post_id])
+    favorites = Favorite.order(created_at: :desc).where(user_id: current_user.id).pluck(:post_id)
+    @favorite_list = Post.find(favorites)
   end
   
 

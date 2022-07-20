@@ -13,11 +13,11 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     if @post.save
-      flash[:notice] = 'メッセージが送信されました'
+      flash[:notice] = 'お悩みを投稿しました'
       redirect_to :posts
     else 
       flash.now[:alert] = '投稿に失敗しました。'
-      render :posts
+      render ("posts/new")
     end 
   end
   
@@ -43,6 +43,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
+    flash[:notice] = '投稿を削除しました。'
     redirect_to :posts
   end
 
