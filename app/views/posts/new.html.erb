@@ -1,5 +1,7 @@
 <h3>相談を投稿する</h3>
 
+<%= render "shared/error", obj: @post %>
+
 <%= form_with model: @post do |f| %>
 <table>
  <tr>

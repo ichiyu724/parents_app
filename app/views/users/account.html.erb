@@ -19,7 +19,7 @@
   </tr>
 </table>
 <%= f.hidden_field :id, value: @user.id %>
-<%= link_to "編集", edit_user_path(@user.id) %>
+<%= link_to "プロフィール編集", edit_user_path(@user.id) %>
 <% end %>
 
 <h3>あなたの投稿</h3>
@@ -38,7 +38,6 @@
             <% else %>
               <%= image_tag post.user.icon_image.url, size: "60x60", class: "user-icon" %>
             <% end %>
-            <%#= image_tag post.user.icon_image.url ,size: "60x60" if post.user.icon_image.url.present? %>
             <%= post.user.username %>
             <%= post.title%>
           </div>
