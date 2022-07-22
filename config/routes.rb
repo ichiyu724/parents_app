@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   root 'home#top'
   
   get 'about', to: "home#about"
-  resources :posts
+  resources :posts do
+    resources :comments, only: [:create, :destroy]
+    resource :favorites, only: [:create, :destroy]
+  end
   get '/users/account', to: 'users#account', as: :account
 
 
@@ -22,7 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts, expect: [:index] do
+  resources :posts , expect: [:index] do
     resource :favorites, only: [:create, :destroy]
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

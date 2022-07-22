@@ -36,10 +36,13 @@ ja:
     models:
       user: ユーザー
       post: 投稿
+      comment: コメント
     attributes:
       post:
         title: タイトル
         content: 本文
+      comment:
+        body: コメント
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。

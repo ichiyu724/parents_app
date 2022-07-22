@@ -1,11 +1,15 @@
 <h3>投稿詳細</h3>
+
+<%= render "shared/error", obj: @post %>
+
     <ul>
       <% if @post.user.icon_image.blank?%>
         <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
       <% else %>
         <%= image_tag @post.user.icon_image.url, size: "60x60", class: "user-icon" %>
       <% end %>
-      <%= @post.user.username %>
+      <%= @post.user.username %><br>
+      <%= @post.created_at.strftime('%Y/%m/%d') %>
     </ul>
     <ul>  
       <li><%= @post.title %></li>
@@ -22,9 +26,11 @@
       <div class='heart-btn' id="favorite_<%= @post.id %>">
         <%= render "shared/favorite", post: @post %>
       </div>
-      <i class="fa-regular fa-comment fa-2x", style="color:blue;"></i><br>
+      <div class='comment-btn' id="comment_<%= @post.id %>">
+        <i class="fa-regular fa-comment fa-2x", style="color:blue;"></i>
+        <span><%= @comments.count %></span>
+      </div>
     </ul>
-
   <% if @post.user == current_user %>
       <td><%= link_to "編集", edit_post_path(@post) %></td>
       <td><%= link_to "削除", post_path(@post), method: :delete %></td>
@@ -32,6 +38,29 @@
   <% end %>
 
   <%= link_to "戻る", :back %>
+
+  <div class="comments ml-5 mt-5">
+        <%= form_with(model:[@post, @comment], local: true) do |f| %>
+        <%= f.text_area :body, :size=>"60x3",placeholder: "コメントする" %>
+        <%= f.submit "コメント", class: "btn btn-success mb-4" %>
+        <% end %>
+
+          <% @comments.each do |comment| %>
+	      <div class="comments-index mb-2">
+          <%= comment.user.username %>
+          <%= comment.created_at.strftime('%Y/%m/%d') %><br>
+          <div class="d-flex">
+            <input type="text", value="<%= comment.body %>">
+            <% if comment.user == current_user %>
+            <div class="comment-delete">
+              <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete, class: "btn-sm btn-danger" %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
 
 <%= hidden_field_tag :user_id, value: current_user.id %>
 <%= hidden_field_tag :post_id, value: @post.id %>
