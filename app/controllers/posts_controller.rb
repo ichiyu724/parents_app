@@ -3,7 +3,7 @@ class PostsController < ApplicationController
   before_action :ensure_user, only: [:edit, :update, :destroy]
   
   def index
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
   end
 
   def new
@@ -22,7 +22,9 @@ class PostsController < ApplicationController
   end
   
   def show
-    @post = Post.find_by(id: params[:id])
+    @post = Post.find(params[:id])
+    @comments = @post.comments.includes(:user)
+    @comment = @post.comments.build(user_id: current_user.id) if current_user
   end
 
   def image

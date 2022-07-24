@@ -16,12 +16,12 @@
     <header>
       <%= render "shared/header" %>
     </header>
-    <%# if notice %>
-      <p><%#= notice %></p>
-    <%# end %>
-    <%# if alert %>
-      <p><%#= alert %></p>
-    <%# end %>
+    <% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:alert] %>
+      <p class="alert"><%= flash.now[:alert] %></p>
+    <% end %>
     <%= yield %>
     <footer>
       

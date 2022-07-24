@@ -1,37 +1,64 @@
 <h3>投稿詳細</h3>
-    <ul>
-      <% if @post.user.icon_image.blank?%>
-        <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
-      <% else %>
-        <%= image_tag @post.user.icon_image.url, size: "60x60", class: "user-icon" %>
-      <% end %>
-      <%= @post.user.username %>
-    </ul>
-    <ul>  
-      <li><%= @post.title %></li>
-    </ul>
-    <ul>
-      <%= @post.child_sex %>
-      <%= @post.child_age_year %><span>歳</span><%= @post.child_age_month %><span>ヶ月</span>
-    </ul>
-    <ul>
-      <li><%= @post.content %></li>
-      <li><%= image_tag @post.content_image.url, size: "60x60" if @post.content_image? %></li>
-    </ul>
-    <ul>
-      <div class='heart-btn' id="favorite_<%= @post.id %>">
-        <%= render "shared/favorite", post: @post %>
-      </div>
-      <i class="fa-regular fa-comment fa-2x", style="color:blue;"></i><br>
-    </ul>
+<%= render "shared/error", obj: @post %>
 
+  <ul>
+    <% if @post.user.icon_image.blank?%>
+      <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
+    <% else %>
+      <%= image_tag @post.user.icon_image.url, size: "60x60", class: "user-icon" %>
+    <% end %>
+    <%= @post.user.username %><br>
+    <%= @post.created_at.strftime('%Y/%m/%d %H:%M') %>
+  </ul>
+  <ul>  
+    <li><%= @post.title %></li>
+  </ul>
+  <ul>
+    <%= @post.child_sex %>
+    <%= @post.child_age_year %><span>歳</span><%= @post.child_age_month %><span>ヶ月</span>
+  </ul>
+  <ul>
+    <li><%= @post.content %></li>
+    <li><%= image_tag @post.content_image.url, size: "60x60" if @post.content_image? %></li>
+  </ul>
+  <ul>
+    <div class='heart-btn' id="favorite_<%= @post.id %>">
+      <%= render "shared/favorite", post: @post %>
+    </div>
+    <div class='comment-btn' id="comment_<%= @post.id %>">
+      <i class="fa-regular fa-comment fa-2x", style="color:blue;"></i>
+      <span><%= @comments.count %></span>
+    </div>
+  </ul>
   <% if @post.user == current_user %>
-      <td><%= link_to "編集", edit_post_path(@post) %></td>
-      <td><%= link_to "削除", post_path(@post), method: :delete %></td>
-  <% else %>
+    <td><%= link_to "編集", edit_post_path(@post) %></td>
+    <td><%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '投稿を削除しますか？' } %></td>
   <% end %>
 
-  <%= link_to "戻る", :back %>
+  <%= link_to "投稿一覧に戻る", posts_path %>
+
+  <div class="comments ml-5 mt-5">
+    <%= form_with(model:[@post, @comment], local: true) do |f| %>
+      <%= f.text_area :body, :size=>"60x3",placeholder: "コメントする" %>
+      <%= f.submit "コメント", class: "btn btn-success mb-4" %>
+    <% end %>
+    <table>
+      <% @comments.each do |comment| %>
+        <div class="comments-index mb-2">
+          <%= comment.user.username %>
+          <%= comment.created_at.strftime('%Y/%m/%d %H:%M') %><br>
+          <div class="d-flex">
+            <input type="text", value="<%= comment.body %>"><br>
+              <% if comment.user == current_user %>
+                <div class="comment-delete">
+                  <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete, class: "btn-sm btn-danger", data: { confirm: 'コメントを削除しますか？' } %><br>
+                </div>
+              <% end %>
+          </div>
+        </div>
+      <% end %>
+    </table>
+  </div>
 
 <%= hidden_field_tag :user_id, value: current_user.id %>
 <%= hidden_field_tag :post_id, value: @post.id %>

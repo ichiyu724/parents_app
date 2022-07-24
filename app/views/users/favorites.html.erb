@@ -1,7 +1,6 @@
 <h3>お気に入りした投稿</h3>
-
 <% if @favorite_list.present? %>
-    <ul class="relative-post-lists">
+  <ul class="relative-post-lists">
     <% @favorite_list.each do |post| %>
       <li class='post-list'>
         <%= link_to post_path(post) do %>          
@@ -17,5 +16,5 @@
         <% end %>
       </li>
     <% end %>
-    </ul>
-  <% end %>
+  </ul>
+<% end %>

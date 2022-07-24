@@ -1,34 +1,30 @@
 <h3>マイページ</h3>
-
 <%= form_with model: @user do |f| %>
-
   <% if @user.icon_image.blank?%>
     <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
   <% else %>
     <%= image_tag @user.icon_image.url, size: "60x60", class: "user-icon" %>
   <% end %>
-
-<table>
-  <tr>
-   <th><%= f.label :username ,"名前", class: "profile-form-header" %></th>
-   <td><%= f.text_field :username, class: "username-form-control", readonly: true, value: @user.username %></td>
-  </tr>
-  <tr>
-   <th><%= f.label :profile ,"自己紹介", class: "profile-form-header" %></th>
-   <td><%= f.text_area :profile, class: "profile-form-control", readonly: true, value: @user.profile %></td>
-  </tr>
-</table>
-<%= f.hidden_field :id, value: @user.id %>
-<%= link_to "プロフィール編集", edit_user_path(@user.id) %>
+  <table>
+    <tr>
+      <th><%= f.label :username ,"名前", class: "profile-form-header" %></th>
+      <td><%= f.text_field :username, class: "username-form-control", readonly: true, value: @user.username %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :profile ,"自己紹介", class: "profile-form-header" %></th>
+      <td><%= f.text_area :profile, class: "profile-form-control", readonly: true, value: @user.profile %></td>
+    </tr>
+  </table>
+  <%= f.hidden_field :id, value: @user.id %>
+  <%= link_to "プロフィール編集", edit_user_path(@user.id) %>
 <% end %>
 
 <h3>あなたの投稿</h3>
 
 
 <h3>お気に入りした投稿</h3>
-
 <% if @favorite_list.present? %>
-    <ul class="relative-post-lists">
+  <ul class="relative-post-lists">
     <% @favorite_list.each do |post| %>
       <li class='post-list'>
         <%= link_to post_path(post) do %>          
@@ -44,7 +40,6 @@
         <% end %>
       </li>
     <% end %>
-    </ul>
-  <% end %>
-
-  <%= link_to "もっと見る", favorites_user_path(@user.id) %>
+  </ul>
+<% end %>
+<%= link_to "もっと見る", favorites_user_path(@user.id) %>

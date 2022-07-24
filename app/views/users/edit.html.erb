@@ -1,29 +1,26 @@
 <h3>プロフィール編集</h3>
+<%= render "shared/error", obj: @user %>
 
 <%= form_with model: @user do |f| %>
-
-  <% if @user.icon_image.blank?%>
-    <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
-  <% else %>
-    <%= image_tag @user.icon_image.url, size: "60x60", class: "user-icon" %>
-  <% end %>
-
-<table>
- <tr>
-  <th><%= f.label :icon_image ,"アイコン画像", class: "profile-form-header" %></th>
-  <td><%= f.file_field :icon_image %></td>
-</tr>
- <tr>
-  <th><%= f.label :username ,"名前", class: "username-form-header" %></th>
-  <td><%= f.text_field :username, class: "username-form-control", :placeholder => "名前を入力", value: @user.username %></td>
- </tr>
- <tr>
-  <th><%= f.label :profile ,"自己紹介", class: "profile-form-header" %></th>
-  <td><%= f.text_area :profile, class: "profile-form-control", :placeholder => "自己紹介を入力", value: @user.profile %></td>
- </tr>
-</table>
-<%= f.hidden_field :id, value: @user.id %>
-<%= f.submit "更新", class: "btn-account-update" %>
+    <% if @user.icon_image.blank?%>
+      <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
+    <% else %>
+      <%= image_tag @user.icon_image.url, size: "60x60", class: "user-icon" %>
+    <% end %>
+  <table>
+  <tr>
+    <th><%= f.label :icon_image ,"アイコン画像", class: "profile-form-header" %></th>
+    <td><%= f.file_field :icon_image %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :username ,"名前", class: "username-form-header" %></th>
+    <td><%= f.text_field :username, class: "username-form-control", :placeholder => "名前を入力", value: @user.username %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :profile ,"自己紹介", class: "profile-form-header" %></th>
+    <td><%= f.text_area :profile, class: "profile-form-control", :placeholder => "自己紹介を入力", value: @user.profile %></td>
+  </tr>
+  </table>
+  <%= f.hidden_field :id, value: @user.id %>
+  <%= f.submit "更新", class: "btn-account-update" %>
 <% end %>
-
-
