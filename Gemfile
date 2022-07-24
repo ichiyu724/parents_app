@@ -60,3 +60,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'rails-i18n'
+gem 'enum_help' 
+gem 'devise-i18n'
+gem 'devise-i18n-views'
