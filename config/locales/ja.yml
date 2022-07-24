@@ -1,13 +1,5 @@
 ja:
   activerecord:
-    errors:
-      models:
-        post:
-          attributes:
-            title:
-              blank: "は必須です"
-            content:
-              blank: "は必須です"
     attributes:
       user:
         confirmation_sent_at: パスワード確認送信時刻
@@ -33,11 +25,25 @@ ja:
         unconfirmed_email: 未確認Eメール
         unlock_token: ロック解除用トークン
         updated_at: 更新日
+    errors:
+      models:
+        post:
+          attributes:
+            title:
+              blank: "は必須です"
+            content:
+              blank: "は必須です"
+        user:
+          attributes:
+            username:
+              blank: "は必須です"
     models:
       user: ユーザー
       post: 投稿
       comment: コメント
     attributes:
+      user:
+        username: 名前
       post:
         title: タイトル
         content: 本文

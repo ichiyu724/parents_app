@@ -18,6 +18,7 @@ class UsersController < ApplicationController
         flash[:notice]= "プロフィールを更新しました"
         redirect_to account_path
     else
+        flash.now[:alert] = '更新に失敗しました。'
         render :edit
     end
   end

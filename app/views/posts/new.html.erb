@@ -1,36 +1,32 @@
 <h3>相談を投稿する</h3>
-
 <%= render "shared/error", obj: @post %>
 
 <%= form_with model: @post do |f| %>
 <table>
- <tr>
-  <th><%= f.label :title ,"タイトル" %></th>
-  <td><%= f.text_field :title %></td>
- </tr>
- <tr>
-  <th><%= f.label :child_sex,"性別" %></th>
-  <td><%= f.radio_button :child_sex, :boy %><%= f.label :boy, value: "男の子" %>
-  <%= f.radio_button :child_sex, :girl %><%= f.label :girl, value: "女の子" %></td>
- </tr>
- <tr>
-  <th><%= f.label :child_age ,"年齢" %></th>
-  <td><%= f.text_field :child_age_year %>歳
-  <%= f.text_field :child_age_month %>ヵ月</td>
- </tr>
- <tr>
-  <th><%= f.label :content ,"本文" %></th>
-  <td><%= f.text_area :content %></td>
- </tr>
- <tr>
-  <th><%= f.label :content_image ,"画像" %></th>
-  <td><%= f.file_field :content_image %></td>
-</tr>
+  <tr>
+    <th><%= f.label :title ,"タイトル" %></th>
+    <td><%= f.text_field :title %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :child_sex,"性別" %></th>
+    <td><%= f.radio_button :child_sex, :boy %><%= f.label :boy, value: "男の子" %>
+    <%= f.radio_button :child_sex, :girl %><%= f.label :girl, value: "女の子" %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :child_age ,"年齢" %></th>
+    <td><%= f.text_field :child_age_year %>歳
+    <%= f.text_field :child_age_month %>ヵ月</td>
+  </tr>
+  <tr>
+    <th><%= f.label :content ,"本文" %></th>
+    <td><%= f.text_area :content %></td>
+  </tr>
+  <tr>
+    <th><%= f.label :content_image ,"画像" %></th>
+    <td><%= f.file_field :content_image %></td>
+  </tr>
 </table>
-
 <%= f.hidden_field :user_id, value: current_user.id %>
 <%= f.hidden_field :id, value: @post.id %>
-
-
 <%= f.submit "投稿する" %>
 <% end %>
