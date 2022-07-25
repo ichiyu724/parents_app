@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resource :favorites, only: [:create, :destroy]
   end
   get '/users/account', to: 'users#account', as: :account
+  get '/users/my_post', to: 'users#my_post', as: :my_post
 
 
   devise_scope :user do
