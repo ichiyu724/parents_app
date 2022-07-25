@@ -33,8 +33,7 @@ class UsersController < ApplicationController
   end
 
   def my_post
-    @user = current_user
-    @my_posts = @user.posts.order(updated_at: :desc).includes(:user)
+    @my_posts = current_user.posts.order(updated_at: :desc).includes(:user)
   end
   
 
