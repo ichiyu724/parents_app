@@ -1,7 +1,7 @@
-<h3>あなたの投稿</h3>
-<% if @my_posts.present? %>
+<h3><%= @user.username %>さんの投稿</h3>
+<% if @user_posts.present? %>
   <ul class="relative-post-lists">
-    <% @my_posts.each do |post| %>
+    <% @user_posts.each do |post| %>
       <li class='post-list'>
         <div class='user-img-content'>
           <% if post.user.icon_image.url.blank?%>

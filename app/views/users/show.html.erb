@@ -1,15 +1,64 @@
-<h1><%= @user.username %></h1>
-<p><%= link_to @user.followings.count, followings_user_path(@user) %>フォロー<%= link_to @user.followers.count, followers_user_path(@user) %>フォロワー</p>
-<% if @user == current_user %>
-  <p>あなた。ログイン中です</p>
-<% else %>
-  <% if @user.is_followed_by?(current_user)%>
-    <%= link_to user_relationships_path(@user), method: :delete do %>
-      <button class="btn btn-danger">フォロー解除</button>
-    <% end %>
+<h3>プロフィール</h3>
+<%= form_with model: @user do |f| %>
+  <% if @user.icon_image.blank?%>
+    <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
   <% else %>
-    <%= link_to user_relationships_path(@user), method: :post do %>
-      <button class="btn btn-primary">フォロー</button>
-    <% end %>
+    <%= image_tag @user.icon_image.url, size: "60x60", class: "user-icon" %>
+  <% end %>
+  <table>
+    <tr>
+      <th><%= f.label :username ,"名前", class: "profile-form-header" %></th>
+      <td><%= f.text_field :username, class: "username-form-control", readonly: true, value: @user.username %></td>
+    </tr>
+    <tr>
+      <th><%= f.label :profile ,"自己紹介", class: "profile-form-header" %></th>
+      <td><%= f.text_area :profile, class: "profile-form-control", readonly: true, value: @user.profile %></td>
+    </tr>
+  </table>
+  <p>フォロー数：<%= link_to @user.followings.count, followings_user_path(@user) %>フォロワー数：<%= link_to @user.followers.count, followers_user_path(@user) %></p>
+  <%= f.hidden_field :id, value: @user.id %>
+  <% if @user.id == current_user.id %>
+    <%= link_to "プロフィール編集", edit_user_path(@user.id) %>
   <% end %>
 <% end %>
+
+<h3><%= @user.username %>さんの投稿</h3>
+<% if @posts.present? %>
+  <ul class="relative-post-lists">
+    <% @posts.each do |post| %>
+      <li class='post-list'>
+        <div class='user-img-content'>
+          <% if post.user.icon_image.url.blank?%>
+            <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
+          <% else %>
+            <%= image_tag post.user.icon_image.url, size: "60x60", class: "user-icon" %>
+          <% end %>
+          <%= link_to post.title, post_path(post) %>
+        </div>
+        <%= post.content %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+<%= link_to "もっと見る", user_posts_path %>
+
+<h3>お気に入りした投稿</h3>
+<% if @favorite_list.present? %>
+  <ul class="relative-post-lists">
+    <% @favorite_list.each do |post| %>
+      <li class='post-list'>
+        <div class='user-img-content'>
+          <% if post.user.icon_image.url.blank?%>
+            <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
+          <% else %>
+            <%= image_tag post.user.icon_image.url, size: "60x60", class: "user-icon" %>
+          <% end %>
+          <%= post.user.username %>
+          <%= link_to post.title, post_path(post) %>
+        </div>
+        <%= post.content %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+<%= link_to "もっと見る", favorites_user_path(@user.id) %>
