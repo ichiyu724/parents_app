@@ -16,15 +16,21 @@ Rails.application.routes.draw do
     post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
   
-  resources :users, only: [:show, :edit, :update] do
+  resources :users do #only: [:show, :edit, :update] do
     get :favorites, on: :collection
-  end
-
-  resources :users do
+    resource :relationships, only: [:create, :destroy]
+    get :followings, on: :member
+    get :followers, on: :member
     member do
       get :favorites
     end
   end
+
+  #resources :users do
+   # member do
+    #  get :favorites
+    #end
+  #end
 
   resources :posts , expect: [:index] do
     resource :favorites, only: [:create, :destroy]

@@ -15,6 +15,7 @@
       <td><%= f.text_area :profile, class: "profile-form-control", readonly: true, value: @user.profile %></td>
     </tr>
   </table>
+  <p>フォロー数：<%= link_to @user.followings.count, followings_user_path(@user) %>フォロワー数：<%= link_to @user.followers.count, followers_user_path(@user) %></p>
   <%= f.hidden_field :id, value: @user.id %>
   <%= link_to "プロフィール編集", edit_user_path(@user.id) %>
 <% end %>

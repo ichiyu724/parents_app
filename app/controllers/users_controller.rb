@@ -36,6 +36,21 @@ class UsersController < ApplicationController
     @my_posts = current_user.posts.order(updated_at: :desc).includes(:user)
   end
   
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def index 
+    @users = User.where.not(id: current_user.id)
+  end
+
+  def followings
+    @users = User.find(params[:id]).followings
+  end
+
+  def followers
+    @users = User.find(params[:id]).followers
+  end
 
   private
 

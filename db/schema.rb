@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_20_160017) do
+ActiveRecord::Schema.define(version: 2022_07_25_074144) do
 
   create_table "comments", charset: "utf8mb4", force: :cascade do |t|
     t.text "body"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 2022_07_20_160017) do
     t.integer "child_age_month"
     t.text "content"
     t.string "content_image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "relationships", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "following_id", null: false
+    t.integer "follower_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
