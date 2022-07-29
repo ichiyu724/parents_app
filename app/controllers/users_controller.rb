@@ -1,15 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :ensure_correct_user, {only: [:edit, :update, :destroy]}
   
-  def account
-    @user = current_user
-    @post = Post.find_by(id: params[:post_id])
-    favorites = Favorite.limit(2).order(created_at: :desc).where(user_id: current_user.id).pluck(:post_id)
-    @favorite_list = Post.find(favorites)
-    @my_posts = @user.posts.order(updated_at: :desc).limit(2).includes(:user)
-    
-  end
-
   def edit
     @user = User.find(params[:id])
   end
@@ -18,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if  @user.update(user_params)
         flash[:notice]= "プロフィールを更新しました"
-        redirect_to account_path
+        redirect_to user_path(@user)
     else
         flash.now[:alert] = '更新に失敗しました。'
         render :edit
@@ -28,16 +20,20 @@ class UsersController < ApplicationController
   def favorites
     @user = User.find(params[:id])
     @post = Post.find_by(id: params[:post_id])
-    favorites = Favorite.order(created_at: :desc).where(user_id: current_user.id).pluck(:post_id)
+    favorites = Favorite.order(created_at: :desc).where(user_id: @user.id).pluck(:post_id)
     @favorite_list = Post.find(favorites)
   end
 
-  def my_post
-    @my_posts = current_user.posts.order(updated_at: :desc).includes(:user)
+  def user_posts
+    @user = User.find(params[:id])
+    @user_posts = @user.posts.order(updated_at: :desc).includes(:user)
   end
   
   def show
     @user = User.find(params[:id])
+    @posts = @user.posts.order(updated_at: :desc).includes(:user).limit(2)
+    favorites = Favorite.limit(2).order(created_at: :desc).where(user_id: @user.id).pluck(:post_id)
+    @favorite_list = Post.find(favorites)
   end
 
   def index 
@@ -56,5 +52,13 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:icon_image, :username, :profile).merge(id: current_user.id)
+  end
+
+  def ensure_correct_user
+    @user = User.find_by(id: params[:id])
+    if @user.id != current_user.id
+      flash[:notice] = "権限がありません"
+      redirect_to "/users/#{@user.id}"
+    end
   end
 end
