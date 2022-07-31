@@ -49,6 +49,11 @@ class PostsController < ApplicationController
     redirect_to :posts
   end
 
+  def search
+    index
+    render :index
+  end
+
   private
 
   def post_params

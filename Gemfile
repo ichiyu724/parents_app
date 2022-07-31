@@ -64,3 +64,4 @@ gem 'rails-i18n'
 gem 'enum_help' 
 gem 'devise-i18n'
 gem 'devise-i18n-views'
+gem "ransack"
