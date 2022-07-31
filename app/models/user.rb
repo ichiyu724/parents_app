@@ -16,7 +16,7 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :comments
 
-  #validates :username, presence: true
+  validates :username, presence: true
 
   has_many :relationships, foreign_key: :following_id
   has_many :followings, through: :relationships, source: :follower

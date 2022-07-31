@@ -43,7 +43,7 @@ ja:
       comment: コメント
     attributes:
       user:
-        username: 名前
+        username: ユーザー名
       post:
         title: タイトル
         content: 本文

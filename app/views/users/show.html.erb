@@ -7,7 +7,7 @@
   <% end %>
   <table>
     <tr>
-      <th><%= f.label :username ,"名前", class: "profile-form-header" %></th>
+      <th><%= f.label :username ,"ユーザー名", class: "profile-form-header" %></th>
       <td><%= f.text_field :username, class: "username-form-control", readonly: true, value: @user.username %></td>
     </tr>
     <tr>
@@ -18,7 +18,8 @@
   <p>フォロー数：<%= link_to @user.followings.count, followings_user_path(@user) %>フォロワー数：<%= link_to @user.followers.count, followers_user_path(@user) %></p>
   <%= f.hidden_field :id, value: @user.id %>
   <% if @user.id == current_user.id %>
-    <%= link_to "プロフィール編集", edit_user_path(@user.id) %>
+    <%= link_to "プロフィール編集", edit_user_path(@user.id) %><br>
+    <%= link_to "アカウント情報変更", edit_user_registration_path %>
   <% end %>
 <% end %>
 
