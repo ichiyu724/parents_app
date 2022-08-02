@@ -2,7 +2,7 @@
 <%= link_to "about", about_path %>
 <div class = search-box-field>
   <%= search_form_for @search, url: search_posts_path do |f| %>
-    <%= f.search_field :title_or_child_sex_or_child_age_year_or_child_age_month_or_content_cont, class: "search-box", :placeholder => "キーワード" %>
+    <%= f.search_field :title_or_child_sex_or_child_age_year_or_child_age_month_or_content_cont_any, class: "search-box", :placeholder => "キーワード" %><br>
     <%= f.submit '検索' %>
   <% end %>
 </div>
