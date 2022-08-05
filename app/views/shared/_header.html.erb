@@ -1,28 +1,32 @@
-<%= link_to "Help Parents", root_path, class: "app-name" %>
-<%= link_to "about", about_path %>
-<div class = search-box-field>
-  <%= search_form_for @search, url: search_posts_path do |f| %>
-    <%= f.search_field :title_or_child_sex_or_child_age_year_or_child_age_month_or_content_cont_any, class: "search-box", :placeholder => "キーワード" %><br>
-    <%= f.submit '検索' %>
-  <% end %>
-</div>
-  <div class = "header-right">
-    <% if user_signed_in? %>
-      <div class = "username" ><%= current_user.username %></div>
-        <div class = "nav-item">
-          <ul class = "header-nav-menu">
-            <li><%= link_to "投稿一覧", posts_path %></li>
-            <li><%= link_to "新規投稿", new_post_path %></li>
-            <li><%= link_to "マイページ", user_path(current_user) %></li>
-            <li><%= link_to "ユーザー一覧", users_path %></li>
-            <li><%= link_to "ログアウト", destroy_user_session_path, method: "delete" %></li> 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <%= link_to "Help Parents", root_path, class: "navbar-brand" %>
+      <%= search_form_for @search, url: search_posts_path do |f| %>
+        <%= f.search_field :title_or_child_sex_or_child_age_year_or_child_age_month_or_content_cont_any, class: "form-control me-2", :placeholder => "キーワード" %>
+        <%= f.submit '検索', class: "btn btn-outline-success" %>
+      <% end %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class = "collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <div class="float-end">
+        <% if user_signed_in? %>
+          <ul class = "navbar-nav me-auto mb-2 mb-lg-0 navbar-right">
+            <li class="nav-item"><%= link_to "投稿一覧", posts_path %></li>
+            <li class="nav-item"><%= link_to "新規投稿", new_post_path %></li>
+            <li class="nav-item"><%= link_to "マイページ", user_path(current_user) %></li>
+            <li class="nav-item"><%= link_to "ユーザー一覧", users_path %></li>
+            <li class="nav-item"><%= link_to "ログアウト", destroy_user_session_path, method: "delete" %></li> 
           </ul>
-    <% else %>
-          <ul>
-            <li class = "guest_login" ><%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post %></li>
-            <li class = "sign_in" ><%= link_to "ログイン", :new_user_session, class: "btn" %></li>
-            <li class = "sign_up" ><%= link_to "新規登録", :new_user_registration, class: "btn" %></li>
+        <% else %>
+          <ul class = "navbar-nav me-auto mb-2 mb-lg-0 navbar-right">
+            <li class="nav-item"><%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post %></li>
+            <li class="nav-item"><%= link_to "ログイン", :new_user_session, class: "btn" %></li>
+            <li class="nav-item"><%= link_to "新規登録", :new_user_registration, class: "btn" %></li>
+            <li class="nav-item"><%= link_to "about", about_path %></li>
           </ul>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
+</nav>
