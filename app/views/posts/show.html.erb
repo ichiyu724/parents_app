@@ -14,8 +14,8 @@
     <li><%= @post.title %></li>
   </ul>
   <ul>
-    <%= @post.child_sex_i18n %>
-    <%= @post.child_age_year %><span class="child_age">歳</span><%= @post.child_age_month %><span class="child_age">ヶ月</span>
+    <%= @post.child_sex %>
+    <%= @post.child_age_year %><%= @post.child_age_month %>
   </ul>
   <ul>
     <li><%= @post.content %></li>
