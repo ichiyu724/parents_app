@@ -1,27 +1,39 @@
-<h3>プロフィール編集</h3>
+<div class="container">
+<h3 class="d-flex align-items-center justify-content-center">プロフィール編集</h3>
 <%= render "shared/error", obj: @user %>
 
 <%= form_with model: @user do |f| %>
     <% if @user.icon_image.blank?%>
-      <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
+      <div class="d-flex align-items-center justify-content-center"><%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle profile-image" %></div>
     <% else %>
-      <%= image_tag @user.icon_image.url, size: "60x60", class: "user-icon" %>
+      <div class="d-flex align-items-center justify-content-center"><%= image_tag @user.icon_image.url, size: "60x60", class: "rounded-circle profile-image" %></div>
     <% end %>
-  <table>
+  <table class="d-flex align-items-center justify-content-center">
+  <div class="form-group">
+    <tr>
+      <th><%= f.label :icon_image ,"アイコン画像", for: "icon_image-edit" %></th>
+      <td><%= f.file_field :icon_image, class: "form-control", id: "icon_image-edit" %></td>
+    </tr>
+  </div>
+  <div class="form-group">
+    <tr>
+      <th><%= f.label :username ,"ユーザー名", for: "username-edit" %></th>
+      <td><%= f.text_field :username, :placeholder => "名前を入力", value: @user.username, class: "form-control", id: "username-edit" %></td>
+    </tr>
+  </div>
+  <div class="form-group">
   <tr>
-    <th><%= f.label :icon_image ,"アイコン画像", class: "profile-form-header" %></th>
-    <td><%= f.file_field :icon_image %></td>
+    <th><%= f.label :profile ,"自己紹介", for: "profile-edit" %></th>
+    <td><%= f.text_area :profile, :placeholder => "自己紹介を入力", value: @user.profile, class: "form-control", id: "profile-edit", rows: 8 %></td>
   </tr>
-  <tr>
-    <th><%= f.label :username ,"ユーザー名", class: "username-form-header" %></th>
-    <td><%= f.text_field :username, class: "username-form-control", :placeholder => "名前を入力", value: @user.username %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :profile ,"自己紹介", class: "profile-form-header" %></th>
-    <td><%= f.text_area :profile, class: "profile-form-control", :placeholder => "自己紹介を入力", value: @user.profile %></td>
-  </tr>
+  </div>
   </table>
   <%= f.hidden_field :id, value: @user.id %>
-  <%= f.submit "更新", class: "btn-account-update" %><br>
-  <%= link_to "プロフィールに戻る", user_path(@user) %>
+  <div class="d-flex align-items-center justify-content-center">
+    <%= f.submit "更新", class: "btn btn-primary" %><br>
+  </div>
+  <div class="d-flex align-items-center justify-content-center">
+    <%= link_to "プロフィールに戻る", user_path(@user) %>
+  </div>
 <% end %>
+</div>

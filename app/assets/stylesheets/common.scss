@@ -2,11 +2,105 @@ li {
   list-style: none;
 }
 
+header {
+  background-color: white;
+}
+
 a {
-  text-decoration: none;
+  text-decoration: none !important;
   letter-spacing: 1px;
 }
 
 .form-control {
   display: inline;
+}
+
+.btn-primary {
+  margin-top: 20px;
+}
+
+table th {
+  padding-top: 20px;
+}
+
+table td {
+  padding-top: 20px;
+}
+
+.post {
+  margin-top: 20px;
+}
+
+.btn-outline-secondary {
+  margin-bottom: 20px;
+}
+
+.container-fluid {
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #fdfdd8;
+}
+
+@media screen and (max-width: 768px) {
+  .user-posts-wrapper {
+    margin-top: 20px;
+  }
+  .row {
+    width: 100%;
+  }
+}
+
+.signup-form {
+  margin-top: 20px;
+}
+
+.signup-btn {
+  margin-bottom: 20px;
+}
+
+.signin-form {
+  margin-top: 20px;
+}
+
+.signin-btn {
+  margin-bottom: 20px;
+}
+
+.signup-text {
+  display: flex;
+  justify-content: center;
+}
+
+.password-text {
+  display: flex;
+  justify-content: center;
+}
+
+.signin-text {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-account-delete {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.comment-btn {
+  margin-bottom: 20px;
+}
+
+.comment-form {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.post-details {
+  border: 1px solid #e0e3e5;
+  border-radius: 5px;
+}
+
+.comments {
+  padding-top: 30px;
 }

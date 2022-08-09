@@ -1,65 +1,87 @@
-<h3>プロフィール</h3>
-<%= form_with model: @user do |f| %>
-  <% if @user.icon_image.blank?%>
-    <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
-  <% else %>
-    <%= image_tag @user.icon_image.url, size: "60x60", class: "user-icon" %>
-  <% end %>
-  <table>
-    <tr>
-      <th><%= f.label :username ,"ユーザー名", class: "profile-form-header" %></th>
-      <td><%= f.text_field :username, class: "username-form-control", readonly: true, value: @user.username %></td>
-    </tr>
-    <tr>
-      <th><%= f.label :profile ,"自己紹介", class: "profile-form-header" %></th>
-      <td><%= f.text_area :profile, class: "profile-form-control", readonly: true, value: @user.profile %></td>
-    </tr>
-  </table>
-  <p>フォロー数：<%= link_to @user.followings.count, followings_user_path(@user) %>フォロワー数：<%= link_to @user.followers.count, followers_user_path(@user) %></p>
-  <%= f.hidden_field :id, value: @user.id %>
-  <% if @user.id == current_user.id %>
-    <%= link_to "プロフィール編集", edit_user_path(@user.id) %><br>
-    <%= link_to "アカウント情報変更", edit_user_registration_path %>
-  <% end %>
-<% end %>
-
-<h3><%= @user.username %>さんの投稿</h3>
-<% if @posts.present? %>
-  <ul class="relative-post-lists">
-    <% @posts.each do |post| %>
-      <li class='post-list'>
-        <div class='user-img-content'>
-          <% if post.user.icon_image.url.blank?%>
-            <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
-          <% else %>
-            <%= image_tag post.user.icon_image.url, size: "60x60", class: "user-icon" %>
-          <% end %>
-          <%= link_to post.title, post_path(post) %>
+<div class="container-fluid">
+  <div class="row profile-wrapper">
+    <div class="col-md-6">
+    <h3>プロフィール</h3>
+      <%= form_with model: @user do |f| %>
+      <% if @user.icon_image.blank?%>
+        <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
+      <% else %>
+        <%= image_tag @user.icon_image.url, size: "60x60", class: "rounded-circle" %>
+      <% end %>
+      <table>
+        <div class="form-group">
+          <tr>
+            <th><%= f.label :username ,"ユーザー名", for: "username" %></th>
+            <td><%= f.text_field :username, readonly: true, value: @user.username, class: "form-control", id: "username" %></td>
+          </tr>
         </div>
-        <%= post.content %>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
-<%= link_to "もっと見る", user_posts_path %>
-
-<h3>お気に入りした投稿</h3>
-<% if @favorite_list.present? %>
-  <ul class="relative-post-lists">
-    <% @favorite_list.each do |post| %>
-      <li class='post-list'>
-        <div class='user-img-content'>
-          <% if post.user.icon_image.url.blank?%>
-            <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
-          <% else %>
-            <%= image_tag post.user.icon_image.url, size: "60x60", class: "user-icon" %>
-          <% end %>
-          <%= post.user.username %>
-          <%= link_to post.title, post_path(post) %>
+        <div class="form-group">
+        <tr>
+          <th><%= f.label :profile ,"自己紹介", for: "profile-edit" %></th>
+          <td><%= f.text_area :profile, readonly: true, value: @user.profile, class: "form-control", id: "profile", rows: 8 %></td>
+        </tr>
         </div>
-        <%= post.content %>
-      </li>
+      </table>
+      <p>フォロー数：<%= link_to @user.followings.count, followings_user_path(@user) %>フォロワー数：<%= link_to @user.followers.count, followers_user_path(@user) %></p>
+      <%= f.hidden_field :id, value: @user.id %>
+      <% if @user.id == current_user.id %>
+        <%= link_to "プロフィール編集", edit_user_path(@user.id), class: "btn btn-primary" %><br>
+        <%= link_to "アカウント情報変更", edit_user_registration_path, class: "btn btn-primary" %>
+      <% end %>
     <% end %>
-  </ul>
-<% end %>
-<%= link_to "もっと見る", favorites_user_path(@user.id) %>
+    </div>
+
+    <div class="col-md-6">
+      <div class="user-posts-wrapper">
+        <h3><%= @user.username %>さんの投稿</h3>
+        <% if @posts.present? %>
+          <ul class="relative-post-lists">
+            <% @posts.each do |post| %>
+              <li class='post-list'>
+                <div class='user-img-content'>
+                  <% if post.user.icon_image.url.blank?%>
+                    <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
+                  <% else %>
+                    <%= image_tag post.user.icon_image.url, size: "60x60", class: "rounded-circle" %>
+                  <% end %>
+                  <%= link_to post.title, post_path(post) %>
+                </div>
+                <div class="form-group">
+                  <%= form_with model: @post do |f| %>
+                    <%= f.text_area :content, readonly: true, value: post.content, class: "form-control m-2", rows: 4 %>
+                  <% end %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+        <%= link_to "もっと見る", user_posts_path, class: "btn btn-outline-secondary" %>
+      </div>
+
+      <h3>お気に入りした投稿</h3>
+      <% if @favorite_list.present? %>
+        <ul class="relative-post-lists">
+          <% @favorite_list.each do |post| %>
+            <li class='post-list'>
+              <div class='user-img-content'>
+                <% if post.user.icon_image.url.blank?%>
+                  <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
+                <% else %>
+                  <%= image_tag post.user.icon_image.url, size: "60x60", class: "rounded-circle" %>
+                <% end %>
+                <%= post.user.username %>
+                <%= link_to post.title, post_path(post) %>
+              </div>
+              <div class="form-group">
+                <%= form_with model: @post do |f| %>
+                  <%= f.text_area :content, readonly: true, value: post.content, class: "form-control m-2", rows: 4 %>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <%= link_to "もっと見る", favorites_user_path(@user.id), class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+</div>
