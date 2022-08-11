@@ -1,34 +1,53 @@
-<h3>相談を編集する</h3>
-<%= render "shared/error", obj: @post %>
+<div class="container">
+  <h3 class="d-flex align-items-center justify-content-center">相談を編集する</h3>
+  <%= render "shared/error", obj: @post %>
 
-<%= form_with model: @post do |f| %>
-<table>
-  <tr>
-    <th><%= f.label :title ,"タイトル" %></th>
-    <td><%= f.text_field :title %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :child_sex,"お子さんの性別" %></th>
-    <td><%= f.select :child_sex, [["未選択", "" ], ["男の子", "男の子"], ["女の子", "女の子"]] %>
-  </tr>
-  <tr>
-    <th><%= f.label :child_age_year ,"お子さんの年齢" %></th>
-    <td><%= f.select :child_age_year, [["未選択", "" ], ["0歳", "0歳"], ["1歳", "1歳"], ["2歳", "2歳"], ["3歳", "3歳"], ["4歳", "4歳"], ["5歳", "5歳"], ["6歳", "6歳"], ["7歳", "7歳"], ["8歳", "8歳"], ["9歳", "9歳"], ["10歳", "10歳"]] %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :child_age_month ,"お子さんの月齢" %></th>
-    <td><%= f.select :child_age_month, [["未選択", "" ], ["0ヶ月", "0ヶ月"], ["1ヶ月", "1ヶ月"], ["2ヶ月", "2ヶ月"], ["3ヶ月", "3ヶ月"], ["4ヶ月", "4ヶ月"], ["5ヶ月", "5ヶ月"], ["6ヶ月", "6ヶ月"], ["7ヶ月", "7ヶ月"], ["8ヶ月", "8ヶ月"], ["9ヶ月", "9ヶ月"], ["10ヶ月", "10ヶ月"], ["11ヶ月", "11ヶ月"]] %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :content ,"本文" %></th>
-    <td><%= f.text_area :content %></td>
-  </tr>
-  <tr>
-    <th><%= f.label :content_image ,"画像" %></th>
-    <td><%= f.file_field :content_image %></td>
-  </tr>
-</table>
-<%= f.hidden_field :user_id, value: current_user.id %>
-<%= f.hidden_field :id, value: @post.id %>
-<%= f.submit "更新する" %>
-<% end %>
+  <%= form_with model: @post do |f| %>
+  <table class="d-flex align-items-center justify-content-center">
+      <div class="form-group">
+        <tr>
+          <th><%= f.label :title ,"タイトル*", for: "title" %></th>
+          <td><%= f.text_field :title, class: "form-control", id: "title" %></td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <th><%= f.label :child_sex,"お子さんの性別", for: "child_sex" %></th>
+          <td><%= f.select :child_sex, [["未選択", "" ], ["男の子", "男の子"], ["女の子", "女の子"]], class: "form-control", id: "child_sex" %>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <th><%= f.label :child_age_year ,"お子さんの年齢", for: "child_age_year" %></th>
+          <td><%= f.select :child_age_year, [["未選択", "" ], ["0歳", "0歳"], ["1歳", "1歳"], ["2歳", "2歳"], ["3歳", "3歳"], ["4歳", "4歳"], ["5歳", "5歳"], ["6歳", "6歳"], ["7歳", "7歳"], ["8歳", "8歳"], ["9歳", "9歳"], ["10歳", "10歳"]], class: "form-control", id: "child_age_year" %></td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <th><%= f.label :child_age_month ,"お子さんの月齢", for: "child_age_month" %></th>
+          <td><%= f.select :child_age_month, [["未選択", "" ], ["0ヶ月", "0ヶ月"], ["1ヶ月", "1ヶ月"], ["2ヶ月", "2ヶ月"], ["3ヶ月", "3ヶ月"], ["4ヶ月", "4ヶ月"], ["5ヶ月", "5ヶ月"], ["6ヶ月", "6ヶ月"], ["7ヶ月", "7ヶ月"], ["8ヶ月", "8ヶ月"], ["9ヶ月", "9ヶ月"], ["10ヶ月", "10ヶ月"], ["11ヶ月", "11ヶ月"]], class: "form-control", id: "child_age_month" %></td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <th><%= f.label :content ,"相談内容*", for: "content" %></th>
+          <td><%= f.text_area :content, class: "form-control", id: "content", rows: 8 %></td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <th><%= f.label :content_image ,"画像", for: "content_image" %></th>
+          <td><%= f.file_field :content_image, class: "form-control", id: "content_image" %></td>
+        </tr>
+      </div>
+  </table>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :id, value: @post.id %>
+  <div class="d-flex align-items-center justify-content-center">
+    <%= f.submit "更新する", class: "btn btn-primary" %>
+  </div>
+  <div class="d-flex align-items-center justify-content-center">
+      <%= link_to "投稿詳細に戻る", post_path(@post) %>
+  </div>
+  <% end %>
+</div>

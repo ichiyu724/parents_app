@@ -46,7 +46,7 @@ ja:
         username: ユーザー名
       post:
         title: タイトル
-        content: 本文
+        content: 相談内容
       comment:
         body: コメント
   devise:

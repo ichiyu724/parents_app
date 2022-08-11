@@ -1,19 +1,50 @@
-<h3>お気に入りした投稿</h3>
-<% if @favorite_list.present? %>
-  <ul class="relative-post-lists">
-    <% @favorite_list.each do |post| %>
-      <li class='post-list'>
-        <div class='user-img-content'>
-          <% if post.user.icon_image.url.blank?%>
-            <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
-          <% else %>
-            <%= image_tag post.user.icon_image.url, size: "60x60", class: "user-icon" %>
-          <% end %>
-          <%= post.user.username %>
-          <%= link_to post.title, post_path(post) %>
-        </div>
-        <%= post.content %>
-      </li>
+<div class="container">
+  <div class="row">
+    <h3 class="d-flex align-items-center justify-content-center">お気に入りした投稿</h3>
+    <% if @favorite_list.present? %>
+      <ul class="list-unstyled">
+        <% @favorite_list.each do |post| %>
+          <div class="each-post">
+            <li class='media mb-4'>
+              <% if post.user.icon_image.url.blank?%>
+                <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
+              <% else %>
+                <%= image_tag post.user.icon_image.url, size: "60x60", class: "rounded-circle" %>
+              <% end %>
+              <%= link_to post.user.username, user_path(post.user.id) %>
+            </li>
+              <div class='media-body'>
+                <li><%= link_to post.title, post_path(post) %></li>
+                <li><%= post.content %></li>
+              </div>
+              <div class='heart-btn col-auto' id="favorite_<%= post.id %>">
+                <% if !Favorite.exists?(user_id: current_user.id, post_id: post.id) %>
+                  <li>
+                    <%= link_to post_favorites_path(post.id), method: :post, remote: true, class:"heart-btn" do %>
+                      <i class="fa-regular fa-heart fa-1x", style="color:red;"></i>
+                    <% end %>
+                    <span class="heart-count1"><%= post.favorites.count %></span>
+                  </li>
+                <% else %>
+                  <li>
+                    <%= link_to post_favorites_path(post_id: post.id, id: post.favorites[0].id), method: :delete, remote: true, class:"heart-btn" do %>
+                      <i class="fa-solid fa-heart fa-1x", style="color:red;"></i>
+                    <% end %>
+                    <span class="heart-count2"><%= post.favorites.count %></span>
+                  </li>
+                <% end %>
+              </div>
+            <div class='comment-btn col-auto' id="comment_<%= post.id %>">
+              <li>
+                <%= link_to post_path(post) do %>
+                  <i class="fa-regular fa-comment fa-1x", style="color:blue;"></i>
+                  <span><%= post.comments.count %></span>
+                <% end %>
+              </li>
+            </div>
+          </div>
+        <% end %>
+      </ul>
     <% end %>
-  </ul>
-<% end %>
+  </div>
+</div>

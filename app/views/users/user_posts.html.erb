@@ -1,18 +1,38 @@
-<h3><%= @user.username %>さんの投稿</h3>
-<% if @user_posts.present? %>
-  <ul class="relative-post-lists">
-    <% @user_posts.each do |post| %>
-      <li class='post-list'>
-        <div class='user-img-content'>
-          <% if post.user.icon_image.url.blank?%>
-            <%= image_tag "no_image.jpeg", size: "60x60", class: "user-icon" %>
-          <% else %>
-            <%= image_tag post.user.icon_image.url, size: "60x60", class: "user-icon" %>
+<div class="container">
+  <div class="row">
+    <h3 class="d-flex align-items-center justify-content-center"><%= @user.username %>さんの投稿</h3>
+    <% if @user_posts.present? %>
+      <ul class="list-unstyled">
+          <% @user_posts.each do |post| %>
+            <div class="each-post">
+              <li class='media mb-4'>
+                <% if post.user.icon_image.url.blank?%>
+                  <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
+                <% else %>
+                  <%= image_tag post.user.icon_image.url, size: "60x60", class: "rounded-circle" %>
+                <% end %>
+              </li>
+                <div class='media-body'>
+                  <li><%= link_to post.title, post_path(post)%></li>
+                  <li><%= post.content %></li>
+                </div>
+              <div class='heart-btn col-auto' id="favorite_<%= post.id %>">
+                <li>
+                  <i class="fa-solid fa-heart fa-1x", style="color:red;"></i>
+                  <span class="heart-count1"><%= post.favorites.count %></span>
+                </li>
+              </div>
+              <div class='comment-btn col-auto' id="comment_<%= post.id %>">
+                <li>
+                  <%= link_to post_path(post) do %>
+                    <i class="fa-regular fa-comment fa-1x", style="color:blue;"></i>
+                    <span><%= post.comments.count %></span>
+                  <% end %>
+                </li>
+              </div>
+            </div>
           <% end %>
-          <%= link_to post.title, post_path(post)%>
-        </div>
-        <%= post.content %>
-      </li>
+      </ul>
     <% end %>
-  </ul>
-<% end %>
+  </div>
+</div>
