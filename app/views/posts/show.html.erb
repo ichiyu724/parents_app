@@ -9,15 +9,12 @@
             <% else %>
               <%= image_tag @post.user.icon_image.url, size: "60x60", class: "rounded-circle" %>
             <% end %>
-            <%= @post.user.username %>
+            <%= link_to @post.user.username, user_path(@post.user.id) %>
           </ul>
           <div class="post-details">
             <ul>  
               <li class="fw-bold"><%= @post.title %></li>
-            </ul>
-            <ul>
-              <%= @post.child_sex %>
-              <%= @post.child_age_year %><%= @post.child_age_month %>
+              <li><%= @post.child_sex %><%= @post.child_age_year %><%= @post.child_age_month %></li>
             </ul>
             <ul>
               <div class="form-group">
@@ -48,7 +45,7 @@
         </div>
       <div class="comments ml-5 mt-5 col-md-6">
         <%= form_with(model:[@post, @comment], local: true) do |f| %>
-          <div class="form-group">
+          <div class="form-group" style="text-align:right;">
             <%= f.text_area :body, :size=>"auto", placeholder: "コメントする", class: "form-control" %>  
             <div class="ml-auto">
               <%= f.submit "コメント", class: "btn btn-success comment-btn" %>
@@ -58,17 +55,17 @@
         <table>
           <% @comments.each do |comment| %>
             <div class="comments-index mb-2">
-              <%= comment.user.username %>
-              <%= comment.created_at.strftime('%Y/%m/%d %H:%M') %><br>
-                <%= form_with(model:[@post, @comment], local: true, class: 'form-inline text-right') do |f| %>
-                  <div class="form-group  comment-form">
-                    <%= f.text_area :body, :size=>"40", readonly: true, class: "form-control", value: comment.body %><br>
-                  </div>
-                    <% if comment.user == current_user %>
-                      <div class="comment-delete">
-                        <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete, class: "btn btn-sm btn-danger", data: { confirm: 'コメントを削除しますか？' } %><br>
+              <%= link_to comment.user.username, user_path(comment.user.id) %>
+              <span class="text-black-50">/<%= comment.created_at.strftime('%Y/%m/%d %H:%M') %></span>
+                <%= form_with(model:[@post, @comment], local: true) do |f| %>
+                  <div class="form-group comment-form"  style="text-align:right;">
+                    <%= f.text_area :body, :size=>"auto", readonly: true, class: "form-control", value: comment.body %>
+                      <div class="ml-auto">
+                        <% if comment.user == current_user %>
+                          <%= link_to "削除", post_comment_path(comment.post, comment), method: :delete, class: "btn btn-sm btn-danger comment-delete", data: { confirm: 'コメントを削除しますか？' } %><br>
+                        <% end %>
                       </div>
-                    <% end %>
+                  </div>
                 <% end %>
               </div>
             </div>

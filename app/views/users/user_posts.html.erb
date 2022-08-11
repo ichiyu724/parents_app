@@ -11,11 +11,11 @@
                 <% else %>
                   <%= image_tag post.user.icon_image.url, size: "60x60", class: "rounded-circle" %>
                 <% end %>
-                <div class='media-body'>
-                  <%= link_to post.title, post_path(post)%>
-                  <%= post.content %>
-                </div>
               </li>
+                <div class='media-body'>
+                  <li><%= link_to post.title, post_path(post)%></li>
+                  <li><%= post.content %></li>
+                </div>
               <div class='heart-btn col-auto' id="favorite_<%= post.id %>">
                 <li>
                   <i class="fa-solid fa-heart fa-1x", style="color:red;"></i>

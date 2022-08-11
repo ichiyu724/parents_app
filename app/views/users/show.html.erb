@@ -55,7 +55,7 @@
             <% end %>
           </ul>
         <% end %>
-        <%= link_to "もっと見る", user_posts_path, class: "btn btn-outline-secondary" %>
+        <%= link_to "もっと見る", user_posts_path, class: "btn btn-outline-secondary d-grid gap-2 col-4 mx-auto" %>
       </div>
 
       <h3>お気に入りした投稿</h3>
@@ -69,7 +69,7 @@
                 <% else %>
                   <%= image_tag post.user.icon_image.url, size: "60x60", class: "rounded-circle" %>
                 <% end %>
-                <%= post.user.username %>
+                <%= link_to post.user.username, user_path(post.user.id) %>
                 <%= link_to post.title, post_path(post) %>
               </div>
               <div class="form-group">
@@ -81,7 +81,7 @@
           <% end %>
         </ul>
       <% end %>
-      <%= link_to "もっと見る", favorites_user_path(@user.id), class: "btn btn-outline-secondary" %>
+      <%= link_to "もっと見る", favorites_user_path(@user.id), class: "btn btn-outline-secondary  d-grid gap-2 col-4 mx-auto" %>
     </div>
   </div>
 </div>
