@@ -21,12 +21,14 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @post = Post.find_by(id: params[:post_id])
     favorites = Favorite.order(created_at: :desc).where(user_id: @user.id).pluck(:post_id)
-    @favorite_list = Post.find(favorites)
+    @favorite_data = Post.find(favorites)
+    @favorite_list = Kaminari.paginate_array(@favorite_data).page(params[:page]).per(10)
   end
 
   def user_posts
     @user = User.find(params[:id])
-    @user_posts = @user.posts.order(updated_at: :desc).includes(:user)
+    @user_posts_data = @user.posts.order(updated_at: :desc).includes(:user)
+    @user_posts = Kaminari.paginate_array(@user_posts_data).page(params[:page]).per(10)
   end
   
   def show

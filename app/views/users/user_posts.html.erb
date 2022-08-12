@@ -1,10 +1,11 @@
 <div class="container">
   <div class="row">
     <h3 class="d-flex align-items-center justify-content-center"><%= @user.username %>さんの投稿</h3>
-    <% if @user_posts.present? %>
-      <ul class="list-unstyled">
-          <% @user_posts.each do |post| %>
-            <div class="each-post">
+    <div class="scroll-list jscroll">
+      <% if @user_posts.present? %>
+        <% @user_posts.each do |post| %>
+          <div class="each-post">
+            <ul class="list-unstyled">
               <li class='media mb-4'>
                 <% if post.user.icon_image.url.blank?%>
                   <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
@@ -15,7 +16,10 @@
                 <div class='media-body'>
                   <li><%= link_to post.title, post_path(post)%></li>
                   <li><%= post.content %></li>
+                  <li><%= image_tag post.content_image.url, size: "60x60" if post.content_image? %></li>
                 </div>
+            </ul>
+            <ul class="list-unstyled d-flex flex-inline">
               <div class='heart-btn col-auto' id="favorite_<%= post.id %>">
                 <li>
                   <i class="fa-solid fa-heart fa-1x", style="color:red;"></i>
@@ -23,16 +27,18 @@
                 </li>
               </div>
               <div class='comment-btn col-auto' id="comment_<%= post.id %>">
-                <li>
+                <li class="ms-2">
                   <%= link_to post_path(post) do %>
                     <i class="fa-regular fa-comment fa-1x", style="color:blue;"></i>
                     <span><%= post.comments.count %></span>
                   <% end %>
                 </li>
               </div>
-            </div>
-          <% end %>
-      </ul>
-    <% end %>
+            </ul>
+          </div>
+        <% end %>
+      <% end %>
+      <%= paginate @user_posts %>
+    </div>
   </div>
 </div>
