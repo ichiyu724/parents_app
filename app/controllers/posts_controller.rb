@@ -3,7 +3,8 @@ class PostsController < ApplicationController
   before_action :ensure_user, only: [:edit, :update, :destroy]
   
   def index
-    @posts = Post.all.order(created_at: :desc)
+    @post_data = Post.all.order(created_at: :desc)
+    @posts = Kaminari.paginate_array(@post_data).page(params[:page]).per(10)
   end
 
   def new

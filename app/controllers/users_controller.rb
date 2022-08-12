@@ -37,16 +37,19 @@ class UsersController < ApplicationController
   end
 
   def index 
-    @users = User.where.not(id: current_user.id)
+    @user_data = User.where.not(id: current_user.id)
+    @users = Kaminari.paginate_array(@user_data).page(params[:page]).per(10)
   end
 
   def followings
-    @users = User.find(params[:id]).followings
+    @user_data = User.find(params[:id]).followings
+    @users = Kaminari.paginate_array(@user_data).page(params[:page]).per(10)
     @user = User.find(params[:id])
   end
 
   def followers
-    @users = User.find(params[:id]).followers
+    @user_data = User.find(params[:id]).followers
+    @users = Kaminari.paginate_array(@user_data).page(params[:page]).per(7)
     @user = User.find(params[:id])
   end
 
