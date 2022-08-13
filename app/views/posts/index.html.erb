@@ -15,7 +15,11 @@
             <ul class="list-unstyled">
               <li><%= link_to post.title, post_path(post)%></li>
               <li><%= post.content %></li>
-              <li><%= image_tag post.content_image.url, size: "60x60" if post.content_image? %></li>
+              <li>
+                <%= link_to post.content_image.url, "data-lightbox": post.content_image.url do %>
+                  <%= image_tag post.content_image.url, size: "60x60", class: "img-responsive", style: "cursor:pointer" if post.content_image? %>
+                <% end %>
+              </li>
             </ul>
             <div class="col-md-3 row">
               <ul class="list-unstyled d-flex flex-inline">

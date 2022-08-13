@@ -23,7 +23,11 @@
                 </li>
               </div>
               <div class="mt-2">
-                <li><%= image_tag @post.content_image.url, size: "60x60" if @post.content_image? %></li>
+                <li>
+                  <%= link_to @post.content_image.url, "data-lightbox": @post.content_image.url do %>
+                    <%= image_tag @post.content_image.url, size: "60x60", class: "img-responsive", style: "cursor:pointer" if @post.content_image? %>
+                  <% end %>
+                </li>
               </div>
             </ul>
             <ul>
