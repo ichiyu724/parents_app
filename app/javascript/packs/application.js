@@ -13,5 +13,17 @@ Turbolinks.start();
 ActiveStorage.start();
 
 require("bootstrap");
+require("jquery");
 
 import "../stylesheets/application.scss";
+
+$(window).on("scroll", function () {
+  let scrollHeight = $(document).height();
+  let scrollPosition = $(window).height() + $(window).scrollTop();
+  if ((scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
+    $(".jscroll").jscroll({
+      contentSelector: ".scroll-list",
+      nextSelector: "span.next:last a",
+    });
+  }
+});

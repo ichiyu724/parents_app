@@ -1,22 +1,32 @@
 <div class="container">
   <div class="row">
     <h3 class="d-flex align-items-center justify-content-center">お気に入りした投稿</h3>
-    <% if @favorite_list.present? %>
-      <ul class="list-unstyled">
+    <div class="scroll-list jscroll">
+      <% if @favorite_list.present? %>
         <% @favorite_list.each do |post| %>
           <div class="each-post">
-            <li class='media mb-4'>
-              <% if post.user.icon_image.url.blank?%>
-                <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
-              <% else %>
-                <%= image_tag post.user.icon_image.url, size: "60x60", class: "rounded-circle" %>
-              <% end %>
-              <%= link_to post.user.username, user_path(post.user.id) %>
-            </li>
-              <div class='media-body'>
-                <li><%= link_to post.title, post_path(post) %></li>
-                <li><%= post.content %></li>
-              </div>
+            <ul class="list-unstyled">
+              <li class='media mb-4'>
+                <% if post.user.icon_image.url.blank?%>
+                  <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
+                <% else %>
+                  <%= image_tag post.user.icon_image.url, size: "60x60", class: "rounded-circle" %>
+                <% end %>
+                <%= link_to post.user.username, user_path(post.user.id) %>
+              </li>
+                <div class='media-body'>
+                  <li><%= link_to post.title, post_path(post) %></li>
+                  <li><%= post.content %></li>
+                  <% if post.content_image? %>
+                    <li>
+                      <%= link_to post.content_image.url, "data-lightbox": post.content_image.url do %>
+                        <%= image_tag post.content_image.url, size: "60x60", class: "img-responsive", style: "cursor:pointer" %>
+                      <% end %>
+                    </li>
+                  <% end %>
+                </div>
+            </ul>
+            <ul class="list-unstyled d-flex flex-inline">
               <div class='heart-btn col-auto' id="favorite_<%= post.id %>">
                 <% if !Favorite.exists?(user_id: current_user.id, post_id: post.id) %>
                   <li>
@@ -34,17 +44,19 @@
                   </li>
                 <% end %>
               </div>
-            <div class='comment-btn col-auto' id="comment_<%= post.id %>">
-              <li>
-                <%= link_to post_path(post) do %>
-                  <i class="fa-regular fa-comment fa-1x", style="color:blue;"></i>
-                  <span><%= post.comments.count %></span>
-                <% end %>
-              </li>
-            </div>
+              <div class='comment-btn col-auto' id="comment_<%= post.id %>">
+                <li class="ms-2">
+                  <%= link_to post_path(post) do %>
+                    <i class="fa-regular fa-comment fa-1x", style="color:blue;"></i>
+                    <span><%= post.comments.count %></span>
+                  <% end %>
+                </li>
+              </div>
+            </ul>
           </div>
         <% end %>
-      </ul>
-    <% end %>
+      <% end %>
+      <%= paginate @favorite_list %>
+    </div>
   </div>
 </div>

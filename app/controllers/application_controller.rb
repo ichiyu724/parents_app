@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
 
     def set_search
       @search = Post.ransack(params[:q])
-      @search_posts = @search.result
+      @search_data = @search.result.order(created_at: :desc)
+      @search_posts = Kaminari.paginate_array(@search_data).page(params[:page]).per(10)
     end
 end

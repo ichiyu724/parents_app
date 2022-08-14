@@ -16,7 +16,7 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :comments
 
-  validates :username, presence: true, length: { maximum: 32 }
+  validates :username, presence: true, length: { maximum: 12 }
 
   has_many :relationships, foreign_key: :following_id
   has_many :followings, through: :relationships, source: :follower

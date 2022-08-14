@@ -1,39 +1,48 @@
 <div class="container">
-  <%= @user.username %>
-
-  <h3 class="d-flex align-items-center justify-content-center">フォロワー</h3>
-  <table class="d-flex align-items-center justify-content-center">
-  <% @users.each do |user|%>
-    <tr>
-      <td>
-        <% if user.icon_image.blank?%>
-          <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
-        <% else %>
-          <%= image_tag user.icon_image.url, size: "60x60", class: "rounded-circle" %>
-        <% end %>
-      </td>
-      <td>
-        <%= link_to user_path(user) do %>
-          <%= user.username %>
-        <% end %>
-      </td>
-      <td>
-        <%= user.profile %>
-      </td>
-      <td>
-        <% if user != current_user %>
-          <% if user.is_followed_by?(current_user)%>
-            <%= link_to user_relationships_path(user), method: :delete do %>
-              <button class="btn btn-danger">フォロー解除</button>
-            <% end %>
-          <% else %>
-            <%= link_to user_relationships_path(user), method: :post do %>
-              <button class="btn btn-primary">フォロー</button>
-            <% end %>
-          <% end %>
-        <% end %>
-      </td>
-    </tr>
+  <% if @user.icon_image.blank?%>
+    <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
+  <% else %>
+    <%= image_tag @user.icon_image.url, size: "60x60", class: "rounded-circle" %>
   <% end %>
-  </table>
+  <%= @user.username %>
+  <div class="row">
+    <h3 class="d-flex align-items-center justify-content-center">フォロワー</h3>
+      <div class="scroll-list jscroll col mx-auto">
+        <table class="table">
+          <% @users.each do |user|%>
+            <tr>
+              <td class="col-1">
+                <% if user.icon_image.blank?%>
+                  <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
+                <% else %>
+                  <%= image_tag user.icon_image.url, size: "60x60", class: "rounded-circle" %>
+                <% end %>
+              </td>
+              <td class="col-3">
+                <%= link_to user_path(user) do %>
+                  <%= user.username %>
+                <% end %>
+              </td>
+              <td class="col-5">
+                <%= user.profile %>
+              </td>
+              <td class="col-3">
+                <% if user != current_user %>
+                  <% if user.is_followed_by?(current_user)%>
+                    <%= link_to user_relationships_path(user), method: :delete do %>
+                      <button class="btn btn-danger">フォロー解除</button>
+                    <% end %>
+                  <% else %>
+                    <%= link_to user_relationships_path(user), method: :post do %>
+                      <button class="btn btn-primary">フォロー</button>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          <%= paginate @users %>
+      </table>
+    </div>
+  </div>
 </div>
