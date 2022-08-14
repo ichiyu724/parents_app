@@ -36,10 +36,14 @@ table td {
 }
 
 .container-fluid {
-  margin-top: 20px;
+  padding-top: 20px;
   margin-right: auto;
   margin-left: auto;
   background-color: #fdfdd8;
+}
+
+footer .container-fluid {
+  border-top: 3px solid white;
 }
 
 @media screen and (max-width: 768px) {
