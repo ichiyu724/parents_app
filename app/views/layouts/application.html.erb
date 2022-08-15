@@ -17,19 +17,20 @@
   </head>
 
   <body>
-    <header>
-      <%= render "shared/header" %>
-    </header>
-    <% if flash[:notice] %>
-      <p class="notice"><%= flash[:notice] %></p>
-    <% end %>
-    <% if flash[:alert] %>
-      <p class="alert"><%= flash.now[:alert] %></p>
-    <% end %>
-    <%= yield %>
-    <footer>
-      <%= render "shared/footer" %>
-    </footer>
-
+    <div class="body">
+      <header>
+        <%= render "shared/header" %>
+      </header>
+      <% if flash[:notice] %>
+        <p class="notice"><%= flash[:notice] %></p>
+      <% end %>
+      <% if flash[:alert] %>
+        <p class="alert"><%= flash.now[:alert] %></p>
+      <% end %>
+      <%= yield %>
+      <footer>
+        <%= render "shared/footer" %>
+      </footer>
+    </div>
   </body>
 </html>
