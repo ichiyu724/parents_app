@@ -1,18 +1,18 @@
 <div class="container">
   <h2 class="d-flex align-items-center justify-content-center">パスワードをお忘れですか？</h2>
   <div class="d-flex align-items-center justify-content-center">
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div  class="reset-form form-group">
-    <%= f.label :email, for: "email" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "email" %>
-  </div>
+      <div  class="reset-form form-group">
+        <%= f.label :email, for: "email" %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", id: "email" %>
+      </div>
 
-  <div class="d-flex align-items-center justify-content-center">
-    <%= f.submit "パスワード再設定メールを送る", class: "btn btn-primary reset-password-btn" %>
+      <div class="d-flex align-items-center justify-content-center">
+        <%= f.submit "パスワード再設定メールを送る", class: "btn btn-primary reset-password-btn" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
-</div>
-<%= render "devise/shared/links" %>
+  <%= render "devise/shared/links" %>
 </div>
