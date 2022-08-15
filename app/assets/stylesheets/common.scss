@@ -1,3 +1,7 @@
+.body {
+  background-color: #fdfdd8;
+}
+
 li {
   list-style: none;
 }
@@ -32,10 +36,8 @@ table td {
 }
 
 .container-fluid {
-  padding-top: 20px;
   margin-right: auto;
   margin-left: auto;
-  //background-color: #fdfdd8;
 }
 
 header .container-fluid {
@@ -45,6 +47,10 @@ header .container-fluid {
 footer .container-fluid {
   padding-top: 0px;
   border-top: 3px solid white;
+}
+
+.container {
+  padding-top: 20px;
 }
 
 @media screen and (max-width: 768px) {
