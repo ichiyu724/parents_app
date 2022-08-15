@@ -2,10 +2,6 @@ li {
   list-style: none;
 }
 
-header {
-  background-color: white;
-}
-
 a {
   text-decoration: none !important;
   letter-spacing: 1px;
@@ -44,6 +40,7 @@ table td {
 
 header .container-fluid {
   padding: 10px;
+  background-color: #fdd949;
 }
 
 footer .container-fluid {
