@@ -63,6 +63,12 @@ RSpec.describe User, type: :model do
         user.valid?
         expect(user.errors.full_messages).to include("確認用パスワードとパスワードの入力が一致しません")
       end
+
+      it "passwordとpassword_confirmationが一致していないと登録できない" do
+        user.password_confirmation = "pass"
+        user.valid?
+        expect(user.errors.full_messages).to include("確認用パスワードとパスワードの入力が一致しません")
+      end
     end
   end
   
