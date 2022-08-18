@@ -4,8 +4,19 @@ RSpec.describe User, type: :model do
   let!(:user) { create(:user) }
 
   describe "ログイン" do
-    it "emailとパスワードのバリデーションが設定できていること" do
-    expect(user.valid?).to eq(true)
+    context "ログインできるとき" do
+      it "emailとパスワードのバリデーションが設定できていること" do
+        expect(user.valid?).to eq(true)
+      end
     end
+
+    context "ログインできないとき" do
+      it "emailが空欄だとログインできない" do
+        user.email = ""
+        user.valid?
+        expect(user.errors.full_messages).to include("メールアドレスを入力してください")
+      end
+    end
+
   end
 end
