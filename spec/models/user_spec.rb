@@ -16,6 +16,12 @@ RSpec.describe User, type: :model do
         user.valid?
         expect(user.errors.full_messages).to include("メールアドレスを入力してください")
       end
+
+      it "passwordが空欄だとログインできない" do
+        user.password = ""
+        user.valid?
+        expect(user.errors.full_messages).to include("パスワードを入力してください")
+      end
     end
 
   end
