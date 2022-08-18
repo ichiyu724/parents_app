@@ -23,6 +23,16 @@ RSpec.describe User, type: :model do
         expect(user.errors.full_messages).to include("パスワードを入力してください")
       end
     end
-
   end
+
+  describe "ユーザー新規登録" do
+    context "新規登録が成功するとき" do
+      it "必要事項が全て入力できている" do
+        expect(user).to be_valid
+      end
+    end
+
+    
+  end
+  
 end
