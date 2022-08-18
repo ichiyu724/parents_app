@@ -32,7 +32,13 @@ RSpec.describe User, type: :model do
       end
     end
 
-    
+    context "新規登録が失敗するとき" do
+      it "usernameが空欄だとログインできない" do
+        user.username = ""
+        user.valid?
+        expect(user.errors.full_messages).to include("ユーザー名は必須です")
+      end
+    end
   end
   
 end
