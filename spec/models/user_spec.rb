@@ -38,6 +38,12 @@ RSpec.describe User, type: :model do
         user.valid?
         expect(user.errors.full_messages).to include("ユーザー名は必須です")
       end
+
+      it "emailが空欄だと登録できない" do
+        user.email = ""
+        user.valid?
+        expect(user.errors.full_messages).to include("メールアドレスを入力してください")
+      end
     end
   end
   
