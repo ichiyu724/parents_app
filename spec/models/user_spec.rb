@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let!(:user) { create(:user) }
+  let(:user) { create(:user) }
 
   describe "ログイン" do
     context "ログインできるとき" do
@@ -65,11 +65,16 @@ RSpec.describe User, type: :model do
       end
 
       it "passwordとpassword_confirmationが一致していないと登録できない" do
-        user.password_confirmation = "pass"
+        user.password_confirmation = "passwo"
         user.valid?
         expect(user.errors.full_messages).to include("確認用パスワードとパスワードの入力が一致しません")
       end
     end
+
+    context "passwordの暗号化" do
+      it 'パスワードが暗号化されていること' do
+        expect(user.encrypted_password).to_not eq 'password'
+      end
+    end
   end
-  
 end
