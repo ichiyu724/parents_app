@@ -1,5 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let!(:user) { create(:user) }
+
+  describe "ログイン" do
+    it "emailとパスワードのバリデーションが設定できていること" do
+    expect(user.valid?).to eq(true)
+    end
+  end
 end
