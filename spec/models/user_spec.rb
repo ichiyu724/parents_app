@@ -80,7 +80,7 @@ RSpec.describe User, type: :model do
 
   describe 'フォロー、フォロー解除の検証' do
     context "ユーザーが他のユーザーをフォローしている時" do
-      it 'フォロー解除できること' do
+      it 'フォロー解除ボタンを押し、フォロー解除できること' do
         user1 = FactoryBot.create(:user)
         user2 = FactoryBot.create(:user)
         user1.is_followed_by?(user2)
@@ -89,7 +89,7 @@ RSpec.describe User, type: :model do
     end
 
     context "ユーザーが他のユーザーをフォローしていない時" do
-      it "フォローできること" do
+      it "フォローボタンを押し、フォローできること" do
         user1 = FactoryBot.create(:user)
         user2 = FactoryBot.create(:user)
         user1.is_followed_by?(user2) == false
