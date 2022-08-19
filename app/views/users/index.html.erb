@@ -4,7 +4,7 @@
     <div class="scroll-list jscroll col mx-auto">
       <table class="table table-borderless">
         <% @users.each do |user|%>
-           <tr>
+          <tr>
             <td class="col-1">
               <% if user.icon_image.blank?%>
                 <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
