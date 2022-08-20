@@ -79,22 +79,13 @@ RSpec.describe User, type: :model do
   end
 
   describe 'フォロー、フォロー解除の検証' do
-    context "ユーザーが他のユーザーをフォローしている時" do
-      it 'フォロー解除ボタンを押し、フォロー解除できること' do
-        user1 = FactoryBot.create(:user)
-        user2 = FactoryBot.create(:user)
-        user1.is_followed_by?(user2)
-        expect(user1.followings).to be_truthy
-      end
-    end
-
-    context "ユーザーが他のユーザーをフォローしていない時" do
-      it "フォローボタンを押し、フォローできること" do
-        user1 = FactoryBot.create(:user)
-        user2 = FactoryBot.create(:user)
-        user1.is_followed_by?(user2) == false
-        expect(user1.followings).to be_truthy
-      end
+    it 'ユーザーが他のユーザーをフォロー、フォロー解除できること' do
+      user1 = FactoryBot.create(:user)
+      user2 = FactoryBot.create(:user)
+      user1.follow(user2.id)
+      expect(user2.is_followed_by?(user1)).to eq true
+      user1.unfollow(user2.id)
+      expect(user2.is_followed_by?(user1)).to eq false
     end
   end
 end
