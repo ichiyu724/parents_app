@@ -5,7 +5,7 @@ RSpec.describe Relationship, type: :model do
 
   describe 'フォロー、フォロー解除の検証' do
 
-    context "following_idとfolower_idがともに保存できる場合" do
+    context "following_idとfollower_idがともに保存できる場合" do
       it "全てのパラメーターが揃っていれば保存できる" do
         expect(relationship).to be_valid
       end
@@ -35,6 +35,12 @@ RSpec.describe Relationship, type: :model do
         relation2.valid?
         expect(relation2.errors[:following_id]).to include("はすでに存在します")
       end
+
+      it "following_idが同じでもfollower_idが違うなら保存できる" do
+        relation2 = FactoryBot.build(:relationship, following_id: @relation.following_id, follower_id: @user1.follower_id)
+        expect(relation2).to be_valid
+      end
+
     end
   end
 end
