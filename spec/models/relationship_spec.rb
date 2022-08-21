@@ -24,5 +24,17 @@ RSpec.describe Relationship, type: :model do
         expect(relationship.errors[:follower_id]).to include("を入力してください")
       end
     end
+
+    context "一意性の検証" do
+      before do
+        @relation = FactoryBot.create(:relationship)
+        @user1 = FactoryBot.build(:relationship)
+      end
+      it "following_idとfollower_idの組み合わせは一意でなければ保存できない" do
+        relation2 = FactoryBot.build(:relationship, following_id: @relation.following_id, follower_id: @relation.follower_id)
+        relation2.valid?
+        expect(relation2.errors[:following_id]).to include("はすでに存在します")
+      end
+    end
   end
 end
