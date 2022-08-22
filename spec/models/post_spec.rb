@@ -21,6 +21,12 @@ RSpec.describe Post, type: :model do
         post.valid?
         expect(post.errors.full_messages).to include("タイトルは必須です")
       end
+
+      it "相談内容が空欄だと投稿できない" do
+        post.content = ""
+        post.valid?
+        expect(post.errors.full_messages).to include("相談内容は必須です")
+      end
     end
   end
 end
