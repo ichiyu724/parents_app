@@ -10,7 +10,7 @@ RSpec.describe Post, type: :model do
 
   describe "新規投稿" do
     context "投稿成功" do
-      it "新規投稿のバリデーションが設定できていること" do
+      it "投稿タイトルと相談内容のバリデーションが設定できていること" do
         expect(post.valid?).to eq(true)
       end
     end
@@ -26,6 +26,20 @@ RSpec.describe Post, type: :model do
         post.content = ""
         post.valid?
         expect(post.errors.full_messages).to include("相談内容は必須です")
+      end
+    end
+  end
+
+  describe "各モデルとのアソシエーション" do
+    let(:association) do
+      described_class.reflect_on_association(target)
+    end
+    let(:post) { FactoryBot.create(:post) }
+
+    context "Favoriteモデルとのアソシエーション" do
+      let(:target) { :favorites }
+      it "Favoriteとの関連付けはhas_manyであること" do
+        expect(association.macro).to eq :has_many
       end
     end
   end
