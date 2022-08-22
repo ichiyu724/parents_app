@@ -8,7 +8,19 @@ RSpec.describe Post, type: :model do
     post.child_sex = gender_select.sample
   end
 
-    it "新規投稿のバリデーションが設定できていること" do
-      expect(post.valid?).to eq(true)
+  describe "新規投稿" do
+    context "投稿成功" do
+      it "新規投稿のバリデーションが設定できていること" do
+        expect(post.valid?).to eq(true)
+      end
     end
+
+    context "投稿失敗" do
+      it "投稿タイトルが空欄だと投稿できない" do
+        post.title = ""
+        post.valid?
+        expect(post.errors.full_messages).to include("タイトルは必須です")
+      end
+    end
+  end
 end
