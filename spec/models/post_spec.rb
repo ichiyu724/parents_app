@@ -49,6 +49,13 @@ RSpec.describe Post, type: :model do
       end
     end
 
-    
+    context "Commentモデルとのアソシエーション" do
+      let(:target) { :comments }
+      it "Commentとの関連付けはhas_manyであること" do
+        expect(association.macro).to eq :has_many
+      end
+
+      
+    end
   end
 end
