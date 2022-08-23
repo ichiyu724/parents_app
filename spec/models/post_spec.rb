@@ -55,7 +55,10 @@ RSpec.describe Post, type: :model do
         expect(association.macro).to eq :has_many
       end
 
-      
+      it "Postが削除されたらCommentも削除されること" do
+        comment = FactoryBot.create(:comment, post_id: post.id, user_id: user.id)
+        expect { post.destroy }.to change(Comment, :count).by(-1)
+      end
     end
   end
 end
