@@ -17,6 +17,11 @@ RSpec.describe Favorite, type: :model do
         expect(@favorite).to be_invalid
       end
 
+      it "post_idがなければ無効な状態であること" do
+        @favorite.post_id = nil
+        expect(@favorite).to be_invalid
+      end
+
     end
   end
 end
