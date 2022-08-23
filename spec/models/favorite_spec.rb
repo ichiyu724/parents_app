@@ -22,6 +22,11 @@ RSpec.describe Favorite, type: :model do
         expect(@favorite).to be_invalid
       end
 
+      it "post_idが同じでもuser_idが違うと保存できる" do
+        favorite = FactoryBot.create(:favorite, user_id: @user.id)
+        user2 = FactoryBot.create(:user)
+        expect(FactoryBot.create(:favorite, post_id: favorite.post_id, user_id: user2.id)).to be_valid
+      end
     end
   end
 end
