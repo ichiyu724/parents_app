@@ -12,6 +12,11 @@ RSpec.describe Favorite, type: :model do
         expect(FactoryBot.create(:favorite, user_id: @user.id)).to be_valid
       end
 
+      it "user_idがなければ無効な状態であること" do
+        @favorite.user_id = nil
+        expect(@favorite).to be_invalid
+      end
+
     end
   end
 end
