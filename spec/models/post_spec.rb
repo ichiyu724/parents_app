@@ -35,12 +35,20 @@ RSpec.describe Post, type: :model do
       described_class.reflect_on_association(target)
     end
     let(:post) { FactoryBot.create(:post) }
+    let(:user) { FactoryBot.create(:user) }
 
     context "Favoriteモデルとのアソシエーション" do
       let(:target) { :favorites }
       it "Favoriteとの関連付けはhas_manyであること" do
         expect(association.macro).to eq :has_many
       end
+
+      it "Postが削除されたらFavoriteも削除されること" do
+        favorite = FactoryBot.create(:favorite, post_id: post.id, user_id: user.id)
+        expect { post.destroy }.to change(Favorite, :count).by(-1)
+      end
     end
+
+    
   end
 end
