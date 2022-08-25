@@ -17,5 +17,10 @@ RSpec.describe "Users", type: :request do
       expect(response.body).to include("ユーザー一覧")
     end
 
+    it "ユーザー一覧にログイン中のuserが含まれていないこと" do
+      expect(response).not_to include user.id.to_s
+    end
   end
+
+  
 end
