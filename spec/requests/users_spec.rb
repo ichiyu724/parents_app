@@ -22,5 +22,14 @@ RSpec.describe "Users", type: :request do
     end
   end
 
-  
+  describe "GET #show" do
+    before do
+      sign_in user
+      get user_path(user)
+    end
+
+    it "マイページが表示できること" do
+      expect(response).to have_http_status(200)
+    end
+  end
 end
