@@ -104,4 +104,19 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
+
+  describe "#update" do
+    context "ログイン中のユーザー" do
+      before do
+        sign_in user
+        get edit_user_path(user)
+      end
+
+      it 'ユーザー名が更新されること' do
+        user.update(username: "hogehoge", profile: "hello")
+        expect(user.reload.username).to eq "hogehoge"
+        expect(user.reload.profile).to eq "hello"
+      end
+    end
+  end
 end
