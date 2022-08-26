@@ -129,6 +129,17 @@ RSpec.describe "Users", type: :request do
       end
     end
 
-    
+    context 'パラメータが不正な場合' do
+      before do
+        sign_in takashi
+      end
+      it 'ユーザー名が空欄であれば更新されないこと' do
+        expect do
+          put user_path(takashi), params: { user: FactoryBot.attributes_for(:user, username: "") }
+        end.to_not change(User.find(takashi.id), :username)
+        expect(response.body).to include 'ユーザー名は必須です'
+      end
+    end
+
   end
 end
