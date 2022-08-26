@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
-  let!(:user) { create(:user) }
-  let!(:post) { create(:post, user_id: user.id) }
+  let(:user) { create(:user) }
+  let(:other_user) { create(:user) }
+  let(:post) { create(:post, user_id: user.id) }
   
   describe "GET #index" do
     before do 
@@ -25,19 +26,33 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "GET #show" do
-    before do
-      sign_in user
-      get user_path(user)
+    context "ログイン中のユーザー" do
+      it "マイページが表示できること" do
+        sign_in user
+        get user_path(user)
+        expect(response).to have_http_status(200)
+      end
+
+      it "プロフィールの見出し名が表示できること" do
+        sign_in user
+        get user_path(user)
+        expect(response.body).to include "プロフィール"
+        expect(response.body).to include "#{user.username}さんの投稿"
+        expect(response.body).to include "お気に入りした投稿"
+      end
     end
 
-    it "マイページが表示できること" do
-      expect(response).to have_http_status(200)
-    end
+    context "ログインユーザーでないユーザー" do
+      it "マイページにアクセスできないこと" do
+        get user_path(user)
+        expect(response).to have_http_status(302)
+      end
 
-    it "プロフィールの見出し名が表示できること" do
-      expect(response.body). to include "プロフィール"
-      expect(response.body). to include "#{user.username}さんの投稿"
-      expect(response.body). to include "お気に入りした投稿"
+      it "ログイン画面にリダイレクトされること" do
+        get user_path(user)
+        expect(response).to redirect_to "/users/sign_in"
+      end
+
     end
   end
 end
