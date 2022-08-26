@@ -173,4 +173,22 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
+
+  describe "favorites" do
+    let(:favorite_list) {FactoryBot.create(:post, user_id: user.id)}
+
+    context "ログイン中のユーザー" do
+      before do
+        sign_in user
+        get favorites_user_path(user)
+      end
+      it "ユーザーのお気に入り一覧が表示できること" do
+        expect(response).to have_http_status(200)
+      end
+
+      it "見出し名が表示できること" do
+        expect(response.body).to include "お気に入りした投稿"
+      end
+    end
+  end
 end
