@@ -205,4 +205,34 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
+
+  describe "followings, followers" do
+    let(:following) { FactoryBot.create(:user) }
+    let(:follower) { FactoryBot.create(:user) }
+
+    context "ログイン中のユーザー" do
+      before do
+        sign_in user
+      end
+      it "ユーザーのフォロー中のユーザー一覧が表示できること" do
+        get followings_user_path(user)
+        expect(response).to have_http_status(200)
+      end
+
+      it "フォロー中という見出し名が表示できること" do
+        get followings_user_path(user)
+        expect(response.body).to include "フォロー中"
+      end
+
+      it "ユーザーをフォローしているユーザー一覧が表示できること" do
+        get followers_user_path(user)
+        expect(response).to have_http_status(200)
+      end
+
+      it "フォロワーという見出し名が表示できること" do
+        get followers_user_path(user)
+        expect(response.body).to include "フォロワー"
+      end
+    end
+  end
 end
