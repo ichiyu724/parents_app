@@ -18,7 +18,9 @@ RSpec.describe "Users", type: :request do
     end
 
     it "ユーザー一覧にログイン中のuserが含まれていないこと" do
-      expect(response).not_to include user.id.to_s
+      user1 = FactoryBot.create(:user)
+      sign_in(user1)
+      expect(response).not_to include user1.id.to_s
     end
   end
 
@@ -30,6 +32,12 @@ RSpec.describe "Users", type: :request do
 
     it "マイページが表示できること" do
       expect(response).to have_http_status(200)
+    end
+
+    it "プロフィールの見出し名が表示できること" do
+      expect(response.body). to include "プロフィール"
+      expect(response.body). to include "#{user.username}さんの投稿"
+      expect(response.body). to include "お気に入りした投稿"
     end
   end
 end
