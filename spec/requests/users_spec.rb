@@ -106,17 +106,29 @@ RSpec.describe "Users", type: :request do
   end
 
   describe "#update" do
-    context "ログイン中のユーザー" do
+    let(:takashi) { FactoryBot.create :takashi }
+    
+    context "パラメータが妥当な場合" do
       before do
-        sign_in user
-        get edit_user_path(user)
+        sign_in takashi
+      end
+      it 'ユーザー名が更新されること' do
+        expect do
+          put user_path(takashi), params: { user: FactoryBot.attributes_for(:satoshi) }
+        end.to change { User.find(takashi.id).username }.from('Takashi').to('Satoshi')
       end
 
-      it 'ユーザー名が更新されること' do
-        user.update(username: "hogehoge", profile: "hello")
-        expect(user.reload.username).to eq "hogehoge"
-        expect(user.reload.profile).to eq "hello"
+      it 'リクエストが成功すること' do
+        put user_path(takashi), params: { user: FactoryBot.attributes_for(:satoshi) }
+        expect(response.status).to eq 302
+      end
+
+      it '更新後リダイレクトすること' do
+        put user_path(takashi), params: { user: FactoryBot.attributes_for(:satoshi) }
+        expect(response).to redirect_to "/users/#{takashi.id}"
       end
     end
+
+    
   end
 end
