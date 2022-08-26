@@ -89,5 +89,19 @@ RSpec.describe "Users", type: :request do
         expect(response.body).to include("プロフィール編集")
       end
     end
+
+    context "ログインユーザーでないユーザー" do
+      before do
+        get edit_user_path(user)
+      end
+      
+      it "マイページにアクセスできないこと" do
+        expect(response).to have_http_status(302)
+      end
+
+      it "ログイン画面にリダイレクトされること" do
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
   end
 end
