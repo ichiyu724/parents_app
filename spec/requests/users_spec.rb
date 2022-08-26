@@ -245,6 +245,16 @@ RSpec.describe "Users", type: :request do
         get followings_user_path(user)
         expect(response).to redirect_to "/users/sign_in"
       end
+
+      it "ユーザーをフォローしているユーザー一覧にアクセスできないこと" do
+        get followers_user_path(user)
+        expect(response).to have_http_status(302)
+      end
+
+      it "ログイン画面にリダイレクトされること" do
+        get followers_user_path(user)
+        expect(response).to redirect_to "/users/sign_in"
+      end
     end
   end
 end
