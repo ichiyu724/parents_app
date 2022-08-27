@@ -228,6 +228,11 @@ RSpec.describe "Posts", type: :request do
           delete post_path(article1)
         end.to change(user.posts, :count).by(-1)
       end
+
+      it 'リクエストが成功すること' do
+        delete post_path(article1)
+        expect(response.status).to eq 302
+      end
     end
   end
 end
