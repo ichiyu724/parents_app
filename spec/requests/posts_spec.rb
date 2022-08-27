@@ -68,12 +68,18 @@ RSpec.describe "Posts", type: :request do
 
   describe "#create" do
     context "ログイン中のユーザー" do
-      it "投稿が正常に完了するか" do
+      before do
         sign_in user
+      end
+      it "投稿が正常に完了するか" do
         expect do
           post posts_path, params: { post: FactoryBot.attributes_for(:post) }
         end.to change(user.posts, :count).by(1)
-        
+      end
+
+      it "投稿成功後、リダイレクトするか" do
+        post posts_path, params: { post: FactoryBot.attributes_for(:post) }
+        expect(response).to redirect_to "/posts"
       end
     end
   end
