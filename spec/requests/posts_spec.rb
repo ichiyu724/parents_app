@@ -91,12 +91,14 @@ RSpec.describe "Posts", type: :request do
         expect do
           post posts_path, params: { post: FactoryBot.attributes_for(:post, title: "") }
         end.not_to change(user.posts, :count)
+        expect(response.body).to include 'タイトルは必須です'
       end
 
       it "相談内容が空欄であれば登録されないこと" do
         expect do
           post posts_path, params: { post: FactoryBot.attributes_for(:post, content: "") }
         end.not_to change(user.posts, :count)
+        expect(response.body).to include '相談内容は必須です'
       end
     end
   end
