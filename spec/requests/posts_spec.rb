@@ -194,5 +194,38 @@ RSpec.describe "Posts", type: :request do
         expect(response).to redirect_to "/posts/#{fever.id}"
       end
     end
+
+    context 'パラメータが不正な場合' do
+      before do
+        sign_in user
+      end
+      it '投稿タイトルが空欄であれば更新されないこと' do
+        expect do
+          put post_path(fever), params: { post: FactoryBot.attributes_for(:cough, title:"") }
+        end.to_not change(Post.find(fever.id), :title)
+        expect(response.body).to include 'タイトルは必須です'
+      end
+
+      it '相談内容が空欄であれば更新されないこと' do
+        expect do
+          put post_path(fever), params: { post: FactoryBot.attributes_for(:cough, content:"") }
+        end.to_not change(Post.find(fever.id), :content)
+        expect(response.body).to include '相談内容は必須です'
+      end
+    end
+  end
+
+  describe "#destroy" do
+    context "ログイン中のユーザー" do
+      before do 
+        sign_in user
+      end
+
+      it "正常に投稿を削除できるか" do
+        expect do
+          delete :destroy, params: { id: user }
+        end.to change(User, :count).by(-1)
+      end
+    end
   end
 end
