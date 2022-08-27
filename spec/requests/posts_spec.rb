@@ -217,14 +217,16 @@ RSpec.describe "Posts", type: :request do
 
   describe "#destroy" do
     context "ログイン中のユーザー" do
+      let!(:article1) { FactoryBot.create :post, user_id: user.id }
+      
       before do 
         sign_in user
       end
 
       it "正常に投稿を削除できるか" do
         expect do
-          delete :destroy, params: { id: user }
-        end.to change(User, :count).by(-1)
+          delete post_path(article1)
+        end.to change(user.posts, :count).by(-1)
       end
     end
   end
