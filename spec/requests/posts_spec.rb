@@ -233,6 +233,11 @@ RSpec.describe "Posts", type: :request do
         delete post_path(article1)
         expect(response.status).to eq 302
       end
+
+      it "投稿一覧にリダイレクトすること" do
+        delete post_path(article1)
+        expect(response).to redirect_to "/posts"
+      end
     end
   end
 end
