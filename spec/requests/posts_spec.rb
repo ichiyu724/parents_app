@@ -189,7 +189,10 @@ RSpec.describe "Posts", type: :request do
         expect(response.status).to eq 302
       end
 
-      
+      it '更新後リダイレクトすること' do
+        put post_path(fever), params: { post: FactoryBot.attributes_for(:cough) }
+        expect(response).to redirect_to "/posts/#{fever.id}"
+      end
     end
   end
 end
