@@ -178,8 +178,13 @@ RSpec.describe "Posts", type: :request do
         end.to change { Post.find(fever.id).title }.from('Fever').to('Cough')
       end
 
-      
+      it '相談内容が更新されること' do
+        expect do
+          put post_path(fever), params: { post: FactoryBot.attributes_for(:cough) }
+        end.to change { Post.find(fever.id).content }.from('熱が下がらない').to('今度は咳が止まらない')
+      end
 
+      
     end
   end
 end
