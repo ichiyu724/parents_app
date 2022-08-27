@@ -150,6 +150,36 @@ RSpec.describe "Posts", type: :request do
       end
     end
 
+    context "ログインユーザーでないユーザー" do
+      before do
+        get edit_post_path(article)
+      end
+
+      it "投稿編集ページにアクセスできないこと" do
+        expect(response).to have_http_status(302)
+      end
+
+      it "ログイン画面にリダイレクトされること" do
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
+  end
+
+  describe "#update" do
+    let(:fever) { FactoryBot.create :fever, user_id: user.id }
     
+    context "パラメータが妥当な場合" do
+      before do
+        sign_in user
+      end
+      it '投稿タイトルが更新されること' do
+        expect do
+          put post_path(fever), params: { post: FactoryBot.attributes_for(:cough) }
+        end.to change { Post.find(fever.id).title }.from('Fever').to('Cough')
+      end
+
+      
+
+    end
   end
 end
