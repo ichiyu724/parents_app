@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Posts", type: :request do
   let(:user) { create(:user) }
-  let(:post) { create(:post, user_id: user.id) }
+  let(:posts) { create(:post, user_id: user.id) }
   
   describe "#index" do
     context "ログイン中のユーザー" do
@@ -62,6 +62,18 @@ RSpec.describe "Posts", type: :request do
 
       it "ログイン画面にリダイレクトされること" do
         expect(response).to redirect_to "/users/sign_in"
+      end
+    end
+  end
+
+  describe "#create" do
+    context "ログイン中のユーザー" do
+      it "投稿が正常に完了するか" do
+        sign_in user
+        expect do
+          post posts_path, params: { post: FactoryBot.attributes_for(:post) }
+        end.to change(user.posts, :count).by(1)
+        
       end
     end
   end
