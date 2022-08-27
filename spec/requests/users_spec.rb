@@ -27,7 +27,7 @@ RSpec.describe "Users", type: :request do
       end
     end
 
-    context do
+    context "ログインユーザーでないユーザー" do
       before do
         get users_path
       end
