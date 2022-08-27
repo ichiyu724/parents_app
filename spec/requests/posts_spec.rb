@@ -124,7 +124,7 @@ RSpec.describe "Posts", type: :request do
         get post_path(article)
       end
 
-      it "マイページにアクセスできないこと" do
+      it "投稿詳細ページにアクセスできないこと" do
         expect(response).to have_http_status(302)
       end
 
@@ -132,5 +132,24 @@ RSpec.describe "Posts", type: :request do
         expect(response).to redirect_to "/users/sign_in"
       end
     end
+  end
+
+  describe "#edit" do
+    context "ログイン中のユーザー" do
+      before do 
+        sign_in user
+        get edit_post_path(article)
+      end
+    
+      it "投稿編集画面が表示できること" do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'タイトルが正しく表示されていること' do
+        expect(response.body).to include("相談を編集する")
+      end
+    end
+
+    
   end
 end
