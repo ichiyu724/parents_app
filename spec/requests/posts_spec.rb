@@ -184,6 +184,11 @@ RSpec.describe "Posts", type: :request do
         end.to change { Post.find(fever.id).content }.from('熱が下がらない').to('今度は咳が止まらない')
       end
 
+      it 'リクエストが成功すること' do
+        put post_path(fever), params: { post: FactoryBot.attributes_for(:cough) }
+        expect(response.status).to eq 302
+      end
+
       
     end
   end
