@@ -67,7 +67,7 @@ RSpec.describe "Posts", type: :request do
   end
 
   describe "#create" do
-    context "ログイン中のユーザー" do
+    context "パラメータが正常な場合" do
       before do
         sign_in user
       end
@@ -80,6 +80,23 @@ RSpec.describe "Posts", type: :request do
       it "投稿成功後、リダイレクトするか" do
         post posts_path, params: { post: FactoryBot.attributes_for(:post) }
         expect(response).to redirect_to "/posts"
+      end
+    end
+
+    context "パラメータが不正な場合" do
+      before do
+        sign_in user
+      end
+      it "投稿タイトルが空欄であれば登録されないこと" do
+        expect do
+          post posts_path, params: { post: FactoryBot.attributes_for(:post, title: "") }
+        end.not_to change(user.posts, :count)
+      end
+
+      it "相談内容が空欄であれば登録されないこと" do
+        expect do
+          post posts_path, params: { post: FactoryBot.attributes_for(:post, content: "") }
+        end.not_to change(user.posts, :count)
       end
     end
   end
