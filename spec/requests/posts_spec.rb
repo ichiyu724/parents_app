@@ -34,4 +34,23 @@ RSpec.describe "Posts", type: :request do
       end
     end
   end
+
+  describe "#new" do
+    context "ログイン中のユーザー" do
+      before do 
+        sign_in user
+        get new_post_path
+      end
+    
+      it "新規投稿画面が表示できること" do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'タイトルが正しく表示されていること' do
+        expect(response.body).to include("相談を投稿する")
+      end
+    end
+
+    
+  end
 end
