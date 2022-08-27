@@ -119,6 +119,18 @@ RSpec.describe "Posts", type: :request do
       end
     end
 
-    
+    context "ログインユーザーでないユーザー" do
+      before do
+        get post_path(article)
+      end
+
+      it "マイページにアクセスできないこと" do
+        expect(response).to have_http_status(302)
+      end
+
+      it "ログイン画面にリダイレクトされること" do
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
   end
 end
