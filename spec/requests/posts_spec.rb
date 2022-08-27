@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Posts", type: :request do
   let(:user) { create(:user) }
-  let(:posts) { create(:post, user_id: user.id) }
+  let(:article) { create(:post, user_id: user.id) }
   
   describe "#index" do
     context "ログイン中のユーザー" do
@@ -101,5 +101,24 @@ RSpec.describe "Posts", type: :request do
         expect(response.body).to include '相談内容は必須です'
       end
     end
+  end
+
+  describe "#show" do
+    context "ログイン中のユーザー" do
+      before do 
+        sign_in user
+        get post_path(article)
+      end
+    
+      it "投稿詳細画面が表示できること" do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'タイトルが正しく表示されていること' do
+        expect(response.body).to include("投稿詳細")
+      end
+    end
+
+    
   end
 end
