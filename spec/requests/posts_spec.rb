@@ -264,8 +264,20 @@ RSpec.describe "Posts", type: :request do
         #get search_posts_path, params: {q: {title_cont: 'test2'}}
         expect(controller.instance_variable_get("@search_posts")).to eq [post2]
       end
-
     end
-    
+
+    context "ログインしていないとき" do
+      before do
+        get search_posts_path
+      end
+
+      it "検索機能が使えないこと" do
+        expect(response).to have_http_status(302)
+      end
+
+      it "ログイン画面にリダイレクトされること" do
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
   end
 end
