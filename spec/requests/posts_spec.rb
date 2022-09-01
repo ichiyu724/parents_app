@@ -248,21 +248,23 @@ RSpec.describe "Posts", type: :request do
     context "ログイン中のユーザー" do
       before do 
         sign_in user
-        get search_posts_path, params: {q: {title_cont: 'test2'}}
       end
-    
+      
       it "検索したらリダイレクトが成功すること" do
+        get search_posts_path, params: {q: {title_cont: 'test2'}}
         expect(response).to have_http_status(200)
       end
 
       it "正常に検索結果が得られること" do
-        #@params = {}
-        #@params[:q] = { title_or_content_cont: 'test1' }
-        #@q = Post.ransack(@params)
-        #@posts = @q.result
-        #binding.pry
-        #get search_posts_path, params: {q: {title_cont: 'test2'}}
-        expect(controller.instance_variable_get("@search_posts")).to eq [post2]
+        post = Post.create!(title: 'test3', content: 'content1')
+        search = Post.ransack(title_cont: 'test3')
+        expect(search.result.to_a).to eq [post]
+
+        search2 = Post.ransack(content_cont: 'content1')
+        expect(search2.result.to_a).to eq [post]
+
+        search3 = Post.ransack(content_cont: 'content2')
+        expect(search3.result.to_a).to eq []
       end
     end
 
