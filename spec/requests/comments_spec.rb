@@ -21,4 +21,16 @@ RSpec.describe "Comments", type: :request do
       end
     end
   end
+
+  describe "#destroy" do
+    context "コメントを削除" do
+      before do
+        sign_in user
+        delete "/posts/#{comment.post_id}/comments/#{comment.id}"
+      end
+      it "正常にコメントを削除できること" do
+        expect(post1.comments).not_to include comment
+      end
+    end
+  end
 end
