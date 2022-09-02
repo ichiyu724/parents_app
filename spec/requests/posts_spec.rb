@@ -256,7 +256,7 @@ RSpec.describe "Posts", type: :request do
       end
 
       it "正常に検索結果が得られること" do
-        post = Post.create!(title: 'test3', content: 'content1')
+        post = Post.create(title: 'test3', content: 'content1')
         search = Post.ransack(title_cont: 'test3')
         expect(search.result.to_a).to eq [post]
 
