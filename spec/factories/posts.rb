@@ -8,4 +8,14 @@ FactoryBot.define do
     association :user
     child_sex { ["未選択", "男の子", "女の子"].sample }
   end
+
+  factory :fever, class: Post do
+    title { "Fever" }
+    content { "熱が下がらない" }
+  end
+
+  factory :cough, class: Post do
+    title { "Cough" }
+    content { "今度は咳が止まらない" }
+  end
 end
