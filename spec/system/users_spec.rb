@@ -39,3 +39,22 @@ RSpec.describe "ユーザー新規登録", type: :system do
     end
   end
 end
+
+RSpec.describe "ログイン", type: :system do
+  let!(:user) { create(:user) }
+  describe "ログインページ" do
+    context "ログインできる時" do
+      before do
+        visit new_user_session_path
+      end
+
+      scenario "保存されているユーザー情報と合致すればログインできる" do
+        fill_in 'user[email]', with: user.email
+        fill_in 'user[password]', with: user.password
+        click_button "ログイン"
+        expect(current_path).to eq user_path(user)
+
+      end
+    end
+  end
+end
