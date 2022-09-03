@@ -20,5 +20,22 @@ RSpec.describe "ユーザー新規登録", type: :system do
         expect(page).to have_content 'アカウント登録が完了しました'
       end
     end
+
+    context "ユーザー新規登録ができないとき" do
+      before do
+        visit new_user_registration_path
+      end
+
+      scenario "誤った情報ではユーザー新規登録ができずに新規登録ページへ戻ってくる" do
+        fill_in 'user[username]', with: ""
+        fill_in 'user[email]', with: ""
+        fill_in 'user[password]', with: ""
+        fill_in 'user[password_confirmation]', with: ""
+        expect{
+          click_button '新規登録'
+        }.to change { User.count }.by(0)
+        expect(current_path).to eq('/users')
+      end
+    end
   end
 end
