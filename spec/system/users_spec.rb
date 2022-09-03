@@ -53,8 +53,21 @@ RSpec.describe "ログイン", type: :system do
         fill_in 'user[password]', with: user.password
         click_button "ログイン"
         expect(current_path).to eq user_path(user)
-
       end
+    end
+
+
+    context "ログインできない時" do
+      before do
+        visit new_user_session_path
+      end
+      scenario "保存されているユーザー情報と合致しないとログインできない" do
+        fill_in 'user[email]', with: ""
+        fill_in 'user[password]', with: ""
+        click_button "ログイン"
+        expect(current_path).to eq new_user_session_path
+      end
+
     end
   end
 end
