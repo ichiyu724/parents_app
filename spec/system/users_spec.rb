@@ -110,6 +110,12 @@ RSpec.describe "ユーザーページ", type: :system do
       expect(page).to have_content post1.content
       expect(page).to have_selector("img[src$='test.jpg']")
     end
+
+    scenario "「もっと見る」をクリックするとユーザーの投稿一覧ページに遷移すること" do
+      visit user_path(user)
+      find(".user-posts-link").click
+      expect(current_path).to eq "/users/#{user.id}/user_posts"
+    end
   end
 
 end
