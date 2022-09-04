@@ -72,6 +72,7 @@ end
 
 RSpec.describe "ユーザーページ", type: :system do
   let!(:user) { create(:user, profile: "testだよ") }
+  let!(:another_user) { create(:user, profile: "another_userだよ") }
 
   context "プロフィール" do
     before do
@@ -93,6 +94,12 @@ RSpec.describe "ユーザーページ", type: :system do
     scenario "アカウント情報変更ボタンを押すと編集ページへ遷移すること" do
       click_on "アカウント情報変更"
       expect(current_path).to eq edit_user_registration_path
+    end
+
+    scenario "自分以外のプロフィールページでは編集ボタン、アカウント情報変更ボタンが表示されないこと" do
+      visit user_path(another_user)
+      expect(page).not_to have_content('プロフィール編集')
+      expect(page).not_to have_content('アカウント情報変更')
     end
   end
 
@@ -143,7 +150,7 @@ RSpec.describe "ユーザーページ", type: :system do
 end
 
 RSpec.describe "プロフィールの編集", type: :system do
-  let!(:user) { create(:user, profile: "testだよ。") }
+  let!(:user) { create(:user, username: "山田", profile: "testだよ。") }
   let!(:another_user) { create(:user, profile: "another_userだよ") }
 
   context "プロフィールの編集ができる時" do
