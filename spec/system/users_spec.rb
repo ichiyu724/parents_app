@@ -193,6 +193,12 @@ RSpec.describe "プロフィールの編集", type: :system do
       click_button "更新"
         expect(current_path).to eq edit_user_path(user)
     end
+
+    scenario "usernameが13文字以上だと更新できない" do
+      fill_in 'user[username]', with: "アイウエオかきくけこさしすせそ"
+      click_button "更新"
+        expect(current_path).to eq edit_user_path(user)
+    end
   end
 
 end
