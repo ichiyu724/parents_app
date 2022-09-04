@@ -159,7 +159,7 @@ RSpec.describe "プロフィールの編集", type: :system do
       visit edit_user_path(user)
     end
 
-    scenario "ログインユーザーは自分の投稿を編集できること" do
+    scenario "ログインユーザーは自分のプロフィールを編集できること" do
       expect(
         find("#username-edit").value
       ).to eq(user.username)
@@ -179,6 +179,19 @@ RSpec.describe "プロフィールの編集", type: :system do
       expect(page).to have_selector("img[src$='test2.jpg']")
       expect(page).to have_content "#{user.username}くん"
       expect(page).to have_content "#{user.profile}まだまだtestするよ"
+    end
+  end
+
+  context "プロフィールの編集ができない" do
+    before do
+      login(user)
+      visit edit_user_path(user)
+    end
+
+    scenario "usernameが空欄だと更新できない" do
+      fill_in 'user[username]', with: ""
+      click_button "更新"
+        expect(current_path).to eq edit_user_path(user)
     end
   end
 
