@@ -72,7 +72,6 @@ end
 
 RSpec.describe "ユーザーページ", type: :system do
   let!(:user) { create(:user, profile: "testだよ") }
-  #let!(:post) { create(:post) }
 
   context "プロフィール" do
     before do
@@ -115,6 +114,30 @@ RSpec.describe "ユーザーページ", type: :system do
       visit user_path(user)
       find(".user-posts-link").click
       expect(current_path).to eq "/users/#{user.id}/user_posts"
+    end
+  end
+
+  context "ユーザーのお気に入り" do
+    let!(:user2) { create(:user, profile: "test2だよ") }
+    let!(:post2) { create(:post, title: "test2", content: "test2です", user_id: user2.id) }
+    let!(:favorite) { create(:favorite, post_id: post2.id, user: post2.user, user_id: user.id)}
+
+    before do
+      login(user)
+    end
+
+    scenario "ユーザーのお気に入りした投稿が表示されていること" do
+      visit user_path(user)
+      expect(page).to have_link post2.user.username
+      expect(page).to have_link favorite.post.title
+      expect(page).to have_content post2.content
+      expect(page).to have_selector("img[src$='test.jpg']")
+    end
+
+    scenario "「もっと見る」をクリックするとユーザーのお気に入り一覧ページに遷移すること" do
+      visit user_path(user)
+      find(".user-favorites-link").click
+      expect(current_path).to eq "/users/#{user.id}/favorites"
     end
   end
 
