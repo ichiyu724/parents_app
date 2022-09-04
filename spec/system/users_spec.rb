@@ -56,7 +56,6 @@ RSpec.describe "ログイン", type: :system do
       end
     end
 
-
     context "ログインできない時" do
       before do
         visit new_user_session_path
@@ -67,7 +66,50 @@ RSpec.describe "ログイン", type: :system do
         click_button "ログイン"
         expect(current_path).to eq new_user_session_path
       end
-
     end
   end
+end
+
+RSpec.describe "ユーザーページ", type: :system do
+  let!(:user) { create(:user, profile: "testだよ") }
+  #let!(:post) { create(:post) }
+
+  context "プロフィール" do
+    before do
+      login(user)
+      visit user_path(user)
+    end
+
+    scenario "プロフィールが表示されていること" do
+      expect(page).to have_content user.username
+      expect(page).to have_content user.profile
+      expect(page).to have_selector("img[src$='test.jpg']")
+    end
+
+    scenario "プロフィール編集ボタンを押すと編集ページへ遷移すること" do
+      click_on "プロフィール編集"
+      expect(current_path).to eq edit_user_path(user)
+    end
+
+    scenario "アカウント情報変更ボタンを押すと編集ページへ遷移すること" do
+      click_on "アカウント情報変更"
+      expect(current_path).to eq edit_user_registration_path
+    end
+  end
+
+  context "ユーザーの投稿" do
+    let!(:post1) { create(:post, user_id: user.id, title: "test1", content: "testです") }
+    
+    before do
+      login(user)
+    end
+
+    scenario "ユーザーの投稿が表示されていること" do
+      visit user_path(user)
+      expect(page).to have_link post1.title
+      expect(page).to have_content post1.content
+      expect(page).to have_selector("img[src$='test.jpg']")
+    end
+  end
+
 end
