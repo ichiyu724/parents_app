@@ -199,6 +199,5 @@ RSpec.describe "プロフィールの編集", type: :system do
       click_button "更新"
         expect(current_path).to eq edit_user_path(user)
     end
-  end
-
+  end   
 end
