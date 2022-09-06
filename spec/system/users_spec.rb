@@ -199,5 +199,51 @@ RSpec.describe "プロフィールの編集", type: :system do
       click_button "更新"
         expect(current_path).to eq edit_user_path(user)
     end
-  end   
+  end
+
+  pending "アカウント情報変更" do
+    before do
+      login(user)
+      visit edit_user_registration_path
+    end
+
+    it "アカウント情報を更新できること" do
+      expect(
+        find("#email").value
+      ).to eq(user.email)
+
+      fill_in 'user[email]', with: user.username
+      fill_in 'user[password]', with: user.new_password
+      fill_in 'user[password_confirmation]', with: user.password_confirmation
+      fill_in 'user[password]', with: user.password
+      click_button "更新する"
+      
+      binding.pry
+      
+      expect(current_path).to eq user_path(user)
+    end
+  end
+end
+
+RSpec.describe "ユーザー一覧", type: :system do
+  let(:user) { create(:user) }
+  
+  context "ユーザー一覧ページ" do
+    before do
+      login(user)
+      user1 = FactoryBot.create(:user, username: "yamada", profile: "yamadaです")
+      user2 = FactoryBot.create(:user, username: "tanaka", profile: "tanakaです")
+      user3 = FactoryBot.create(:user, username: "sato", profile: "satoです")
+      @users = [user1, user2, user3]
+    end
+    it "登録済みのユーザーが一覧で表示できること" do
+      visit users_path
+      @users.each do |user|
+        expect(page).to have_link user.username
+        expect(page).to have_content user.profile
+        expect(page).to have_content "フォロー"
+        expect(page).to have_selector("img[src$='test.jpg']")
+      end
+    end
+  end
 end
