@@ -201,7 +201,7 @@ RSpec.describe "プロフィールの編集", type: :system do
     end
   end
 
-  pending "アカウント情報変更" do
+  context "アカウント情報変更" do
     before do
       login(user)
       visit edit_user_registration_path
@@ -212,15 +212,19 @@ RSpec.describe "プロフィールの編集", type: :system do
         find("#email").value
       ).to eq(user.email)
 
-      fill_in 'user[email]', with: user.username
-      fill_in 'user[password]', with: user.new_password
-      fill_in 'user[password_confirmation]', with: user.password_confirmation
-      fill_in 'user[password]', with: user.password
+      fill_in 'user[email]', with: "test@gmail.com"
+      
+      fill_in 'user[current_password]', with: user.password
       click_button "更新する"
-      
-      binding.pry
-      
       expect(current_path).to eq user_path(user)
+      
+    end
+
+    it "アカウント情報を削除できること" do
+      expect{
+        click_button 'アカウント削除'
+      }.to change { User.count }.by(-1)
+      expect(current_path).to eq root_path
     end
   end
 end
