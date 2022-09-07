@@ -55,7 +55,7 @@
             <% end %>
           </ul>
         <% end %>
-        <%= link_to "もっと見る", user_posts_path, class: "btn btn-outline-secondary d-grid gap-2 col-4 mx-auto" %>
+        <%= link_to "もっと見る", user_posts_path, class: "btn btn-outline-secondary d-grid gap-2 col-4 mx-auto user-posts-link" %>
       </div>
 
       <h3>お気に入りした投稿</h3>
@@ -81,7 +81,7 @@
           <% end %>
         </ul>
       <% end %>
-      <%= link_to "もっと見る", favorites_user_path(@user.id), class: "btn btn-outline-secondary  d-grid gap-2 col-4 mx-auto" %>
+      <%= link_to "もっと見る", favorites_user_path(@user.id), class: "btn btn-outline-secondary  d-grid gap-2 col-4 mx-auto user-favorites-link" %>
     </div>
   </div>
 </div>

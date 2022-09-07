@@ -19,5 +19,4 @@ FactoryBot.define do
     username { "Satoshi" }
     profile { "hellohello" }
   end
-
 end
