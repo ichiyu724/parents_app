@@ -71,6 +71,7 @@ RSpec.describe "投稿詳細", type: :system do
     expect(page).to have_content post.child_sex
     expect(page).to have_content post.child_age_year
     expect(page).to have_content post.child_age_month
+    expect(page).to have_content post.content
     expect(page).to have_selector("img[src$='test.jpg']")
     expect(page).to have_selector(".heart-btn")
     expect(page).to have_selector(".comment-btn")
@@ -99,6 +100,47 @@ RSpec.describe "投稿詳細", type: :system do
     expect(page).not_to have_content('編集')
     expect(page).not_to have_content('削除')
   end
-  
+end
+
+RSpec.describe "投稿の編集", type: :system do
+  let!(:user) { create(:user) }
+  let!(:post) { create(:post, title: "test", content: "testです", child_sex: "男の子", child_age_year: "2歳", child_age_month: "3ヶ月", user: user)}
+
+  before do
+    login(user)
+    visit edit_post_path(post)
+  end
+
+  context "投稿編集ができる時" do
+    scenario "ログインユーザーは自分の投稿を編集できること" do
+      expect(
+        find("#title").value
+      ).to eq(post.title)
+      
+      fill_in 'post[title]', with: "#{post.title}" + "します"
+      select '女の子', from: 'post[child_sex]'
+      select '3歳', from: 'post[child_age_year]'
+      select '8ヶ月', from: 'post[child_age_month]'
+      fill_in 'post[content]', with: "#{post.content}" + "が何か"
+      attach_file "post[content_image]", "#{Rails.root}/spec/factories/test2.jpg"
+      expect{
+        click_button '更新する'
+      }.to change { Post.count }.by(0)
+      
+      expect(current_path).to eq post_path(post)
+      expect(page).to have_selector("img[src$='test2.jpg']")
+      expect(page).to have_content "#{post.title}します"
+      expect(page).to have_content "女の子"
+      expect(page).to have_content "3歳"
+      expect(page).to have_content "8ヶ月"
+      expect(page).to have_content "#{post.content}が何か"
+    end
+
+    scenario "投稿詳細に戻るを押すと投稿詳細ページへ遷移すること" do
+      click_on '投稿詳細に戻る'
+      expect(current_path).to eq post_path(post)
+    end
+  end
+
 
 end
