@@ -56,7 +56,9 @@ end
 
 RSpec.describe "投稿詳細", type: :system do
   let!(:user) { create(:user) }
+  let!(:another_user) { create(:user) }
   let!(:post) { create(:post, title: "test", content: "test用", user: user) }
+  let!(:another_post) { create(:post, title: "another", content: "another用", user: another_user) }
 
   before do
     login(user)
@@ -91,5 +93,12 @@ RSpec.describe "投稿詳細", type: :system do
     click_on '投稿一覧に戻る'
     expect(current_path).to eq posts_path
   end
+
+  scenario "自分以外の投稿詳細ページでは編集ボタン、削除ボタンが表示されないこと" do
+    visit post_path(another_post)
+    expect(page).not_to have_content('編集')
+    expect(page).not_to have_content('削除')
+  end
+  
 
 end
