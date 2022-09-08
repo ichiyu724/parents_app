@@ -54,6 +54,42 @@ RSpec.describe "新規投稿", type: :system do
   end
 end
 
+RSpec.describe "投稿詳細", type: :system do
+  let!(:user) { create(:user) }
+  let!(:post) { create(:post, title: "test", content: "test用", user: user) }
 
+  before do
+    login(user)
+    visit post_path(post)
+  end
+
+  scenario "投稿の詳細が表示されていること" do
+    expect(page).to have_content post.user.username
+    expect(page).to have_content post.title
+    expect(page).to have_content post.child_sex
+    expect(page).to have_content post.child_age_year
+    expect(page).to have_content post.child_age_month
+    expect(page).to have_selector("img[src$='test.jpg']")
+    expect(page).to have_selector(".heart-btn")
+    expect(page).to have_selector(".comment-btn")
+    expect(page).to have_content post.created_at.strftime('%Y/%m/%d %H:%M')
+  end
+
+  scenario "編集リンクを押すと編集ページへ遷移すること" do
+    click_on "編集"
+    expect(current_path).to eq edit_post_path(post)
+  end
+
+  scenario "削除リンクを押すと投稿が削除され投稿一覧ページへ遷移すること" do
+    expect{
+      click_on '削除'
+    }.to change { Post.count }.by(-1)
+    expect(current_path).to eq posts_path
+  end
+
+  scenario "投稿一覧に戻るを押すと投稿一覧ページへ遷移すること" do
+    click_on '投稿一覧に戻る'
+    expect(current_path).to eq posts_path
+  end
 
 end
