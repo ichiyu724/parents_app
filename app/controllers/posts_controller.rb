@@ -17,8 +17,8 @@ class PostsController < ApplicationController
       flash[:notice] = 'お悩みを投稿しました'
       redirect_to :posts
     else 
-      flash[:alert] = @post.errors.full_messages
-      redirect_to new_post_path
+      flash.now[:alert] = '投稿に失敗しました。'
+      render ("posts/new")
     end 
   end
   
@@ -41,8 +41,8 @@ class PostsController < ApplicationController
       flash[:notice]= "投稿を更新しました"
       redirect_to post_path
     else
-      flash[:alert] = @post.errors.full_messages
-      redirect_to edit_post_path(@post)
+      flash.now[:alert] = '投稿に失敗しました。'
+      render :edit
     end
   end
 

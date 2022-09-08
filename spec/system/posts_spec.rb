@@ -50,7 +50,7 @@ RSpec.describe "新規投稿", type: :system do
     expect{
       click_button '投稿する'
     }.to change { Post.count }.by(0)
-    expect(current_path).to eq new_post_path
+    expect(current_path).to eq "/posts"
   end
 end
 
@@ -146,13 +146,13 @@ RSpec.describe "投稿の編集", type: :system do
     scenario "タイトルが空欄だと更新できない" do
       fill_in 'post[title]', with: ""
       click_button '更新する'
-      expect(current_path).to eq edit_post_path(post)
+      expect(current_path).to eq "/posts/#{post.id}"
     end
 
     scenario "相談内容が空欄だと更新できない" do
       fill_in 'post[content]', with: ""
       click_button '更新する'
-      expect(current_path).to eq edit_post_path(post)
+      expect(current_path).to eq "/posts/#{post.id}"
     end
   end
 end
