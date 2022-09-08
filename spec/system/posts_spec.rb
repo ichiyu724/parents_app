@@ -142,5 +142,17 @@ RSpec.describe "投稿の編集", type: :system do
     end
   end
 
+  context "投稿の編集ができない" do
+    scenario "タイトルが空欄だと更新できない" do
+      fill_in 'post[title]', with: ""
+      click_button '更新する'
+      expect(current_path).to eq edit_post_path(post)
+    end
 
+    scenario "相談内容が空欄だと更新できない" do
+      fill_in 'post[content]', with: ""
+      click_button '更新する'
+      expect(current_path).to eq edit_post_path(post)
+    end
+  end
 end
