@@ -17,8 +17,8 @@ class PostsController < ApplicationController
       flash[:notice] = 'お悩みを投稿しました'
       redirect_to :posts
     else 
-      flash.now[:alert] = '投稿に失敗しました。'
-      render ("posts/new")
+      flash[:alert] = @post.errors.full_messages
+      redirect_to new_post_path
     end 
   end
   
