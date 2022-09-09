@@ -2,22 +2,20 @@ require 'rails_helper'
 
 RSpec.describe "フォロー、フォロワー", type: :system do
   before do
-    @user1 = FactoryBot.create(:user)
-    @user2 = FactoryBot.create(:user)
-    login(@user1)
+    @user1 = FactoryBot.create(:user, username: "user1", profile: "user1です")
+    @user2 = FactoryBot.create(:user, username: "user2", profile: "user2です")
+    User.find(300).destroy
+    User.find(313).destroy
+    User.find(314).destroy
+    User.find(327).destroy
+    login(@user2)
+    visit users_path
   end
 
   scenario "ユーザーをフォロー、フォロー解除できる" do
-    
-    visit users_path
-    
-    binding.pry
-    
-    follow = find('button', text: 'フォロー')
-    follow.click
+    click_link "フォロー"
     expect(page).to have_content 'フォロー解除'
-    expect(@user2.follower.count).to eq(1)
-    expect(@user1.following.count).to eq(1)
-    
+    click_link "フォロー解除"
+    expect(page).to have_content 'フォロー'
   end
 end
