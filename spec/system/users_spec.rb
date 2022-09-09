@@ -191,13 +191,13 @@ RSpec.describe "プロフィールの編集", type: :system do
     scenario "usernameが空欄だと更新できない" do
       fill_in 'user[username]', with: ""
       click_button "更新"
-        expect(current_path).to eq edit_user_path(user)
+        expect(current_path).to eq "/users/#{user.id}"
     end
 
     scenario "usernameが13文字以上だと更新できない" do
       fill_in 'user[username]', with: "アイウエオかきくけこさしすせそ"
       click_button "更新"
-        expect(current_path).to eq edit_user_path(user)
+        expect(current_path).to eq "/users/#{user.id}"
     end
   end
 
