@@ -29,14 +29,14 @@
                   <% if !Favorite.exists?(user_id: current_user.id, post_id: post.id) %>
                     <li>
                       <%= link_to post_favorites_path(post.id), method: :post, remote: true, class:"heart-btn" do %>
-                        <i class="fa-regular fa-heart fa-1x", style="color:red;", id="regular-heart-btn"></i>
+                        <i class="fa-regular fa-heart fa-1x", style="color:red;" id="regular-heart-btn"></i>
                       <% end %>
                       <span class="heart-count1"><%= post.favorites.count %></span>
                     </li>
                   <% else %>
                     <li>
                       <%= link_to post_favorites_path(post_id: post.id, id: post.favorites[0].id), method: :delete, remote: true, class:"heart-btn" do %>
-                        <i class="fa-solid fa-heart fa-1x", style="color:red;",id="solid-heart-btn"></i>
+                        <i class="fa-solid fa-heart fa-1x", style="color:red;" id="solid-heart-btn"></i>
                       <% end %>
                       <span class="heart-count2"><%= post.favorites.count %></span>
                     </li>
