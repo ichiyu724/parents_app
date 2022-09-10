@@ -4,10 +4,6 @@ RSpec.describe "フォロー、フォロワー", type: :system do
   before do
     @user1 = FactoryBot.create(:user, username: "user1", profile: "user1です")
     @user2 = FactoryBot.create(:user, username: "user2", profile: "user2です")
-    User.find(300).destroy
-    User.find(313).destroy
-    User.find(314).destroy
-    User.find(327).destroy
     login(@user2)
     visit users_path
   end
