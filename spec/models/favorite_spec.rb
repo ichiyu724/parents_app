@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Favorite, type: :model do
   before do
-    @favorite =  FactoryBot.build(:favorite)
     @user = FactoryBot.create(:user)
   end
 
@@ -13,13 +12,15 @@ RSpec.describe Favorite, type: :model do
       end
 
       it "user_idがなければ無効な状態であること" do
-        @favorite.user_id = nil
-        expect(@favorite).to be_invalid
+        favorite = FactoryBot.create(:favorite, user_id: @user.id)
+        favorite.user_id = nil
+        expect(favorite).to be_invalid
       end
 
       it "post_idがなければ無効な状態であること" do
-        @favorite.post_id = nil
-        expect(@favorite).to be_invalid
+        favorite = FactoryBot.create(:favorite, user_id: @user.id)
+        favorite.post_id = nil
+        expect(favorite).to be_invalid
       end
 
       it "post_idが同じでもuser_idが違うと保存できる" do
