@@ -12,7 +12,6 @@ RSpec.describe "Favorites", type: :system do
       expect{
         find('.heart-btn').click
       }.to change { post.favorites.count }.by(1)
-      binding.pry
     end
   end
 
@@ -27,7 +26,6 @@ RSpec.describe "Favorites", type: :system do
       expect{
         find('.heart-btn').click
       }.to change { post.favorites.count }.by(-1)
-      binding.pry
     end
   end
 end
