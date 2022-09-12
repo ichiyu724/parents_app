@@ -33,16 +33,20 @@
                 <% end %>
               </div>
             </ul>
-            <ul>
-              <div class='heart-btn' id="favorite_<%= @post.id %>">
-                <%= render "shared/favorite", post: @post %>
-              </div>
-              <div class='comment-btn' id="comment_<%= @post.id %>">
-                <i class="fa-regular fa-comment fa-1x", style="color:blue;"></i>
-                <span><%= @comments.count %></span>
-              </div>
+            <div class="col-md-3 row">
+              <ul  class="list-unstyled d-flex flex-inline">
+                <div class='heart-btn col-auto' id="favorite_<%= @post.id %>">
+                  <%= render "shared/favorite", post: @post %>
+                </div>
+                <div class='comment-btn col-auto' id="comment_<%= @post.id %>">
+                  <li class="ms-2">
+                    <i class="fa-regular fa-comment fa-1x", style="color:blue;"></i>
+                    <span><%= @comments.count %></span>
+                  </li>
+                </div>
+              </ul>
+            </div>
               <p class="text-black-50"><%= @post.created_at.strftime('%Y/%m/%d %H:%M') %></p>
-            </ul>
           </div>
           <% if @post.user == current_user %>
             <td><%= link_to "編集", edit_post_path(@post) %></td>
