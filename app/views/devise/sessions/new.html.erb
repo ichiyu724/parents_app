@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 class="d-flex align-items-center justify-content-center">ログイン</h2>
+  <%= render partial: 'shared/page_title', locals: { page_title: "ログイン" } %>
     <div class="d-flex align-items-center justify-content-center">
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="signin-form form-group">

@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 class="d-flex align-items-center justify-content-center">相談を投稿する</h3>
+  <%= render partial: 'shared/page_title', locals: { page_title: "相談を投稿する" } %>
   <%= render "shared/error", obj: @post %>
 
   <%= form_with model: @post do |f| %>

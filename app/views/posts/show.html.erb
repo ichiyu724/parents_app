@@ -1,6 +1,6 @@
 <div  class="container">
   <div class="row">
-    <h3 class="d-flex align-items-center justify-content-center">投稿詳細</h3>
+    <%= render partial: 'shared/page_title', locals: { page_title: "投稿詳細" } %>
       <%= render "shared/error", obj: @post %>
         <div class="col-md-6">
           <ul>

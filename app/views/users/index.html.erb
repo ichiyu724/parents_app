@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-  <h3 class="d-flex align-items-center justify-content-center">ユーザー一覧</h3>
+  <%= render partial: 'shared/page_title', locals: { page_title: "ユーザー一覧" } %>
     <div class="scroll-list jscroll col mx-auto">
       <table class="table table-borderless">
         <% @users.each do |user|%>
