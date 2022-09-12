@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <h3 class="d-flex align-items-center justify-content-center"><%= @user.username %>さんの投稿</h3>
+    <%= render partial: 'shared/page_title', locals: { page_title: "#{@user.username}さんの投稿" } %>
     <div class="scroll-list jscroll">
       <% if @user_posts.present? %>
         <% @user_posts.each do |post| %>

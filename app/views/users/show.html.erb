@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
+    <%= render partial: 'shared/page_title', locals: { page_title: "#{@user.username}さんのプロフィール" } %>
+    <div class="col-md-6 mt-5">
     <h3>プロフィール</h3>
       <%= form_with model: @user do |f| %>
       <% if @user.icon_image.blank?%>
@@ -16,10 +17,10 @@
           </tr>
         </div>
         <div class="form-group">
-        <tr>
-          <th><%= f.label :profile ,"自己紹介", for: "profile-edit" %></th>
-          <td><%= f.text_area :profile, readonly: true, value: @user.profile, class: "form-control", id: "profile", rows: 8 %></td>
-        </tr>
+          <tr>
+            <th><%= f.label :profile ,"自己紹介", for: "profile-edit" %></th>
+            <td><%= f.text_area :profile, readonly: true, value: @user.profile, class: "form-control", id: "profile", rows: 8 %></td>
+          </tr>
         </div>
       </table>
       <p>フォロー数：<%= link_to @user.followings.count, followings_user_path(@user) %>フォロワー数：<%= link_to @user.followers.count, followers_user_path(@user) %></p>
@@ -31,7 +32,7 @@
     <% end %>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6 mt-5">
       <div class="user-posts-wrapper">
         <h3><%= @user.username %>さんの投稿</h3>
         <% if @posts.present? %>

@@ -6,7 +6,7 @@
   <% end %>
   <%= @user.username %>
   <div class="row">
-    <h3 class="d-flex align-items-center justify-content-center">フォロワー</h3>
+    <%= render partial: 'shared/page_title', locals: { page_title: "フォロワー" } %>
       <div class="scroll-list jscroll col mx-auto">
         <table class="table">
           <% @users.each do |user|%>
