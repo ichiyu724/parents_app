@@ -37,6 +37,10 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'database_cleaner'
+  gem 'rubocop', require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
 end
 
 group :development do

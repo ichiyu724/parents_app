@@ -1,0 +1,26 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
+LineLength:
+  Max: 130
+
+AllCops:
+  Exclude:
+    - "app/assets"
+    - "app/channels"
+    - "app/jobs"
+    - "bin/*"
+    - "lib/*"
+    - "log/*"
+    - "public/*"
+    - "storage/*"
+    - "test/*"
+    - "tmp/*"
+    - "vendor/*"
+    - "**/Gemfile"
+    - .git/**/*"
+  NewCops: enable
