@@ -12,9 +12,8 @@ Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
 
-require("bootstrap");
 require("jquery");
-
+require("bootstrap");
 import "../stylesheets/application.scss";
 
 $(window).on("scroll", function () {
@@ -26,4 +25,26 @@ $(window).on("scroll", function () {
       nextSelector: "span.next:last a",
     });
   }
+});
+
+const pageTop = $("#js-pagetop");
+const scroll = 50;
+
+$(window).on("scroll", () => {
+  if ($(this).scrollTop() > scroll) {
+    pageTop.fadeIn();
+  } else {
+    pageTop.fadeOut();
+  }
+});
+
+const speed = 500;
+pageTop.on("click", () => {
+  $("body, html").animate(
+    {
+      scrollTop: 0,
+    },
+    speed
+  );
+  return false;
 });

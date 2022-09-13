@@ -11,6 +11,9 @@ a {
   letter-spacing: 1px;
 }
 
+a:hover {
+  color: #f0ba24 !important;
+}
 .form-control {
   display: inline;
 }
@@ -130,4 +133,23 @@ footer .container-fluid {
 
 nav.pagination {
   display: none;
+}
+
+.pagetop {
+  bottom: 25px;
+  //display: none;
+  position: fixed;
+  right: 25px;
+  z-index: 100;
+  cursor: pointer;
+  &__btn {
+    background-color: #ddd;
+    border-radius: 50%;
+    color: #fff;
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: 50px;
+  }
 }

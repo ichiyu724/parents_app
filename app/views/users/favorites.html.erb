@@ -4,7 +4,7 @@
     <div class="scroll-list jscroll">
       <% if @favorite_list.present? %>
         <% @favorite_list.each do |post| %>
-          <div class="each-post">
+          <div class="each-post mt-3">
             <ul class="list-unstyled">
               <li class='media mb-4'>
                 <% if post.user.icon_image.url.blank?%>
