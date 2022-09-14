@@ -2,7 +2,7 @@
   <div class="row">
     <%= render partial: 'shared/page_title', locals: { page_title: "#{@user.username}さんのプロフィール" } %>
     <div class="col-md-6 mt-5">
-    <h3>プロフィール</h3>
+    <h3 class="d-grid gap-2 col-6 mx-auto">プロフィール</h3>
       <%= form_with model: @user do |f| %>
       <% if @user.icon_image.blank?%>
         <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
@@ -13,28 +13,39 @@
         <div class="form-group">
           <tr>
             <th><%= f.label :username ,"ユーザー名", for: "username" %></th>
-            <td><%= f.text_field :username, readonly: true, value: @user.username, class: "form-control", id: "username" %></td>
+            <td><%= f.text_field :username, readonly: true, value: @user.username, class: "form-control", id: "username", size: 35 %></td>
           </tr>
         </div>
         <div class="form-group">
           <tr>
             <th><%= f.label :profile ,"自己紹介", for: "profile-edit" %></th>
-            <td><%= f.text_area :profile, readonly: true, value: @user.profile, class: "form-control", id: "profile", rows: 8 %></td>
+            <td><%= f.text_area :profile, readonly: true, value: @user.profile, class: "form-control mb-3", id: "profile", rows: 8 %></td>
           </tr>
         </div>
       </table>
-      <p>フォロー数：<%= link_to @user.followings.count, followings_user_path(@user) %>フォロワー数：<%= link_to @user.followers.count, followers_user_path(@user) %></p>
+      <ul class="list-unstyled d-flex flex-inline">
+        <div class="col-auto">
+          <li>
+            <%= link_to "フォロー中:#{@user.followings.count}", followings_user_path(@user) %>
+          </li>
+        </div>
+        <div class="col-auto">
+          <li class="ms-3">
+            <%= link_to "フォロワー:#{@user.followers.count}", followers_user_path(@user) %></p>
+          </li>
+        </div>
+      </ul>
       <%= f.hidden_field :id, value: @user.id %>
       <% if @user.id == current_user.id %>
-        <%= link_to "プロフィール編集", edit_user_path(@user.id), class: "btn btn-primary" %><br>
-        <%= link_to "アカウント情報変更", edit_user_registration_path, class: "btn btn-primary" %>
+        <%= link_to "プロフィール編集", edit_user_path(@user.id), class: "btn btn-primary d-grid gap-2 col-5 mx-auto" %><br>
+        <%= link_to "アカウント情報変更", edit_user_registration_path, class: "btn btn-primary d-grid gap-2 col-5 mx-auto" %>
       <% end %>
     <% end %>
     </div>
 
     <div class="col-md-6 mt-5">
       <div class="user-posts-wrapper">
-        <h3><%= @user.username %>さんの投稿</h3>
+        <h3 class="d-grid gap-2 col-6 mx-auto"><%= @user.username %>さんの投稿</h3>
         <% if @posts.present? %>
           <ul class="relative-post-lists">
             <% @posts.each do |post| %>
@@ -59,7 +70,7 @@
         <%= link_to "もっと見る", user_posts_path, class: "btn btn-outline-secondary d-grid gap-2 col-4 mx-auto user-posts-link" %>
       </div>
 
-      <h3>お気に入りした投稿</h3>
+      <h3 class="d-grid gap-2 col-6 mx-auto">お気に入りした投稿</h3>
       <% if @favorite_list.present? %>
         <ul class="relative-post-lists">
           <% @favorite_list.each do |post| %>
@@ -82,7 +93,7 @@
           <% end %>
         </ul>
       <% end %>
-      <%= link_to "もっと見る", favorites_user_path(@user.id), class: "btn btn-outline-secondary  d-grid gap-2 col-4 mx-auto user-favorites-link" %>
+      <%= link_to "もっと見る", favorites_user_path(@user.id), class: "btn btn-outline-secondary d-grid gap-2 col-4 mx-auto user-favorites-link" %>
     </div>
   </div>
 </div>

@@ -12,9 +12,8 @@ Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
 
-require("bootstrap");
 require("jquery");
-
+require("bootstrap");
 import "../stylesheets/application.scss";
 
 $(window).on("scroll", function () {

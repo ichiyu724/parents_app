@@ -3,7 +3,7 @@
     <%= render partial: 'shared/page_title', locals: { page_title: "投稿一覧" } %>
       <div class="scroll-list jscroll">
         <% @search_posts.each do |post|%>
-          <div class="each-post">
+          <div class="each-post mt-3">
             <ul class="list-unstyled">
               <% if post.user.icon_image.blank?%>
                 <%= image_tag "no_image.jpeg", size: "60x60", class: "rounded-circle" %>
