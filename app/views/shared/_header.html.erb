@@ -22,10 +22,10 @@
           </ul>
         <% else %>
           <ul class = "navbar-nav me-auto mb-2 mb-lg-0 navbar-right">
-            <li class="nav-item"><%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, method: :post, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: "nav-link" %></li>
             <li class="nav-item"><%= link_to "ログイン", :new_user_session, class: "nav-link" %></li>
             <li class="nav-item"><%= link_to "新規登録", :new_user_registration, class: "nav-link" %></li>
-            <li class="nav-item"><%= link_to "about", about_path, class: "nav-link" %></li>
+            <li class="nav-item"><%= link_to "About", about_path, class: "nav-link" %></li>
           </ul>
         <% end %>
       </div>
