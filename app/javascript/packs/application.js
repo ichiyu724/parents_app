@@ -26,25 +26,3 @@ $(window).on("scroll", function () {
     });
   }
 });
-
-const pageTop = $("#js-pagetop");
-const scroll = 50;
-
-$(window).on("scroll", () => {
-  if ($(this).scrollTop() > scroll) {
-    pageTop.fadeIn();
-  } else {
-    pageTop.fadeOut();
-  }
-});
-
-const speed = 500;
-pageTop.on("click", () => {
-  $("body, html").animate(
-    {
-      scrollTop: 0,
-    },
-    speed
-  );
-  return false;
-});
