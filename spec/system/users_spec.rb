@@ -52,7 +52,7 @@ RSpec.describe "ログイン", type: :system do
         fill_in 'user[email]', with: user.email
         fill_in 'user[password]', with: user.password
         click_button "ログイン"
-        expect(current_path).to eq user_path(user)
+        expect(current_path).to eq posts_path
       end
     end
 
