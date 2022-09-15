@@ -96,6 +96,11 @@ RSpec.describe "ユーザーページ", type: :system do
       expect(current_path).to eq edit_user_registration_path
     end
 
+    scenario "「ユーザー一覧に戻る」を押すと編ユーザー一覧ページへ遷移すること" do
+      click_on "ユーザー一覧に戻る"
+      expect(current_path).to eq users_path
+    end
+
     scenario "自分以外のプロフィールページでは編集ボタン、アカウント情報変更ボタンが表示されないこと" do
       visit user_path(another_user)
       expect(page).not_to have_content('プロフィール編集')
@@ -122,6 +127,13 @@ RSpec.describe "ユーザーページ", type: :system do
       find(".user-posts-link").click
       expect(current_path).to eq "/users/#{user.id}/user_posts"
     end
+
+    scenario "ユーザーの投稿がない時、「投稿がありません」と表示されること" do
+      post1.destroy
+      visit user_path(user)
+      expect(page).to have_content('投稿がありません')
+    end
+
   end
 
   context "ユーザーのお気に入り" do
@@ -145,6 +157,12 @@ RSpec.describe "ユーザーページ", type: :system do
       visit user_path(user)
       find(".user-favorites-link").click
       expect(current_path).to eq "/users/#{user.id}/favorites"
+    end
+
+    scenario "お気に入りした投稿がない時、「お気に入りした投稿がありません」と表示されること" do
+      favorite.destroy
+      visit user_path(user)
+      expect(page).to have_content('お気に入りした投稿がありません')
     end
   end
 end

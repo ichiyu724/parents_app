@@ -34,11 +34,16 @@
             <%= link_to "フォロワー:#{@user.followers.count}", followers_user_path(@user) %></p>
           </li>
         </div>
+        <div class="col-auto">
+          <li class="ms-3">
+            <%= link_to "ユーザー一覧に戻る", users_path %></p>
+          </li>
+        </div>
       </ul>
       <%= f.hidden_field :id, value: @user.id %>
       <% if @user.id == current_user.id %>
         <%= link_to "プロフィール編集", edit_user_path(@user.id), class: "btn btn-primary d-grid gap-2 col-5 mx-auto" %><br>
-        <%= link_to "アカウント情報変更", edit_user_registration_path, class: "btn btn-primary d-grid gap-2 col-5 mx-auto" %>
+        <%= link_to "アカウント情報変更", edit_user_registration_path, class: "btn btn-primary d-grid gap-2 col-5 mx-auto mb-4" %>
       <% end %>
     <% end %>
     </div>
@@ -66,8 +71,10 @@
               </li>
             <% end %>
           </ul>
-        <% end %>
         <%= link_to "もっと見る", user_posts_path, class: "btn btn-outline-secondary d-grid gap-2 col-4 mx-auto user-posts-link" %>
+        <% else %>
+          <p class="text-center my-4">投稿がありません</p>
+        <% end %>
       </div>
 
       <h3 class="d-grid gap-2 col-6 mx-auto">お気に入りした投稿</h3>
@@ -82,7 +89,7 @@
                   <%= image_tag post.user.icon_image.url, size: "60x60", class: "rounded-circle" %>
                 <% end %>
                 <%= link_to post.user.username, user_path(post.user.id) %>
-                <%= link_to post.title, post_path(post) %>
+                <%= link_to post.title, post_path(post), class:"ms-2" %>
               </div>
               <div class="form-group">
                 <%= form_with model: @post do |f| %>
@@ -92,8 +99,10 @@
             </li>
           <% end %>
         </ul>
-      <% end %>
       <%= link_to "もっと見る", favorites_user_path(@user.id), class: "btn btn-outline-secondary d-grid gap-2 col-4 mx-auto user-favorites-link" %>
+      <% else %>
+        <p class="text-center my-4">お気に入りした投稿がありません</p>
+      <% end %>
     </div>
   </div>
 </div>
