@@ -23,10 +23,14 @@
         <%= render "shared/header" %>
       </header>
       <% if flash[:notice] %>
-        <p class="notice alert alert-success"><%= flash[:notice] %></p>
+        <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+          <p class="notice mb-0"><%= flash[:notice] %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="閉じる"></button></p>
+        </div>
       <% end %>
       <% if flash[:alert] %>
-        <p  class="alert alert-danger"><%= flash.now[:alert] %></p>
+        <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+          <p class="mb-0"><%= flash.now[:alert] %><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="閉じる"></button></p>
+        </div>
       <% end %>
       <%= render "shared/pagetop" %>
       <%= yield %>
