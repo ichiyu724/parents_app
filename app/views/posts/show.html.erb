@@ -34,7 +34,7 @@
               </div>
             </ul>
             <div class="col-md-3 row">
-              <ul  class="list-unstyled d-flex flex-inline">
+              <ul class="list-unstyled d-flex flex-inline">
                 <div class='heart-btn col-auto' id="favorite_<%= @post.id %>">
                   <%= render "shared/favorite", post: @post %>
                 </div>
@@ -49,10 +49,16 @@
               <p class="text-black-50"><%= l @post.created_at %></p>
           </div>
           <% if @post.user == current_user %>
-            <td><%= link_to "編集", edit_post_path(@post) %></td>
-            <td><%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '投稿を削除しますか？' } %></td>
+            <ul class="list-unstyled d-flex flex-inline my-3">
+              <li><%= link_to "編集", edit_post_path(@post) %></li>
+              <li class="mx-3"><%= link_to "削除", post_path(@post), method: :delete, data: { confirm: '投稿を削除しますか？' } %></li>
+              <li><%= link_to "投稿一覧に戻る", posts_path %></li>
+            </ul>
+          <% else %>
+            <ul class="list-unstyled d-flex flex-inline my-3">
+              <li><%= link_to "投稿一覧に戻る", posts_path %></li>
+            </ul>
           <% end %>
-        <%= link_to "投稿一覧に戻る", posts_path %>
         </div>
       <div class="comments ml-5 mt-5 col-md-6">
         <%= form_with(model:[@post, @comment], local: true) do |f| %>
