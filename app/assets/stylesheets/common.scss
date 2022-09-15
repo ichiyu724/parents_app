@@ -1,5 +1,6 @@
-.body {
-  background-color: #fdfdd8;
+.app-name {
+  font-size: 80px;
+  letter-spacing: 5px;
 }
 
 li {
@@ -42,13 +43,29 @@ table td {
   margin-right: auto;
   margin-left: auto;
 }
-
+header {
+  background-color: #fefee9;
+}
 header .container-fluid {
   padding: 10px;
 }
 
+footer {
+  background-color: #fefee9;
+}
+
 footer .container-fluid {
   padding-top: 0px;
+}
+
+.btn.search-btn {
+  background: #cbf9fe;
+  border: 1px solid #e0e3e5;
+}
+
+.btn.search-btn:hover {
+  background: #cbf9fe;
+  border: 1px solid #e0e3e5;
 }
 
 .container {
