@@ -1,5 +1,5 @@
 module ApplicationHelper
-  BASE_TITLE = "Help Parents".freeze
+  BASE_TITLE = "ParentsLink".freeze
   def full_title(page_title)
     if page_title.blank?
       BASE_TITLE
