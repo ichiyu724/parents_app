@@ -168,3 +168,6 @@ ja:
       child_sex:
         boy: 男の子
         girl: 女の子
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M"

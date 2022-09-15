@@ -1,14 +1,18 @@
 <div class=container>
   <div class="row">
     <h1 class="d-flex align-items-center justify-content-center">Help Parentsとは</h1>
-      <div class="d-flex align-items-center justify-content-center">
+      <div class="text-center mt-4">
         <p>初めての妊娠、出産、育児ってわからないことだらけ<br>
-        泣き止まない！<br>
-        なんで寝ない！？<br>
-        これって自分の子だけ…？<br>
-        などなど不安になったり抱え込んだりしていませんか？<br>
-        Help Parentsで育児の悩みを気軽に投稿し、みんなで共有してみましょう
-        </p>
+        <ul class="list-unstyled d-flex flex-inline align-items-center justify-content-center">
+          <li><%= image_tag "woman_question", size:"100x100"%></li>
+          <li class="ms-3"><%= image_tag "man_question", size:"100x100" %></li>
+        </ul>
+        <p>泣き止まない！</p>
+        <p>なんで寝ない！？</p>
+        <p>これって自分の子だけ…？</p>
+        <p>などなど不安になったり抱え込んだりしていませんか？</p>
+        <p>Help Parentsで育児の悩みを気軽に投稿し、みんなで共有してみましょう</p>
+        <%= link_to "今すぐはじめる", :new_user_registration, class: "btn btn-primary mb-3" %>
       </div>
   </div>
 </div>
