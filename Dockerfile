@@ -15,7 +15,6 @@ COPY . /myapp
 
 RUN yarn install --check-files
 RUN bundle exec rails webpacker:compile
-#RUN imagemagick
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
