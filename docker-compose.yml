@@ -23,6 +23,7 @@ services:
     stdin_open: true
     environment:
       SELENIUM_DRIVER_URL: http://selenium_chrome:4444/wd/hub
+      RAILS_ENV: development
   selenium_chrome:
     image: selenium/standalone-chrome-debug
     logging:
