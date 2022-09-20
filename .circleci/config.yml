@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.7.5
+      - image: cimg/ruby:2.7.5
     working_directory: ~/parents_app
     steps:
       - checkout:
@@ -15,7 +15,7 @@ jobs:
 
   rspec:
     docker:
-      - image: circleci/ruby:2.7.5
+      - image: cimg/ruby:2.7.5
       - image: circleci/mysql:8.0
         environment:
           MYSQL_ROOT_PASSWORD: password
