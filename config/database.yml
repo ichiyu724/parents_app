@@ -27,7 +27,7 @@ development:
 test:
   <<: *default
   database: myapp_test
-  host: db
+  host: <%= ENV.fetch("APP_DATABASE_HOST") { 'db' } %>
   username: root
   password: password
 

@@ -1,0 +1,48 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@1.1.2
+  heroku: circleci/heroku@1.2.3
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.7.5
+    working_directory: ~/parents_app/src
+    steps:
+      - checkout:
+          path: ~/parents_app
+      - ruby/install-deps
+
+  rspec:
+    docker:
+      - image: circleci/ruby:2.7.5
+      - image: circleci/mysql:8.0
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: myapp_test
+          MYSQL_USER: root
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      APP_DATABASE_HOST: "127.0.0.1"
+      RAILS_ENV: test
+    working_directory: ~/parents_app/src
+    steps:
+      - checkout:
+          path: ~/parents_app
+      - ruby/install-deps
+      - run:
+          name: Database setup
+          command: bundle exec rails db:migrate
+      - run:
+          name: Rspec
+          command: bundle exec rspec
+
+workflows:
+  version: 2.1
+  build_and_test:
+    jobs:
+      - build
+      - rspec:
+          requires:
+            - build
