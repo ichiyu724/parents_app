@@ -31,7 +31,6 @@ jobs:
       - checkout:
           path: ~/parents_app
       - ruby/install-deps
-      - setup
       - run:
           name: rails db:migrate
           command: bundle exec rails db:migrate
