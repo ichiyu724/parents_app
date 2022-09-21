@@ -20,7 +20,7 @@ jobs:
         environment:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: myapp_test
-          MYSQL_USER: root
+          MYSQL_USER: user
       - image: selenium/standalone-chrome-debug:latest
         name: chrome
     environment:
@@ -36,9 +36,6 @@ jobs:
       - run:
           name: rails db:migrate
           command: bundle exec rails db:migrate
-      - run:
-          name: Database setup
-          command: bundle exec rails db:schema:load --trace
       - run:
           name: yarn Install
           command: yarn install
