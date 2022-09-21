@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/ruby:2.7.5
+      - image: cimg/ruby:2.7.5-stretch-node
     working_directory: ~/parents_app
     steps:
       - checkout:
@@ -44,7 +44,6 @@ jobs:
           name: yarn Install
           command: yarn install
       - run: bundle exec bin/webpack
-      - run: bundle exec rake assets:precompile
 
 workflows:
   version: 2.1
