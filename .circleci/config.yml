@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   ruby: circleci/ruby@1.1.2
+  node: circleci/node@2
   heroku: circleci/heroku@1.2.3
 
 jobs:
@@ -12,6 +13,9 @@ jobs:
       - checkout:
           path: ~/parents_app
       - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+          cache-key: "yarn.lock"
 
   rspec:
     docker:
@@ -44,6 +48,7 @@ jobs:
           name: yarn Install
           command: yarn install
       - run: bundle exec bin/webpack
+      - run: bundle exec rake assets:precompile
 
 workflows:
   version: 2.1
