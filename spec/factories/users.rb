@@ -5,7 +5,7 @@ FactoryBot.define do
     password { 'password' }
     password_confirmation { 'password' }
     icon_image {Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/factories/test.jpg')) }
-    profile { Faker::String.random }
+    profile { 'test用ですよ。' }
   end
 
   factory :takashi, class: User do
