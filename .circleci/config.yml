@@ -13,7 +13,7 @@ jobs:
       - checkout:
           path: ~/parents_app
       - ruby/install-deps
-      - node/install-packages:
+      - node/install-packages
           pkg-manager: yarn
           cache-key: "yarn.lock"
 
