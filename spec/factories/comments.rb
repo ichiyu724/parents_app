@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :comment do
     association :post
     association :user
-    body { Faker::String.random }
+    body { "test用のコメント" }
   end
 end
