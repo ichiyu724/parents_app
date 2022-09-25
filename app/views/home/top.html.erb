@@ -1,6 +1,16 @@
-<div class="top-wrapper">
-  <div class="top-main text-center pt-5">
-      <h1 class="app-name">ParentsLink</h1>
-      <h3>子育ての悩みを共有しよう</h3>
+<div class="container-fluid px-0" >
+  <div class="top-wrapper">
+    <div class="top-main text-center pt-5">
+        <h1 class="app-name">ParentsLink</h1>
+        <h3>子育ての悩みを共有しよう</h3>
+    </div>
+  </div>
+  <div class="row d-flex align-items-center justify-content-center">
+  <% if user_signed_in? %>
+    <h2 class="d-flex align-items-center justify-content-center my-4">付近の病院</h2>
+      <div id="display"></div>
+      <div id='map' class="mb-3"></div>
+  <% end %>
   </div>
 </div>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLEMAP_API_KEY'] %>&libraries=geometry,places,visualization&callback=initMap" async defer></script>
