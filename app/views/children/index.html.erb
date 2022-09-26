@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+  <%= render partial: 'shared/page_title', locals: { page_title: "お子さん一覧" } %>
+    <table class="table mb-0">
+      <% @children.each do |child|%>
+        <tr>
+          <td class="col-3">
+            <%= link_to "/users/#{@user.id}/children/#{child.id}" do %>
+              <%= child.nickname %>
+            <% end %>
+          </td>
+          <td class="col-5">
+            <%= @child.birthdate %>
+          </td>
+          <td class="col-4">
+            <% if user.is_followed_by?(current_user)%>
+              <%= link_to user_relationships_path(user), method: :delete do %>
+                <button class="btn btn-danger" id="yes-follow">フォロー解除</button>
+              <% end %>
+            <% else %>
+              <%= link_to user_relationships_path(user), method: :post do %>
+                <button class="btn btn-outline-primary" id="no-follow">フォロー</button>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+        </tbody>
+      <% end %>
+    </table>
+  </div>
+</div>
