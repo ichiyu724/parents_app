@@ -31,7 +31,10 @@ class ChildrenController < ApplicationController
   end
 
   def destroy
-
+    @child = Child.find_by(id: params[:id])
+    @child.destroy
+    flash[:notice] = '登録を解除しました。'
+    redirect_to user_children_path
   end
 
   private

@@ -6,6 +6,9 @@
           <th>名前</th>
           <th>性別</th>
           <th>生年月日</th>
+          <th>年齢</th>
+          <th></th>
+          <th></th>
         <tr>
         <% @children.each do |child|%>
           <td>
@@ -15,11 +18,12 @@
           </td>
           <td><%= child.gender %></td>
           <td><%= child.birthdate %></td>
+          <td><%= child.age %></td>
           <td>
             <%= link_to "編集", "/users/#{@user.id}/children/#{child.id}/edit" %>
           </td>
           <td>
-            <%= link_to "登録解除", "/users/#{@user.id}/children/#{child.id}", method: :delete, data: { confirm: '投稿を削除しますか？' } %>
+            <%= link_to "登録解除", "/users/#{@user.id}/children/#{child.id}", method: :delete, data: { confirm: '登録を解除しますか？' } %>
           </td>
         </tr>
       <% end %>
