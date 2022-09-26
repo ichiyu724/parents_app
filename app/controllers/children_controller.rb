@@ -9,7 +9,7 @@ class ChildrenController < ApplicationController
     @child = Child.new(child_params)
     if @child.save
       flash[:notice] = 'お子さんの情報を登録しました。'
-      redirect_to :posts
+      redirect_to user_children_path
     else 
       flash.now[:alert] = '登録に失敗しました。'
       render ("children/new")
@@ -18,13 +18,22 @@ class ChildrenController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    @children = Child.all.order(birthdate: :desc).includes(:user)
+    @children = Child.where(user_id: @user.id).order(birthdate: :asc).includes(:user)
   end
 
   def show
     @user = User.find(params[:user_id])
     @child = Child.find(params[:id])
   end
+
+  def edit
+
+  end
+
+  def destroy
+
+  end
+
   private
 
   def child_params

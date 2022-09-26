@@ -2,30 +2,28 @@
   <div class="row">
   <%= render partial: 'shared/page_title', locals: { page_title: "お子さん一覧" } %>
     <table class="table mb-0">
-      <% @children.each do |child|%>
         <tr>
-          <td class="col-3">
+          <th>名前</th>
+          <th>性別</th>
+          <th>生年月日</th>
+        <tr>
+        <% @children.each do |child|%>
+          <td>
             <%= link_to "/users/#{@user.id}/children/#{child.id}" do %>
               <%= child.nickname %>
             <% end %>
           </td>
-          <td class="col-5">
-            <%= @child.birthdate %>
+          <td><%= child.gender %></td>
+          <td><%= child.birthdate %></td>
+          <td>
+            <%= link_to "編集", "/users/#{@user.id}/children/#{child.id}/edit" %>
           </td>
-          <td class="col-4">
-            <% if user.is_followed_by?(current_user)%>
-              <%= link_to user_relationships_path(user), method: :delete do %>
-                <button class="btn btn-danger" id="yes-follow">フォロー解除</button>
-              <% end %>
-            <% else %>
-              <%= link_to user_relationships_path(user), method: :post do %>
-                <button class="btn btn-outline-primary" id="no-follow">フォロー</button>
-              <% end %>
-            <% end %>
+          <td>
+            <%= link_to "登録解除", "/users/#{@user.id}/children/#{child.id}", method: :delete, data: { confirm: '投稿を削除しますか？' } %>
           </td>
         </tr>
-        </tbody>
       <% end %>
     </table>
   </div>
+  <%= link_to "お子さんの登録", "/users/#{@user.id}/children/new", class: "btn btn-primary my-4" %>
 </div>

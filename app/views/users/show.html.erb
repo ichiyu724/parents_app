@@ -44,7 +44,7 @@
       <% if @user.id == current_user.id %>
         <%= link_to "プロフィール編集", edit_user_path(@user.id), class: "btn btn-primary d-grid gap-2 col-5 mx-auto" %><br>
         <%= link_to "アカウント情報変更", edit_user_registration_path, class: "btn btn-primary d-grid gap-2 col-5 mx-auto mb-4" %>
-        <%= link_to "ワクチン接種スケジュール", "/users/#{@user.id}/children/new", class: "btn btn-primary d-grid gap-2 col-5 mx-auto mb-4" %>
+        <%= link_to "ワクチン接種スケジュール", "/users/#{@user.id}/children", class: "btn btn-primary d-grid gap-2 col-5 mx-auto mb-4" %>
       <% end %>
     <% end %>
     </div>
