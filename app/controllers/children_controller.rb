@@ -27,7 +27,18 @@ class ChildrenController < ApplicationController
   end
 
   def edit
+    @child = Child.find(params[:id])
+  end
 
+  def update
+    @child = Child.find(params[:id])
+    if @child.update(child_params)
+      flash[:notice] = 'お子さんの情報を更新しました。'
+      redirect_to "/users/#{@child.user_id}/children"
+    else 
+      flash.now[:alert] = '登録に失敗しました。'
+      render ("children/edit")
+    end
   end
 
   def destroy
