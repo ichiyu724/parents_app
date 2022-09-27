@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <%= render partial: 'shared/page_title', locals: { page_title: "ワクチン接種スケジュール" } %>
+    <ul>
+      <li><span>名前:<%= @child.nickname %></span></li>
+      <li><span>生年月日:<%= @child.birthdate%></span></li>
+    </ul>
+    <table class="table mb-0">
+      <tr>
+        <th>定期or任意</th>
+        <th>ワクチン名</th>
+        <th>接種予定1</th>
+        <th>接種予定2</th>
+        <th>接種予定3</th>
+        <th>接種予定4</th>
+      <tr>
+        <td>定期</td>
+        <td>B型肝炎</td>
+        <td><%= @child.birthdate + 2.month %></td>
+        <td><%= @child.birthdate + 3.month %></td>
+        <td></td>
+        <td></td>
+  </table>
+
+  
+  
+  
+  </div>
+</div>
