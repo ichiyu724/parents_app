@@ -44,7 +44,7 @@
   <%= f.hidden_field :user_id, value: current_user.id %>
   <%= f.hidden_field :id, value: @post.id %>
   <div class="d-flex align-items-center justify-content-center">
-    <%= f.submit "更新する", class: "btn btn-primary" %>
+    <%= f.submit "更新する", class: "btn btn-primary mt-4" %>
   </div>
   <div class="d-flex align-items-center justify-content-center my-3">
       <%= link_to "投稿詳細に戻る", post_path(@post) %>

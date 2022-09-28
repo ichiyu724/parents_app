@@ -76,3 +76,4 @@ gem "ransack"
 gem 'kaminari'
 gem 'dotenv-rails'
 gem 'fog-aws'
+gem 'active_decorator'

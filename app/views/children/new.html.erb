@@ -1,0 +1,29 @@
+<div class="container">
+  <%= render partial: 'shared/page_title', locals: { page_title: "お子さんの情報登録" } %>
+  <%= render "shared/error", obj: @child %>
+
+  <%= form_with model: @child, url: user_children_path do |f| %>
+  <table class="d-flex align-items-center justify-content-center">
+    <div class="form-group">
+      <tr>
+        <th><%= f.label :nickname ,"名前", for: "nickname" %><span class="text-white bg-danger border rounded fw-light p-1">必須</span></th>
+        <td><%= f.text_field :nickname, class: "form-control", id: "nickname" %></td>
+      </tr>
+    </div>
+    <div class="form-group">
+      <tr>
+        <th><%= f.label :birthdate,"生年月日", for: "birthdate" %><span class="text-white bg-danger border rounded fw-light p-1">必須</span></th>
+        <td><%= f.date_field :birthdate, class: "form-control", id: "birthdate" %>
+      </tr>
+    </div>
+    <div class="form-group">
+      <tr>
+        <th><%= f.label :gender ,"性別", for: "gender" %></th>
+        <td><%= f.select :gender, [["未選択", "" ], ["男の子", "男の子"], ["女の子", "女の子"]], class: "form-control", id: "gender" %></td>
+      </tr>
+    </div>
+  </table>
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <div class="d-flex align-items-center justify-content-center"><%= f.submit "登録する", class: "btn btn-primary mb-3" %></div>
+  <% end %>
+</div>
