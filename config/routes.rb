@@ -27,7 +27,9 @@ Rails.application.routes.draw do
     member do
       get :favorites
     end
-    resources :children
+    resources :children do
+      resources :histories
+    end
   end
 
   resources :posts , expect: [:index] do
