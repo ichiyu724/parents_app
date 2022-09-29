@@ -14,14 +14,13 @@
         <th>接種予定3</th>
         <th>接種予定4</th>
       <tr>
-        <% @histories.each do |history| %>
         <td></td>
-        <td></td>
-        <td><%= @child.birthdate + 2.month %></td>
+        <td><% @vaccinations.each do |vaccination| %><% end %></td>
+        <td><%= link_to @child.birthdate + 2.month, "/users/#{@child.user_id}/children/#{@child.id}/histories/new" %></td>
         <td><%= @child.birthdate + 3.month %></td>
         <td></td>
         <td></td>
-        <% end %>
+
   </table>
 
   

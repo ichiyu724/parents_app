@@ -23,7 +23,8 @@ class ChildrenController < ApplicationController
 
   def show
     @child = current_user.children.find(params[:id])
-    @histories = History.where(child_id: @child.id).order(vaccination_id: :asc)
+    vaccines = Vaccination.create(name: JpVaccination.find('hib_1').name, period: JpVaccination.find('hib_1').period, key: 'hib_1')
+    @vaccinations = vaccines
   end
 
   def edit
