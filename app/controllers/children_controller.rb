@@ -17,13 +17,13 @@ class ChildrenController < ApplicationController
   end
 
   def index
-    @user = User.find(params[:user_id])
+    @user = current_user
     @children = Child.where(user_id: @user.id).order(birthdate: :asc).includes(:user)
   end
 
   def show
-    @user = User.find(params[:user_id])
-    @child = Child.find(params[:id])
+    @child = current_user.children.find(params[:id])
+    @histories = History.where(child_id: @child.id).order(vaccination_id: :asc)
   end
 
   def edit

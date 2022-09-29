@@ -14,12 +14,14 @@
         <th>接種予定3</th>
         <th>接種予定4</th>
       <tr>
-        <td>定期</td>
-        <td>B型肝炎</td>
+        <% @histories.each do |history| %>
+        <td></td>
+        <td></td>
         <td><%= @child.birthdate + 2.month %></td>
         <td><%= @child.birthdate + 3.month %></td>
         <td></td>
         <td></td>
+        <% end %>
   </table>
 
   

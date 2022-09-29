@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_25_160738) do
+ActiveRecord::Schema.define(version: 2022_09_29_133030) do
 
   create_table "children", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.date "birthdate"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 2022_09_25_160738) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id"], name: "index_favorites_on_post_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "histories", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.bigint "child_id", null: false
+    t.bigint "vaccination_id", null: false
+    t.date "date"
+    t.boolean "vaccinated"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["child_id"], name: "index_histories_on_child_id"
+    t.index ["vaccination_id"], name: "index_histories_on_vaccination_id"
   end
 
   create_table "posts", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
@@ -75,8 +86,18 @@ ActiveRecord::Schema.define(version: 2022_09_25_160738) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vaccinations", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "period"
+    t.string "key", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "favorites", "posts"
   add_foreign_key "favorites", "users"
+  add_foreign_key "histories", "children"
+  add_foreign_key "histories", "vaccinations"
 end
