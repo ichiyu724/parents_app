@@ -7,20 +7,21 @@
     </ul>
     <table class="table mb-0">
       <tr>
-        <th>定期or任意</th>
         <th>ワクチン名</th>
-        <th>接種予定1</th>
-        <th>接種予定2</th>
-        <th>接種予定3</th>
-        <th>接種予定4</th>
-      <tr>
-        <td></td>
-        <td><% @vaccinations.each do |vaccination| %><% end %></td>
-        <td><%= link_to @child.birthdate + 2.month, "/users/#{@child.user_id}/children/#{@child.id}/histories/new" %></td>
-        <td><%= @child.birthdate + 3.month %></td>
-        <td></td>
-        <td></td>
-
+        <th>回数</th>
+        <th>接種予定</th>
+        
+      
+      <% @vaccinations.each do |vaccination| %>
+        <tr>
+          <td><%= vaccination.name %></td>
+          <td><%= vaccination.period %></td>
+          <td><%= @child.birthdate + 2.month %></td>
+          
+        </tr>
+        <tr></tr>
+      <% end %>
+      </tr>
   </table>
 
   
