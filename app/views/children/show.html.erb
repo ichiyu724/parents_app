@@ -7,25 +7,19 @@
     </ul>
     <table class="table mb-0">
       <tr>
-        <th>ワクチン名</th>
-        <th>回数</th>
-        <th>接種予定</th>
-        
-      
-      <% @vaccinations.each do |vaccination| %>
+        <th>ワクチン名・回数</th>
+        <th>接種可能予定日</th>
+        <p class="text-black-50">*接種予定日は生年月日から自動計算されています。実際の接種日はかかりつけ医とご相談ください。<br>
+        https://www.jpeds.or.jp/uploads/files/vaccine_schedule.pdf (出典:日本小児学会HP)</p>
+        <p class=text-black-50>*おたふくかぜは任意接種です。</p>
+      <% @vaccination_dates.each do |values| %>
         <tr>
-          <td><%= vaccination.name %></td>
-          <td><%= vaccination.period %></td>
-          <td><%= @child.birthdate + 2.month %></td>
-          
+          <td><%= values[:name] %></td>
+          <td><%= values[:date] %></td>
         </tr>
         <tr></tr>
       <% end %>
       </tr>
-  </table>
-
-  
-  
-  
+    </table>
   </div>
 </div>
