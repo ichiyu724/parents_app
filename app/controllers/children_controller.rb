@@ -23,8 +23,7 @@ class ChildrenController < ApplicationController
 
   def show
     @child = current_user.children.find(params[:id])
-    birthday = @child.birthdate.to_s
-    @vaccination_dates = JpVaccination.recommended_days(birthday, convert_to_strings = true)
+    @vaccinations = Vaccination.all.order(:id)
   end
 
   def edit
