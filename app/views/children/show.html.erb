@@ -7,20 +7,56 @@
     </ul>
     <table class="table mb-0">
       <tr>
-        <th>ワクチン名・回数</th>
-        <th>回数</th>
         <th>接種可能予定日</th>
+        <th>ワクチン名・回数</th>
         <span class="text-black-50">接種予定日は生年月日から自動計算されています。実際の接種日はかかりつけ医とご相談ください。
         <a href='https://www.jpeds.or.jp/uploads/files/vaccine_schedule.pdf'>推奨スケジュール</a>(日本小児学会HPより)<span>
         <p class=text-black-50>おたふくかぜは任意接種です。</p>
-      <% @vaccinations.each do |vaccination| %>
-        <tr>
-          <td><%= vaccination.name %></td>
-          <td><%= vaccination.period %></td>
-          <td><%= @child.vaccination_timing(@child.birthdate) %></td>
+      <tr>
+        <td><%= @child.birthdate+2.month%></td>
+        <% @vaccines.each do |vaccine| %>
+          <td><%= vaccine %></td>
+        <% end %>
+      </tr>
+      <tr>
+        <td><%= @child.birthdate+3.month%></td>
+        <% @vaccines.each do |vaccine| %>
+          <td><%= vaccine %></td>
+        <% end %>  
+      </tr>
+      <tr>
+        <td><%= @child.birthdate+4.month%></td>
+        <% @vaccines.each do |vaccine| %>
+          <td><%= vaccine %></td>
+        <% end %>  
+      </tr>
+      <tr>
+        <td><%= @child.birthdate+5.month%></td>
+        <% @vaccines.each do |vaccine| %>
+          <td><%= vaccine %></td>
+        <% end %>  
+      </tr>
+      <tr>
+        <td><%= @child.birthdate+7.month%></td>
+        <% @vaccines.each do |vaccine| %>
+          <td><%= vaccine %></td>
+        <% end %>  
+      </tr>
+      <tr>
+        <td><%= @child.birthdate+12.month%></td>
+        <% @vaccines.each do |vaccine| %>
+          <td><%= vaccine %></td>
+        <% end %>  
+      </tr>
+        
+        
+        <%#@vaccinations.each do |vaccination| %>
+        
+          <%#= vaccination.name %>
+          <%#= vaccination.period %>
+          <%#= @child.vaccination_schedule %>
         </tr>
-        <tr></tr>
-      <% end %>
+      
       </tr>
     </table>
   </div>

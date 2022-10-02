@@ -24,6 +24,11 @@ class ChildrenController < ApplicationController
   def show
     @child = current_user.children.find(params[:id])
     @vaccinations = Vaccination.all.order(:id)
+    jp_vaccination = JpVaccination.recommended_schedules(@child.birthdate.to_s, convert_to_strings = true)
+    @vaccines = jp_vaccination["2021-02-26"]
+    #birthday = @child.birthdate.to_s
+    #@schedules = @child.vaccination_schedule
+    #@schedules = JpVaccination.recommended_days(birthday, convert_to_strings = true)
   end
 
   def edit
@@ -53,4 +58,6 @@ class ChildrenController < ApplicationController
   def child_params
     params.require(:child).permit(:nickname, :gender, :birthdate).merge(user_id: current_user.id)
   end
+
+  
 end

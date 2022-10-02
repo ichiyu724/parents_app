@@ -5,8 +5,23 @@ class Child < ApplicationRecord
   validates :nickname, presence: true
   validates :birthdate, presence: true
 
-  def vaccination_timing(birthday)
-    birthday = "2022-09-01"
-    JpVaccination.recommended_days(birthday, convert_to_strings = true)
+  #def vaccination_schedule
+   # jp_vaccination = JpVaccination.recommended_days(birthdate.to_s, convert_to_strings = true)
+    #jp_vaccination[0][:date]
+  #end
+  
+  #def vaccination_timing
+   # vaccinnation_schedules = JpVaccination.recommended_days(birthdate.to_s, convert_to_strings = true)
+    #vaccinnation_schedules.each do |values|
+     # values[:date]
+    #end
+  #end
+
+  def vaccination_schedule
+    jp_vaccination = JpVaccination.recommended_schedules(birthdate.to_s, convert_to_strings = true)
+    vaccines = jp_vaccination["2021-02-26"]
+    vaccines.each do |vaccine|
+      vaccine
+    end
   end
 end
