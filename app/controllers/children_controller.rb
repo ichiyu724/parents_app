@@ -23,12 +23,21 @@ class ChildrenController < ApplicationController
 
   def show
     @child = current_user.children.find(params[:id])
-    @vaccinations = Vaccination.all.order(:id)
-    jp_vaccination = JpVaccination.recommended_schedules(@child.birthdate.to_s, convert_to_strings = true)
-    @vaccines = jp_vaccination["2021-02-26"]
-    #birthday = @child.birthdate.to_s
-    #@schedules = @child.vaccination_schedule
-    #@schedules = JpVaccination.recommended_days(birthday, convert_to_strings = true)
+    @vaccination_schedules = [
+      [@child.birthdate + 2.month, "ヒブ １回目", "ロタウイルス １回目", "小児用肺炎球菌 １回目", "Ｂ型肝炎 １回目"],
+      [@child.birthdate + 3.month, "ヒブ ２回目", "ロタウイルス ２回目", "小児用肺炎球菌 ２回目", "４種混合 第１期 １回目", "Ｂ型肝炎 ２回目"],
+      [@child.birthdate + 4.month, "ヒブ ３回目", "ロタウイルス ３回目", "小児用肺炎球菌 ３回目", "４種混合 第１期 ２回目"],
+      [@child.birthdate + 5.month, "４種混合 第１期 ３回目", "BCG"],
+      [@child.birthdate + 7.month, "Ｂ型肝炎 ３回目"],
+      [@child.birthdate + 12.month, "おたふくかぜ １回目", "ヒブ ４回目", "小児用肺炎球菌 ４回目", "水痘 １回目", "麻しん・風しん混合(MR) 第１期", "４種混合 第１期 ４回目"],
+      [@child.birthdate + 18.month, "水痘 ２回目"],
+      [@child.birthdate + 36.month, "日本脳炎 第１期 1回目"],
+      [@child.birthdate + 37.month, "日本脳炎 第１期 2回目"],
+      [@child.birthdate + 49.month, "日本脳炎 第１期 3回目"],
+      [@child.pre_school_year(@child.birthdate), "おたふくかぜ ２回目", "麻しん・風しん混合(MR) 第２期" ],
+      [@child.birthdate + 9.year, "日本脳炎 第２期"],
+      [@child.birthdate + 11.year, "２種混合 第２期"]
+    ]
   end
 
   def edit
@@ -58,6 +67,4 @@ class ChildrenController < ApplicationController
   def child_params
     params.require(:child).permit(:nickname, :gender, :birthdate).merge(user_id: current_user.id)
   end
-
-  
 end
