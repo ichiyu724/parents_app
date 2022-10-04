@@ -11,10 +11,12 @@
     おたふくかぜ(2回目)と麻しん・風しん混合(第2期)は小学校入学前1年間の間に接種推奨です。</p>
     <table class="table mb-0">
       <tr>
+        <th>接種完了</th>
         <th>接種可能予定日</th>
         <th>ワクチン名・回数</th>
           <% @vaccination_schedules.each do |vaccination_schedule| %>
             <tr>
+              <td><%#= @child.histories.vaccinated %></td>
               <td><%= vaccination_schedule[0] %></td>
               <td><%= vaccination_schedule[1] %></td>
               <td><%= vaccination_schedule[2] %></td>
