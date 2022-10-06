@@ -5,6 +5,8 @@
       <li><span>名前:<%= @child.nickname %></span></li>
       <li><span>生年月日:<%= @child.birthdate%></span></li>
     </ul>
+    <%= link_to "接種を記録", "/users/#{@child.user_id}/children/#{@child.id}/histories", class: "btn btn-primary"%>
+
     <span class="text-black-50">接種予定日は生年月日から自動計算されています。実際の接種日はかかりつけ医とご相談ください。
       <a href='https://www.jpeds.or.jp/uploads/files/vaccine_schedule.pdf'>推奨スケジュール</a>(日本小児学会HPより)<span>
     <p class=text-black-50>おたふくかぜは任意接種です。<br>
@@ -16,7 +18,7 @@
         <th>ワクチン名・回数</th>
           <% @vaccination_schedules.each do |vaccination_schedule| %>
             <tr>
-              <td><%#= @child.histories.vaccinated %></td>
+              <td><i class="fa-regular fa-circle-check", style="color:forestgreen;"></i></i></td>
               <td><%= vaccination_schedule[0] %></td>
               <td><%= vaccination_schedule[1] %></td>
               <td><%= vaccination_schedule[2] %></td>

@@ -17,7 +17,6 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :comments
   has_many :children
-  has_many :history, dependent: :destroy
 
   validates :username, presence: true, length: { maximum: 12 }
 

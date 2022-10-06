@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <%= render partial: 'shared/page_title', locals: { page_title: "ワクチン記録" } %>
+    <table>
+      <tbody>
+        <% @vaccinations.each do |vaccination| %>
+          <tr>
+            <th><%= vaccination.name %></th>
+            <td><%= vaccination.period %></td>
+            <td><%= link_to "記録", "/users/#{@child.user_id}/children/#{@child.id}/histories/new", class: "btn btn-primary" %></td>
+          </tr>
+      
+      
+        <% end %>
+      </tbody>
+    </table>
+
+
+
+
+
+
+  </div>
+</div>
