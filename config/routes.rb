@@ -28,7 +28,8 @@ Rails.application.routes.draw do
       get :favorites
     end
     resources :children do
-      resources :histories
+      resources :histories#, except: [:new]
+      #get '/users/:user_id/children/:child_id/histories/new/:vaccination_id', to: 'histories#new'
     end
   end
 
