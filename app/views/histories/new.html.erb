@@ -2,7 +2,7 @@
   <%= render partial: 'shared/page_title', locals: { page_title: "ワクチン接種日を記録する" } %>
   <%= render "shared/error", obj: @child %>
 
-  <%= form_with model: @child, url: user_children_path do |f| %>
+  <%= form_with model: [@child, @history], url: user_child_histories_path do |f| %>
     <div class="text-center">
       <%= @vaccination.name %>
       <%= @vaccination.period %>

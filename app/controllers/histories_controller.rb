@@ -16,4 +16,25 @@ class HistoriesController < ApplicationController
     @child = current_user.children.find(params[:child_id])
     @histories = @child.histories
   end
+
+  def create
+    @child = current_user.children.find(params[:child_id])
+    @history = @child.histories.new(history_params)
+    #@vaccination = Vaccination.find(params[:vaccination_id])
+    #@history.vaccination_id = @vaccination.id
+    if @history.save
+      @history.vaccinated == true
+      flash[:notice] = '接種日を登録しました。'
+      redirect_to user_child_histories_path
+    else 
+      flash.now[:alert] = '登録に失敗しました。'
+      render ("history/new")
+    end 
+  end
+
+  private
+
+  def history_params
+    params.require(:history).permit(:date, :vaccinated, :vaccination_id)
+  end
 end
