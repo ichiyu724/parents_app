@@ -24,12 +24,41 @@ class HistoriesController < ApplicationController
     #@history.vaccination_id = @vaccination.id
     if @history.save
       @history.vaccinated == true
-      flash[:notice] = '接種日を登録しました。'
+      flash[:notice] = '接種予定日を登録しました。'
       redirect_to user_child_histories_path
     else 
       flash.now[:alert] = '登録に失敗しました。'
       render ("history/new")
     end 
+  end
+
+  def edit
+    if params[:vaccination_id]
+      @vaccination = Vaccination.find(params[:vaccination_id])
+      @child = current_user.children.find(params[:child_id])      
+      @history = @vaccination.histories.find(params[:id])
+      @history.vaccination_id = @vaccination.id
+      session[:previous_url] = request.referer
+    end
+  end
+
+  def update
+    @child = current_user.children.find(params[:child_id])
+    @history = @child.histories.find(params[:id])
+    #@vaccination = Vaccination.find(params[:vaccination_id])
+    #@history.vaccination_id = @vaccination.id
+    if @history.update(history_params)
+      @history.vaccinated == true
+      flash[:notice] = '接種日を記録しました。'
+      redirect_to user_child_histories_path
+    else 
+      flash.now[:alert] = '登録に失敗しました。'
+      render ("history/edit")
+    end
+  end
+
+  def show
+
   end
 
   private
