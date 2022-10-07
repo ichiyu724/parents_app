@@ -11,7 +11,9 @@
               <td><%= history.date %></td>
               <td><%= link_to "接種済み登録をする", edit_user_child_history_path(params[:child_id], history.id, user_id: current_user.id, vaccination_id: vaccination.id) %></td>
             <% end %>
-            <td><%= link_to "予定を登録する", new_user_child_history_path(params[:child_id], user_id: current_user.id, vaccination_id: vaccination.id), class: "btn btn-primary" %></td>
+            <% unless vaccination.histories.present? %>
+              <td><%= link_to "予定を登録する", new_user_child_history_path(params[:child_id], user_id: current_user.id, vaccination_id: vaccination.id), class: "btn btn-primary" %></td>
+            <% end %>
           <% end %> 
           </tr>
       

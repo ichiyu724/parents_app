@@ -45,10 +45,10 @@ class HistoriesController < ApplicationController
   def update
     @child = current_user.children.find(params[:child_id])
     @history = @child.histories.find(params[:id])
+    @history.vaccinated = true
     #@vaccination = Vaccination.find(params[:vaccination_id])
     #@history.vaccination_id = @vaccination.id
     if @history.update(history_params)
-      @history.vaccinated == true
       flash[:notice] = '接種日を記録しました。'
       redirect_to user_child_histories_path
     else 
