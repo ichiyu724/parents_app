@@ -1,9 +1,10 @@
 <div class="container">
-  <%= render partial: 'shared/page_title', locals: { page_title: "接種予定日を登録する" } %>
+  <%= render partial: 'shared/page_title', locals: { page_title: "接種日を登録する" } %>
   <%= render "shared/error", obj: @child %>
 
   <%= form_with model: [@child, @history], url: user_child_histories_path do |f| %>
     <div class="text-center">
+      <%= @child.nickname %><br>
       <%= @vaccination.name %>
       <%= @vaccination.period %>
     </div>
@@ -12,6 +13,12 @@
         <tr>
           <th><%= f.label :date,"接種日", for: "vaccination_date" %></th>
           <td><%= f.date_field :date, class: "form-control", id: "vaccination_date" %>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <th><%= f.label :vaccinated,"接種済み", for: "vaccinated" %></th>
+          <td><%= f.check_box :vaccinated, {}, true, false %></td>
         </tr>
       </div>
     </table>

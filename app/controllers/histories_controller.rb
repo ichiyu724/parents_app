@@ -15,6 +15,7 @@ class HistoriesController < ApplicationController
     @vaccinations = Vaccination.all.order(:id)
     @child = current_user.children.find(params[:child_id])
     @histories = @child.histories
+    #@vaccination = @histories.find(params[:child_id])
   end
 
   def create
@@ -23,7 +24,6 @@ class HistoriesController < ApplicationController
     #@vaccination = Vaccination.find(params[:vaccination_id])
     #@history.vaccination_id = @vaccination.id
     if @history.save
-      @history.vaccinated == true
       flash[:notice] = '接種予定日を登録しました。'
       redirect_to user_child_histories_path
     else 
@@ -45,7 +45,6 @@ class HistoriesController < ApplicationController
   def update
     @child = current_user.children.find(params[:child_id])
     @history = @child.histories.find(params[:id])
-    @history.vaccinated = true
     #@vaccination = Vaccination.find(params[:vaccination_id])
     #@history.vaccination_id = @vaccination.id
     if @history.update(history_params)
