@@ -1,7 +1,6 @@
 class Child < ApplicationRecord
   belongs_to :user
   has_many :histories
-  has_many :vaccinations
   
   validates :nickname, presence: true
   validates :birthdate, presence: true

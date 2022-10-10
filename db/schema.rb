@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_07_014812) do
+ActiveRecord::Schema.define(version: 2022_10_10_120943) do
 
   create_table "children", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.date "birthdate"
@@ -92,10 +92,6 @@ ActiveRecord::Schema.define(version: 2022_10_07_014812) do
     t.string "key", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.date "date"
-    t.boolean "vaccinated"
-    t.bigint "child_id", null: false
-    t.index ["child_id"], name: "index_vaccinations_on_child_id"
   end
 
   add_foreign_key "comments", "posts"
