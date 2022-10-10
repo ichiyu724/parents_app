@@ -8,26 +8,19 @@ class HistoriesController < ApplicationController
   def new
     if params[:vaccination_id]
       @vaccination = Vaccination.find(params[:vaccination_id])
-      #@child = current_user.children.find(params[:child_id])      
       @history = @child.histories.new
       @history.vaccination_id = @vaccination.id
       session[:previous_url] = request.referer
-      #binding.pry
     end
   end
 
   def index
     @vaccinations = Vaccination.all.order(:id)
-    #@child = current_user.children.find(params[:child_id])
     @histories = @child.histories
   end
 
   def create
-    #@child = current_user.children.find(params[:child_id])
     @history = @child.histories.new(history_params)
-    #@vaccination = Vaccination.find(params[:vaccination_id])
-    #@history.vaccination_id = @vaccination.id
-    #binding.pry
     if @history.save
       flash[:notice] = '接種予定日を登録しました。'
       redirect_to user_child_histories_path
@@ -40,18 +33,12 @@ class HistoriesController < ApplicationController
   def edit
     if params[:vaccination_id]
       @vaccination = Vaccination.find(params[:vaccination_id])
-      #@child = current_user.children.find(params[:child_id])      
-      #@history = @vaccination.histories.find(params[:id])
       @history.vaccination_id = @vaccination.id
       session[:previous_url] = request.referer
     end
   end
 
   def update
-    #@child = current_user.children.find(params[:child_id])
-    #@history = @child.histories.find(params[:id])
-    #@vaccination = Vaccination.find(params[:vaccination_id])
-    #@history.vaccination_id = @vaccination.id
     if @history.update(history_params)
       flash[:notice] = '接種日を記録しました。'
       redirect_to user_child_histories_path
@@ -59,10 +46,6 @@ class HistoriesController < ApplicationController
       flash.now[:alert] = '登録に失敗しました。'
       render ("history/edit")
     end
-  end
-
-  def show
-
   end
 
   private
@@ -73,7 +56,6 @@ class HistoriesController < ApplicationController
 
   def set_vaccination
     @vaccination = History.where(vaccination_id: params[:id])
-    #@vaccination = Vaccination.find(params[:vaccination_id])
   end
 
   def set_child
