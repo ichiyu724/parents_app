@@ -41,6 +41,7 @@ ja:
       user: ユーザー
       post: 投稿
       comment: コメント
+      child: 子供
     attributes:
       user:
         username: ユーザー名
@@ -49,6 +50,9 @@ ja:
         content: 相談内容
       comment:
         body: コメント
+      child:
+        nickname: 名前
+        birthdate: 生年月日
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。
