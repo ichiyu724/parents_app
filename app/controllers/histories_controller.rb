@@ -26,7 +26,7 @@ class HistoriesController < ApplicationController
       redirect_to user_child_histories_path
     else 
       flash.now[:alert] = '登録に失敗しました。'
-      render ("history/new")
+      render("history/new")
     end 
   end
 
@@ -44,7 +44,7 @@ class HistoriesController < ApplicationController
       redirect_to user_child_histories_path
     else 
       flash.now[:alert] = '登録に失敗しました。'
-      render ("history/edit")
+      render("history/edit")
     end
   end
 

@@ -12,7 +12,7 @@ class ChildrenController < ApplicationController
       redirect_to user_children_path
     else 
       flash.now[:alert] = '登録に失敗しました。'
-      render ("children/new")
+      render("children/new")
     end 
   end
 
@@ -51,7 +51,7 @@ class ChildrenController < ApplicationController
       redirect_to "/users/#{@child.user_id}/children"
     else 
       flash.now[:alert] = '登録に失敗しました。'
-      render ("children/edit")
+      render("children/edit")
     end
   end
 
