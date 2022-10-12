@@ -35,7 +35,7 @@ RSpec.describe "Children", type: :request do
     end
   end
 
-  describe "#index" do
+  describe "#new" do
     context "ログイン中のユーザー" do
       before do 
         sign_in user
