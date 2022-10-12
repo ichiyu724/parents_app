@@ -50,5 +50,19 @@ RSpec.describe "Children", type: :request do
         expect(response.body).to include("お子さんの情報登録")
       end
     end
+
+    context "ログインユーザーでないユーザー" do
+      before do
+        get new_user_child_path(user_id: user.id)
+      end
+
+      it "マイページにアクセスできないこと" do
+        expect(response).to have_http_status(302)
+      end
+
+      it "ログイン画面にリダイレクトされること" do
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
   end
 end
