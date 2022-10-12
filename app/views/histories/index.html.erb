@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <%= render partial: 'shared/page_title', locals: { page_title: "ワクチン記録" } %>
+    <%= render partial: 'children/child_data' %>
+    
+    <table>
+      <tbody>
+        <% @vaccinations.each do |vaccination| %>
+          <% @history = History.find_by(child_id: params[:child_id], vaccination_id: vaccination.id) %>
+          <tr>
+            <th><%= vaccination.name %></th>
+            <td><%= vaccination.period %>
+            <% if @history&.vaccinated? %>
+              <i class="fa-regular fa-circle-check", style="color:forestgreen;"></i></td>
+            <% end %>
+            <% if @history&.date? || @history&.vaccinated? %>
+              <td><%= @history.date %>
+              <td><%= link_to "修正する", edit_user_child_history_path(params[:child_id], @history.id, user_id: current_user.id, vaccination_id: vaccination.id), class: "btn btn-outline-primary" %></td>
+            <% else %>
+              <td><%= link_to "接種日を登録する", new_user_child_history_path(params[:child_id], user_id: current_user.id, vaccination_id: vaccination.id), class: "btn btn-primary" %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

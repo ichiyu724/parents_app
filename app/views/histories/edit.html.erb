@@ -1,0 +1,24 @@
+<div class="container">
+  <%= render partial: 'shared/page_title', locals: { page_title: "接種記録を修正する" } %>
+  <%= render "shared/error", obj: @child %>
+
+  <%= form_with model: [@child, @history], url: "/users/#{current_user.id}/children/#{@history.child_id}/histories/#{@history.id}" do |f| %>
+    <%= render partial: 'histories/vaccination_name' %>
+    <table class="d-flex align-items-center justify-content-center">
+      <div class="form-group">
+        <tr>
+          <th><%= f.label :date,"接種日", for: "vaccination_date" %><span class="text-white bg-danger border rounded fw-light p-1">必須</span></th>
+          <td><%= f.date_field :date, class: "form-control", id: "vaccination_date", value: @history.date %></td>
+        </tr>
+      </div>
+      <div class="form-group">
+        <tr>
+          <th><%= f.label :vaccinated,"接種済み", for: "vaccinated" %></th>
+          <td><%= f.check_box :vaccinated, {}, true, false %></td>
+        </tr>
+      </div>
+    </table>
+  <%= f.hidden_field :vaccination_id, value: @vaccination.id %>
+    <div class="d-flex align-items-center justify-content-center"><%= f.submit "更新する", class: "btn btn-primary my-3" %></div>
+  <% end %>
+</div>
