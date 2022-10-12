@@ -42,6 +42,7 @@ ja:
       post: 投稿
       comment: コメント
       child: 子供
+      history: 接種状況
     attributes:
       user:
         username: ユーザー名
@@ -53,6 +54,8 @@ ja:
       child:
         nickname: 名前
         birthdate: 生年月日
+      history:
+        date: 接種日
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。

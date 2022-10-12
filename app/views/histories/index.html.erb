@@ -13,12 +13,11 @@
             <% if @history&.vaccinated? %>
               <i class="fa-regular fa-circle-check", style="color:forestgreen;"></i></td>
             <% end %>
-            <% unless @history.present? %>
-              <td><%= link_to "接種日を登録する", new_user_child_history_path(params[:child_id], user_id: current_user.id, vaccination_id: vaccination.id), class: "btn btn-primary" %></td>
-            <% end %>
-            <% if @history&.date.present? %>
+            <% if @history&.date? || @history&.vaccinated? %>
               <td><%= @history.date %>
               <td><%= link_to "修正する", edit_user_child_history_path(params[:child_id], @history.id, user_id: current_user.id, vaccination_id: vaccination.id), class: "btn btn-outline-primary" %></td>
+            <% else %>
+              <td><%= link_to "接種日を登録する", new_user_child_history_path(params[:child_id], user_id: current_user.id, vaccination_id: vaccination.id), class: "btn btn-primary" %></td>
             <% end %>
           </tr>
         <% end %>
