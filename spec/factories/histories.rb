@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :history do
-    child { nil }
-    vaccination { nil }
-    date { "2022-09-29" }
+    association :child
+    association :vaccination
+    date { Faker::Date.in_date_period }
     vaccinated { false }
   end
 end

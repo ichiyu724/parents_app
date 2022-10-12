@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :vaccination do
-    name { "MyString" }
-    period { "MyString" }
-    key { "MyString" }
+    name { "ヒブ" }
+    period { "1回目" }
+    key { "hib_1" }
   end
 end
