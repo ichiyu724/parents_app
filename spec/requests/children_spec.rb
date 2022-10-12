@@ -34,4 +34,21 @@ RSpec.describe "Children", type: :request do
       end
     end
   end
+
+  describe "#index" do
+    context "ログイン中のユーザー" do
+      before do 
+        sign_in user
+        get new_user_child_path(user_id: user.id)
+      end
+    
+      it "子供の登録ページが表示できること" do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'タイトルが正しく表示されていること' do
+        expect(response.body).to include("お子さんの情報登録")
+      end
+    end
+  end
 end
