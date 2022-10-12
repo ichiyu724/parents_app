@@ -81,8 +81,25 @@ RSpec.describe "Children", type: :request do
           expect(response).to redirect_to user_children_path(user_id: user.id)
         end
       end
-  
       
+      context "パラメータが不正な場合" do
+        before do
+          sign_in user
+        end
+        it "名前が空欄であれば登録されないこと" do
+          expect do
+            post user_children_path(user_id: user.id), params: { child: FactoryBot.attributes_for(:child, nickname: "") }
+          end.not_to change(user.children, :count)
+          expect(response.body).to include '名前を入力してください'
+        end
+  
+        it "相談内容が空欄であれば登録されないこと" do
+          expect do
+            post user_children_path(user_id: user.id), params: { child: FactoryBot.attributes_for(:child, birthdate: "") }
+          end.not_to change(user.posts, :count)
+          expect(response.body).to include '生年月日を入力してください'
+        end
+      end
     end
   end
 end
