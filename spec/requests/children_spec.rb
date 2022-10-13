@@ -184,6 +184,15 @@ RSpec.describe "Children", type: :request do
         end.to change { Child.find(hanako.id).birthdate }.from(Date.parse("2022-10-13")).to(Date.parse("2021-10-13"))
       end
 
-      
+      it 'リクエストが成功すること' do
+        put user_child_path(hanako, user_id: user.id), params: { child: FactoryBot.attributes_for(:taro) }
+        expect(response.status).to eq 302
+      end
+
+      it '更新後リダイレクトすること' do
+        put user_child_path(hanako, user_id: user.id), params: { child: FactoryBot.attributes_for(:taro) }
+        expect(response).to redirect_to user_children_path
+      end
+    end
   end
 end
