@@ -67,4 +67,24 @@ RSpec.describe "Histories", type: :request do
       end
     end
   end
+
+  describe "#create" do
+    context "パラメータが正常な場合" do
+      before do
+        sign_in user
+      end
+      it "接種日の登録が正常に完了するか" do
+        expect do
+          post user_child_histories_path(user_id: user.id, child_id: child.id), params: { history: FactoryBot.attributes_for(:history, vaccination_id: vaccination.id) }
+        end.to change(child.histories, :count).by(1)
+      end
+
+      it "登録成功後、リダイレクトするか" do
+        post user_child_histories_path(user_id: user.id, child_id: child.id), params: { history: FactoryBot.attributes_for(:history, vaccination_id: vaccination.id) }
+        expect(response).to redirect_to user_child_histories_path(user_id: user.id, child_id: child.id)
+      end
+    end
+    
+    
+  end
 end
