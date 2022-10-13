@@ -9,8 +9,8 @@ RSpec.describe Child, type: :model do
   end
 
   describe "新規登録" do
-    context "投稿成功" do
-      it "投稿タイトルと相談内容のバリデーションが設定できていること" do
+    context "登録成功" do
+      it "名前と生年月日のバリデーションが設定できていること" do
         expect(child.valid?).to eq(true)
       end
     end
