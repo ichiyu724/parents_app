@@ -214,4 +214,30 @@ RSpec.describe "Children", type: :request do
       end
     end
   end
+
+  describe "#destroy" do
+    context "ログイン中のユーザー" do
+      let!(:child1) { FactoryBot.create :child, user_id: user.id }
+      
+      before do 
+        sign_in user
+      end
+
+      it "正常に子供を削除できるか" do
+        expect do
+          delete user_child_path(child1, user_id: user.id)
+        end.to change(user.children, :count).by(-1)
+      end
+
+      it 'リクエストが成功すること' do
+        delete user_child_path(child1, user_id: user.id)
+        expect(response.status).to eq 302
+      end
+
+      it "子供一覧にリダイレクトすること" do
+        delete user_child_path(child1, user_id: user.id)
+        expect(response).to redirect_to user_children_path
+      end
+    end
+  end
 end
