@@ -194,5 +194,24 @@ RSpec.describe "Children", type: :request do
         expect(response).to redirect_to user_children_path
       end
     end
+
+    context 'パラメータが不正な場合' do
+      before do
+        sign_in user
+      end
+      it '名前が空欄であれば更新されないこと' do
+        expect do
+          put user_child_path(hanako, user_id: user.id), params: { child: FactoryBot.attributes_for(:taro, nickname: "") }
+        end.to_not change(Child.find(hanako.id), :nickname)
+        expect(response.body).to include '名前を入力してください'
+      end
+
+      it '生年月日が空欄であれば更新されないこと' do
+        expect do
+          put user_child_path(hanako, user_id: user.id), params: { child: FactoryBot.attributes_for(:taro, birthdate: "") }
+        end.to_not change(Child.find(hanako.id), :birthdate)
+        expect(response.body).to include '生年月日を入力してください'
+      end
+    end
   end
 end
