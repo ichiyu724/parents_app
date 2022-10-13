@@ -97,5 +97,17 @@ RSpec.describe "子供の編集", type: :system do
     end
   end
 
-  
+  context "子供の編集ができない" do
+    scenario "名前が空欄だと更新できない" do
+      fill_in 'child[nickname]', with: ""
+      click_on '更新する'
+      expect(current_path).to eq "/users/#{user.id}/children/#{child.id}"
+    end
+
+    scenario "生年月日が空欄だと更新できない" do
+      fill_in 'child[birthdate]', with: ""
+      click_on '更新する'
+      expect(current_path).to eq "/users/#{user.id}/children/#{child.id}"
+    end
+  end
 end
