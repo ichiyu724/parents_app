@@ -111,3 +111,26 @@ RSpec.describe "子供の編集", type: :system do
     end
   end
 end
+
+RSpec.describe "ワクチン接種スケジュール", type: :system do
+  let!(:user) { create(:user) }
+  let!(:child) { create(:child, user_id: user.id)}
+
+  before do
+    login(user)
+    visit user_child_path(child, user_id: user.id)
+  end
+
+  scenario "ワクチンのスケジュールを表示できること" do
+    @vaccination_schedules = [
+      [child.birthdate + 2.month, "ヒブ １回目", "ロタウイルス １回目", "小児用肺炎球菌 １回目", "Ｂ型肝炎 １回目"]
+    ]
+    @vaccination_schedules.each do |vaccination_schedule|
+      expect(page).to have_content child.birthdate + 2.month
+      expect(page).to have_content "ヒブ １回目"
+      expect(page).to have_content "ロタウイルス １回目"
+      expect(page).to have_content "小児用肺炎球菌 １回目"
+      expect(page).to have_content "Ｂ型肝炎 １回目"
+    end
+  end
+end
