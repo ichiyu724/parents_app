@@ -53,6 +53,18 @@ RSpec.describe "Histories", type: :request do
       end
     end
 
-    
+    context "ログインユーザーでないユーザー" do
+      before do
+        get new_user_child_history_path(child_id: child.id, user_id: user.id, vaccination_id: vaccination.id)
+      end
+
+      it "マイページにアクセスできないこと" do
+        expect(response).to have_http_status(302)
+      end
+
+      it "ログイン画面にリダイレクトされること" do
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
   end
 end
