@@ -178,6 +178,12 @@ RSpec.describe "Children", type: :request do
         end.to change { Child.find(hanako.id).nickname }.from('Hanako').to('Taro')
       end
 
+      it '生年月日が更新されること' do
+        expect do
+          put user_child_path(hanako, user_id: user.id), params: { child: FactoryBot.attributes_for(:taro) }
+        end.to change { Child.find(hanako.id).birthdate }.from(Date.parse("2022-10-13")).to(Date.parse("2021-10-13"))
+      end
+
       
   end
 end
