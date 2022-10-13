@@ -22,3 +22,24 @@ RSpec.describe "子供の一覧", type: :system do
   end
 end
 
+RSpec.describe "新規登録", type: :system do
+  let!(:user) { create(:user) }
+  let!(:child) { create(:child, user_id: user.id)}
+
+  before do
+    login(user)
+    visit new_user_child_path(user_id: user.id)
+  end
+
+  scenario "子供の新規登録ができること" do
+    fill_in 'child[nickname]', with: child.nickname
+    fill_in 'child[birthdate]', with: child.birthdate
+    select '男の子', from: 'child[gender]'
+    expect{
+      click_button '登録する'
+    }.to change { Child.count }.by(1)
+    expect(current_path).to eq user_children_path(user_id: user.id)
+  end
+
+  
+end
