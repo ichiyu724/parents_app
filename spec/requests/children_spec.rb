@@ -133,4 +133,35 @@ RSpec.describe "Children", type: :request do
       end
     end
   end
+
+  describe "#edit" do
+    context "ログイン中のユーザー" do
+      before do 
+        sign_in user
+        get edit_user_child_path(child, user_id: user.id)
+      end
+    
+      it "子供の編集ページが表示できること" do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'タイトルが正しく表示されていること' do
+        expect(response.body).to include("お子さんの情報編集")
+      end
+    end
+
+    context "ログインユーザーでないユーザー" do
+      before do
+        get edit_user_child_path(child, user_id: user.id)
+      end
+
+      it "マイページにアクセスできないこと" do
+        expect(response).to have_http_status(302)
+      end
+
+      it "ログイン画面にリダイレクトされること" do
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
+  end
 end
