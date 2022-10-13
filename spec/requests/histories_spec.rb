@@ -127,4 +127,31 @@ RSpec.describe "Histories", type: :request do
       end
     end
   end
+
+  describe "#update" do
+    let(:hib_2) { FactoryBot.create :hib_2, child_id: child.id, vaccination_id: vaccination.id }
+      
+    context "パラメータが妥当な場合" do
+      before do
+        sign_in user
+      end
+      it '接種日が更新されること' do
+        expect do
+          put user_child_history_path(hib_2, user_id: user.id, child_id: child.id), params: { history: FactoryBot.attributes_for(:hib_3, vaccination_id: vaccination.id) }
+        end.to change { History.find(hib_2.id).date }.from(Date.parse("2022-10-13")).to(Date.parse("2021-10-13"))
+      end
+
+      it 'リクエストが成功すること' do
+        put user_child_history_path(hib_2, user_id: user.id, child_id: child.id), params: { history: FactoryBot.attributes_for(:hib_3, vaccination_id: vaccination.id) }
+        expect(response.status).to eq 302
+      end
+
+      it '更新後リダイレクトすること' do
+        put user_child_history_path(hib_2, user_id: user.id, child_id: child.id), params: { history: FactoryBot.attributes_for(:hib_3, vaccination_id: vaccination.id) }
+        expect(response).to redirect_to user_child_histories_path(user_id: user.id, child_id: child.id)
+      end
+    end
+
+    
+  end
 end
