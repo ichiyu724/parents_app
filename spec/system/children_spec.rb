@@ -30,7 +30,13 @@ RSpec.describe "子供の一覧", type: :system do
     expect(current_path).to eq edit_user_child_path(child, user_id: user.id)
   end
 
-  
+  scenario "登録解除リンクを押すと子供の情報が削除され子供の一覧ページへ遷移すること" do
+    visit user_children_path(user_id: user.id)
+    expect{
+      click_on '登録解除'
+    }.to change { Child.count }.by(-1)
+    expect(current_path).to eq user_children_path(user_id: user.id)
+  end
 end
 
 RSpec.describe "新規登録", type: :system do
