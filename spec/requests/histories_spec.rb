@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Histories", type: :request do
-  let(:history) { create(:history) }
   let(:child) { create(:child) }
   let(:user) { create(:user) }
   let(:vaccination) { create(:vaccination) }
+  let(:history) { create(:history, child_id: child.id, vaccination_id: vaccination.id) }
   
   describe "#index" do
     context "ログイン中のユーザー" do
@@ -93,6 +93,37 @@ RSpec.describe "Histories", type: :request do
         expect do
           post user_child_histories_path(user_id: user.id, child_id: child.id), params: { history: FactoryBot.attributes_for(:history, vaccination_id: vaccination.id, date: "") }
         end.not_to change(child.histories, :count)
+      end
+    end
+  end
+
+  describe "#edit" do
+    context "ログイン中のユーザー" do
+      before do 
+        sign_in user
+        get edit_user_child_history_path(history, child_id: child.id, user_id: user.id, vaccination_id: vaccination.id)
+      end
+    
+      it "接種記録の修正ページが表示できること" do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'タイトルが正しく表示されていること' do
+        expect(response.body).to include("接種記録を修正する")
+      end
+    end
+
+    context "ログインユーザーでないユーザー" do
+      before do
+        get edit_user_child_history_path(history, child_id: child.id, user_id: user.id, vaccination_id: vaccination.id)
+      end
+
+      it "マイページにアクセスできないこと" do
+        expect(response).to have_http_status(302)
+      end
+
+      it "ログイン画面にリダイレクトされること" do
+        expect(response).to redirect_to "/users/sign_in"
       end
     end
   end

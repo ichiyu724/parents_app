@@ -32,7 +32,6 @@ class HistoriesController < ApplicationController
     if params[:vaccination_id]
       @vaccination = Vaccination.find(params[:vaccination_id])
       @history.vaccination_id = @vaccination.id
-      session[:previous_url] = request.referer
     end
   end
 
