@@ -36,4 +36,23 @@ RSpec.describe "Histories", type: :request do
       end
     end
   end
+
+  describe "#new" do
+    context "ログイン中のユーザー" do
+      before do 
+        sign_in user
+        get new_user_child_history_path(child_id: child.id, user_id: user.id, vaccination_id: vaccination.id)
+      end
+    
+      it "接種日の登録ページが表示できること" do
+        expect(response).to have_http_status(200)
+      end
+
+      it 'タイトルが正しく表示されていること' do
+        expect(response.body).to include("接種日を登録する")
+      end
+    end
+
+    
+  end
 end
