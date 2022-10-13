@@ -41,5 +41,12 @@ RSpec.describe "新規登録", type: :system do
     expect(current_path).to eq user_children_path(user_id: user.id)
   end
 
-  
+  scenario "誤った情報では投稿できないこと" do
+    fill_in 'child[nickname]', with: ""
+    fill_in 'child[birthdate]', with: ""
+    expect{
+      click_button '登録する'
+    }.to change { Child.count }.by(0)
+    expect(current_path).to eq "/users/#{user.id}/children"
+  end
 end
