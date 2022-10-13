@@ -32,7 +32,6 @@ class HistoriesController < ApplicationController
     if params[:vaccination_id]
       @vaccination = Vaccination.find(params[:vaccination_id])
       @history.vaccination_id = @vaccination.id
-      session[:previous_url] = request.referer
     end
   end
 
@@ -54,7 +53,7 @@ class HistoriesController < ApplicationController
   end
 
   def set_child
-    @child = current_user.children.find(params[:child_id])
+    @child = Child.find(params[:child_id])
   end
 
   def set_history
