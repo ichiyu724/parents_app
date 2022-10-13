@@ -22,7 +22,7 @@ class ChildrenController < ApplicationController
   end
 
   def show
-    @child = current_user.children.find(params[:id])
+    @child = Child.find(params[:id])
     @vaccination_schedules = [
       [@child.birthdate + 2.month, "ヒブ １回目", "ロタウイルス １回目", "小児用肺炎球菌 １回目", "Ｂ型肝炎 １回目"],
       [@child.birthdate + 3.month, "ヒブ ２回目", "ロタウイルス ２回目", "小児用肺炎球菌 ２回目", "４種混合 第１期 １回目", "Ｂ型肝炎 ２回目"],
