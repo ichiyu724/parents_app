@@ -67,3 +67,35 @@ RSpec.describe "新規登録", type: :system do
     expect(current_path).to eq "/users/#{user.id}/children"
   end
 end
+
+RSpec.describe "子供の編集", type: :system do
+  let!(:user) { create(:user) }
+  let!(:child) { create(:child, birthdate: Date.parse("2022-10-13"), gender: "男の子", nickname: "Taro", user: user)}
+
+  before do
+    login(user)
+    visit edit_user_child_path(child, user_id: user.id)
+  end
+
+  context "子供の編集ができる時" do
+    scenario "ログインユーザーは子供を編集できること" do
+      expect(
+        find("#nickname").value
+      ).to eq(child.nickname)
+      
+      fill_in 'child[nickname]', with: "Hanako"
+      fill_in 'child[birthdate]', with: Date.parse("2021-12-31")
+      select '女の子', from: 'child[gender]'
+      expect{
+        click_on '更新する'
+      }.to change { Post.count }.by(0)
+      
+      expect(current_path).to eq user_children_path(user_id: user.id)
+      expect(page).to have_content "Hanako"
+      expect(page).to have_content "女の子"
+      expect(page).to have_content Date.parse("2021-12-31")
+    end
+  end
+
+  
+end
