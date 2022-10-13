@@ -164,4 +164,20 @@ RSpec.describe "Children", type: :request do
       end
     end
   end
+
+  describe "#update" do
+    let(:hanako) { FactoryBot.create :hanako, user_id: user.id }
+      
+    context "パラメータが妥当な場合" do
+      before do
+        sign_in user
+      end
+      it '子供の名前が更新されること' do
+        expect do
+          put user_child_path(hanako, user_id: user.id), params: { child: FactoryBot.attributes_for(:taro) }
+        end.to change { Child.find(hanako.id).nickname }.from('Hanako').to('Taro')
+      end
+
+      
+  end
 end
