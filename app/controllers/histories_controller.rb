@@ -54,7 +54,7 @@ class HistoriesController < ApplicationController
   end
 
   def set_child
-    @child = current_user.children.find(params[:child_id])
+    @child = Child.find(params[:child_id])
   end
 
   def set_history
