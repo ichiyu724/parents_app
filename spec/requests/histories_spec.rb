@@ -85,6 +85,15 @@ RSpec.describe "Histories", type: :request do
       end
     end
     
-    
+    context "パラメータが不正な場合" do
+      before do
+        sign_in user
+      end
+      it "接種日が空欄であれば登録されないこと" do
+        expect do
+          post user_child_histories_path(user_id: user.id, child_id: child.id), params: { history: FactoryBot.attributes_for(:history, vaccination_id: vaccination.id, date: "") }
+        end.not_to change(child.histories, :count)
+      end
+    end
   end
 end
