@@ -1,11 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "子供の一覧", type: :system do
-  let(:user) { create(:user) }
-  let(:child) { create(:child, user_id: user.id)}
+  let!(:user) { create(:user) }
+  let!(:child) { create(:child, user_id: user.id)}
+
+  before do
+    login(user)
+  end
 
   scenario "登録済みの子供が一覧で表示できること" do
-    login(user)
     child1 = FactoryBot.create(:child, user_id: user.id)
     child2 = FactoryBot.create(:child, user_id: user.id)
     child3 = FactoryBot.create(:child, user_id: user.id)
@@ -20,6 +23,14 @@ RSpec.describe "子供の一覧", type: :system do
       expect(page).to have_content "お子さんの登録"
     end
   end
+
+  scenario "編集リンクを押すと編集ページへ遷移すること" do
+    visit user_children_path(user_id: user.id)
+    click_on "編集"
+    expect(current_path).to eq edit_user_child_path(child, user_id: user.id)
+  end
+
+  
 end
 
 RSpec.describe "新規登録", type: :system do
