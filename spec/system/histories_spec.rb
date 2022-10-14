@@ -41,3 +41,31 @@ RSpec.describe "接種記録の一覧", type: :system do
     end
   end
 end
+
+RSpec.describe "接種記録の登録", type: :system do
+  let!(:user) { create(:user) }
+  let!(:child) { create(:child, user_id: user.id)}
+  let!(:vaccination) { create(:vaccination) }
+  let!(:history) { create(:history, child_id: child.id, vaccination_id: vaccination.id) }
+
+  before do
+    login(user)
+    visit new_user_child_history_path(user_id: user.id, child_id: child.id, vaccination_id: vaccination.id)
+  end
+
+  scenario "接種記録登録ができること" do
+    fill_in 'history[date]', with: Date.parse("2022-10-14")
+    expect{
+      click_button '登録する'
+    }.to change { History.count }.by(1)
+    expect(current_path).to eq user_child_histories_path(user_id: user.id, child_id: child.id)
+  end
+
+  scenario "接種日が空欄では投稿できないこと" do
+    fill_in 'history[date]', with: ""
+    expect{
+      click_button '登録する'
+    }.to change { Child.count }.by(0)
+    expect(current_path).to eq "/users/#{user.id}/children/#{child.id}/histories"
+  end
+end

@@ -4,11 +4,9 @@ class HistoriesController < ApplicationController
   before_action :set_history, only: [:edit, :update]
 
   def new
-    if params[:vaccination_id]
-      @vaccination = Vaccination.find(params[:vaccination_id])
-      @history = @child.histories.new
-      @history.vaccination_id = @vaccination.id
-    end
+    @vaccination = Vaccination.find(params[:vaccination_id])
+    @history = @child.histories.new
+    @history.vaccination_id = @vaccination.id
   end
 
   def index
