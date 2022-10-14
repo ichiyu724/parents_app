@@ -1,8 +1,8 @@
 <div class="container">
   <%= render partial: 'shared/page_title', locals: { page_title: "接種日を登録する" } %>
-  <%= render "shared/error", obj: @child %>
+  <%= render "shared/error", obj: @history %>
 
-  <%= form_with model: [@child, @history], url: user_child_histories_path do |f| %>
+  <%= form_with model: @history, url: user_child_histories_path do |f| %>
     <%= render partial: 'histories/vaccination_name' %>
     <table class="d-flex align-items-center justify-content-center">
       <div class="form-group">
