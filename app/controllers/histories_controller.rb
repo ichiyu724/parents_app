@@ -27,10 +27,10 @@ class HistoriesController < ApplicationController
   end
 
   def edit
-    if params[:vaccination_id]
+    #if params[:vaccination_id]
       @vaccination = Vaccination.find(params[:vaccination_id])
       @history.vaccination_id = @vaccination.id
-    end
+    #end
   end
 
   def update
