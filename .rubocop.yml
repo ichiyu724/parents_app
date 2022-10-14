@@ -23,4 +23,5 @@ AllCops:
     - "vendor/*"
     - "**/Gemfile"
     - .git/**/*"
+    - "spec/**/*"
   NewCops: enable

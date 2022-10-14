@@ -41,6 +41,9 @@ jobs:
           command: yarn install
       - run: bundle exec bin/webpack
       - run:
+          name: Rubocop
+          command: bundle exec rubocop --fail-level W --display-only-fail-level-offenses
+      - run:
           name: Rspec
           command: bundle exec rspec
 
@@ -49,6 +52,8 @@ workflows:
   build_and_test:
     jobs:
       - build
+      - rubocop
       - rspec:
           requires:
             - build
+            - rubocop
