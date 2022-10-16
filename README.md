@@ -1,6 +1,6 @@
 # ParentsLink
 
-<img src="/assets/toppage.png">
+<img src="/assets/images/toppage.png">
 
 ## ParentsLink とは？
 
@@ -18,20 +18,20 @@ URL: https://parents-link.herokuapp.com/
 
 ・投稿一覧では他のユーザーの投稿をお気に入り登録できます。
 
-<img src="/assets/readme1.png">
+<img src="/assets/images/readme1.png">
 
 ・投稿詳細では、コメントもできます。
 
 ・ユーザー一覧から、他のユーザーのフォローができます。
 
-<img src="/assets/readme2.png">
+<img src="/assets/images/readme2.png">
 
 ・マイページでは、自分の投稿や、お気に入りした投稿が確認できます。
 
 ・マイページからお子さんのワクチン接種のスケジュール確認、記録ができます。
 
-<img src="/assets/readme3.pmg">
-<img src="/assets/readme4.png">
+<img src="/assets/images/readme3.pmg">
+<img src="/assets/images/readme4.png">
 
 ## 機能
 
@@ -61,13 +61,13 @@ URL: https://parents-link.herokuapp.com/
 
 ## ER 図
 
-<img src="/assets/ER図.png">
+<img src="/assets/images/ER図.png">
 
 ## ワイヤーフレーム
 
 https://xd.adobe.com/view/9ba30a51-bee2-48f1-b4c1-397d6689aa32-cef0/
 
-# 使用技術
+## 使用技術
 
 ### バックエンド
 
@@ -80,6 +80,8 @@ https://xd.adobe.com/view/9ba30a51-bee2-48f1-b4c1-397d6689aa32-cef0/
 ・HTML/SCSS/Bootstrap
 
 ・Javascript/jQuery 3.6.0
+
+.GoogleMap API/ Place API
 
 ### インフラ
 
