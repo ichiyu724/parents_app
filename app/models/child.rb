@@ -1,6 +1,6 @@
 class Child < ApplicationRecord
   belongs_to :user
-  has_many :histories
+  has_many :histories, dependent: :destroy
   
   validates :nickname, presence: true
   validates :birthdate, presence: true
@@ -14,7 +14,7 @@ class Child < ApplicationRecord
               fifth_birthday.day == 1 ? fifth_birthday.year : fifth_birthday.year.next
             when 5..12
               sfifth_birthday.year.next
-            end
+    end
     Date.new(year, 4, 1)..Date.new(year.next, 3, 31)
   end
 end

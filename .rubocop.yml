@@ -9,9 +9,6 @@ require:
   - rubocop-rails
   - rubocop-rspec
 
-LineLength:
-  Max: 130
-
 Rails:
   Enabled: true
 
@@ -20,7 +17,7 @@ Style/Documentation:
 Style/ClassAndModuleChildren:
   Enabled: false
 Metrics/LineLength:
-  Max: 120
+  Enabled: false
 Style/GuardClause:
   Enabled: false
 Style/IfUnlessModifier:
