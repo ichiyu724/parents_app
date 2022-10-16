@@ -1,6 +1,6 @@
 # ParentsLink
 
-<img src="/assets/images/toppage.png">
+<img src="https://github.com/ichiyu724/parents_app/blob/feature_readme/app/assets/images/toppage.png">
 
 ## ParentsLink とは？
 
@@ -18,20 +18,20 @@ URL: https://parents-link.herokuapp.com/
 
 ・投稿一覧では他のユーザーの投稿をお気に入り登録できます。
 
-<img src="/assets/images/readme1.png">
+<img src="https://github.com/ichiyu724/parents_app/blob/feature_readme/app/assets/images/readme1.png">
 
 ・投稿詳細では、コメントもできます。
 
 ・ユーザー一覧から、他のユーザーのフォローができます。
 
-<img src="/assets/images/readme2.png">
+<img src="https://github.com/ichiyu724/parents_app/blob/feature_readme/app/assets/images/readme2.png">
 
 ・マイページでは、自分の投稿や、お気に入りした投稿が確認できます。
 
 ・マイページからお子さんのワクチン接種のスケジュール確認、記録ができます。
 
-<img src="/assets/images/readme3.pmg">
-<img src="/assets/images/readme4.png">
+<img src="https://github.com/ichiyu724/parents_app/blob/feature_readme/app/assets/images/readme3.png">
+<img src="https://github.com/ichiyu724/parents_app/blob/feature_readme/app/assets/images/readme4.png">
 
 ## 機能
 
@@ -61,7 +61,7 @@ URL: https://parents-link.herokuapp.com/
 
 ## ER 図
 
-<img src="/assets/images/ER図.png">
+<img src="https://github.com/ichiyu724/parents_app/blob/feature_readme/app/assets/images/ER%E5%9B%B3.png">
 
 ## ワイヤーフレーム
 
