@@ -8,6 +8,9 @@ require:
 LineLength:
   Max: 130
 
+Rails:
+  Enabled: true
+
 AllCops:
   Exclude:
     - "app/assets"
@@ -25,3 +28,4 @@ AllCops:
     - .git/**/*"
     - "spec/**/*"
   NewCops: enable
+  TargetRubyVersion: 2.7.5
