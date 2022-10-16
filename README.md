@@ -1,24 +1,6 @@
-# README
+# ParentsLink
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## ParentsLink とは？
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+育児の悩み、不安を共有したり解決するための育児特化型の相談アプリです。
+特に新米ママ、パパの初めてぶつかる不安を少しでも解消したいという思いから、SNS 形式の相談アプリを作成しました。
