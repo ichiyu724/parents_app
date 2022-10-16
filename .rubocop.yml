@@ -1,12 +1,27 @@
 inherit_from: .rubocop_todo.yml
+inherit_gem:
+  rubocop-discourse: default.yml
+  rubocop-fjord:
+    - "config/rubocop.yml"
 
 require:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
 
-LineLength:
-  Max: 130
+Rails:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Metrics/LineLength:
+  Enabled: false
+Style/GuardClause:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 
 AllCops:
   Exclude:
@@ -23,4 +38,7 @@ AllCops:
     - "vendor/*"
     - "**/Gemfile"
     - .git/**/*"
+    - "spec/**/*"
+    - "vendor/**/*"
   NewCops: enable
+  TargetRubyVersion: 2.7.5

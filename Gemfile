@@ -41,6 +41,8 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
+  gem 'rubocop-discourse'
+  gem 'rubocop-fjord', require: false
 end
 
 group :development do
