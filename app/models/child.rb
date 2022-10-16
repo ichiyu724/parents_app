@@ -13,7 +13,7 @@ class Child < ApplicationRecord
             when 4
               fifth_birthday.day == 1 ? fifth_birthday.year : fifth_birthday.year.next
             when 5..12
-              sfifth_birthday.year.next
+              fifth_birthday.year.next
     end
     Date.new(year, 4, 1)..Date.new(year.next, 3, 31)
   end
