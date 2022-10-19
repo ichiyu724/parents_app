@@ -7,7 +7,10 @@
       <a href='https://www.jpeds.or.jp/uploads/files/vaccine_schedule.pdf'>推奨スケジュール</a>(日本小児学会HPより)<span>
     <p class=text-black-50>おたふくかぜは任意接種です。<br>
     おたふくかぜ(2回目)と麻しん・風しん混合(第2期)は小学校入学前1年間の間に接種推奨です。</p>
-    <%= link_to "接種を記録する", "/users/#{@child.user_id}/children/#{@child.id}/histories", class: "btn btn-primary mb-3"%>
+    <div class="mb-3">
+      <%= link_to "接種を記録する", "/users/#{@child.user_id}/children/#{@child.id}/histories", class: "btn btn-primary"%>
+      <%= link_to "お子さん一覧へ戻る", user_children_path, class: "ms-3" %>
+    </div>
     <table class="table mb-0">
       <tr>
         <th>接種可能予定日</th>
