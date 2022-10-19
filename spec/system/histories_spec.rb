@@ -36,8 +36,19 @@ RSpec.describe "接種記録の一覧", type: :system do
         expect(page).to have_content vaccination.period
         expect(page).to have_content history.date
         expect(page).to have_content "修正する"
+        expect(page).to have_content "削除"
         expect(page).to have_content "接種日を登録する"
       end
+    end
+
+    scenario "削除リンクを押すとワクチン記録が削除されワクチン記録ページへリダイレクトすること" do
+      hib_4 = FactoryBot.create(:vaccination, name: "ヒブ", period: "4回目")
+      history = FactoryBot.create(:history, vaccination_id: hib_4.id, child_id: child.id, date: Date.parse("2022-10-14"), vaccinated: true)
+      visit user_child_histories_path(user_id: user.id, child_id: child.id)
+      expect{
+        click_on '削除'
+      }.to change { History.count }.by(-1)
+      expect(current_path).to eq user_child_histories_path(user_id: user.id, child_id: child.id)
     end
   end
 end
