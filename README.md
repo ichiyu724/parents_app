@@ -33,6 +33,10 @@ URL: https://parents-link.herokuapp.com/
 <img src="https://github.com/ichiyu724/parents_app/blob/master/app/assets/images/readme3.png">
 <img src="https://github.com/ichiyu724/parents_app/blob/master/app/assets/images/readme4.png">
 
+・GoogleMap で現在地付近のクリニックを表示することができます。(要 GPS 設定)
+
+<img src="https://github.com/ichiyu724/parents_app/blob/master/app/assets/images/googlemap.png">
+
 ## 機能
 
 ・お悩みの投稿機能
