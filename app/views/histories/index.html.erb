@@ -2,7 +2,7 @@
   <div class="row">
     <%= render partial: 'shared/page_title', locals: { page_title: "ワクチン記録" } %>
     <%= render partial: 'children/child_data' %>
-    
+    <%= link_to "接種スケジュールに戻る", "/users/#{@child.user_id}/children/#{@child.id}" %>
     <table>
       <tbody>
         <% @vaccinations.each do |vaccination| %>
