@@ -2,7 +2,9 @@
   <div class="row">
     <%= render partial: 'shared/page_title', locals: { page_title: "ワクチン記録" } %>
     <%= render partial: 'children/child_data' %>
-    
+    <div class="mb-1">
+      <%= link_to "接種スケジュールに戻る", "/users/#{@child.user_id}/children/#{@child.id}" %>
+    </div>
     <table>
       <tbody>
         <% @vaccinations.each do |vaccination| %>
@@ -16,6 +18,7 @@
             <% if @history&.date? || @history&.vaccinated? %>
               <td><%= @history.date %>
               <td><%= link_to "修正する", edit_user_child_history_path(params[:child_id], @history.id, user_id: current_user.id, vaccination_id: vaccination.id), class: "btn btn-outline-primary" %></td>
+              <td><%= link_to "削除", user_child_history_path(params[:child_id], @history.id, user_id: current_user.id, vaccination_id: vaccination.id), class: "btn btn-outline-danger btn-small", method: :delete, data: { confirm: '記録を削除しますか？' } %></td>
             <% else %>
               <td><%= link_to "接種日を登録する", new_user_child_history_path(params[:child_id], user_id: current_user.id, vaccination_id: vaccination.id), class: "btn btn-primary" %></td>
             <% end %>

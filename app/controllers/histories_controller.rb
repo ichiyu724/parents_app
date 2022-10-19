@@ -42,6 +42,13 @@ class HistoriesController < ApplicationController
     end
   end
 
+  def destroy
+    @history= History.find_by(id: params[:id])
+    @history.destroy
+    flash[:notice] = '記録を削除しました。'
+    redirect_to user_child_histories_path
+  end
+
   private
 
   def history_params
