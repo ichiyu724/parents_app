@@ -163,4 +163,30 @@ RSpec.describe "Histories", type: :request do
       end
     end
   end
+
+  describe "#destroy" do
+    context "ログイン中のユーザー" do
+      let!(:history1) { FactoryBot.create :history, child_id: child.id, vaccination_id: vaccination.id }
+      
+      before do 
+        sign_in user
+      end
+
+      it "正常にワクチン記録を削除できるか" do
+        expect do
+          delete user_child_history_path(history1, user_id: user.id, child_id: child.id)
+        end.to change(child.histories, :count).by(-1)
+      end
+
+      it 'リクエストが成功すること' do
+        delete user_child_history_path(history1, user_id: user.id, child_id: child.id)
+        expect(response.status).to eq 302
+      end
+
+      it "ワクチン記録一覧にリダイレクトすること" do
+        delete user_child_history_path(history1, user_id: user.id, child_id: child.id)
+        expect(response).to redirect_to user_child_histories_path(user_id: user.id, child_id: child.id)
+      end
+    end
+  end
 end
